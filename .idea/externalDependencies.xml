@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalDependencies">
+    <plugin id="org.squareup.cash.hermit.idea-plugin" min-version="0.2.16" />
+  </component>
+</project>

@@ -1,0 +1,193 @@
+public final class app/cash/quiver/Absent : app/cash/quiver/Outcome {
+	public static final field INSTANCE Lapp/cash/quiver/Absent;
+}
+
+public final class app/cash/quiver/Failure : app/cash/quiver/Outcome {
+	public fun <init> (Ljava/lang/Object;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun copy (Ljava/lang/Object;)Lapp/cash/quiver/Failure;
+	public static synthetic fun copy$default (Lapp/cash/quiver/Failure;Ljava/lang/Object;ILjava/lang/Object;)Lapp/cash/quiver/Failure;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getError ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract class app/cash/quiver/Outcome {
+	public static final field Companion Lapp/cash/quiver/Outcome$Companion;
+	public synthetic fun <init> (Larrow/core/Either;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getInner ()Larrow/core/Either;
+	public final fun isAbsent ()Z
+	public final fun isFailure ()Z
+	public final fun isPresent ()Z
+	public final fun map (Lkotlin/jvm/functions/Function1;)Lapp/cash/quiver/Outcome;
+	public final fun tap (Lkotlin/jvm/functions/Function1;)Lapp/cash/quiver/Outcome;
+}
+
+public final class app/cash/quiver/Outcome$Companion {
+	public final fun catch (Lkotlin/jvm/functions/Function0;)Lapp/cash/quiver/Outcome;
+	public final fun catchOption (Lkotlin/jvm/functions/Function0;)Lapp/cash/quiver/Outcome;
+}
+
+public final class app/cash/quiver/OutcomeKt {
+	public static final fun asEither (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function0;)Larrow/core/Either;
+	public static final fun asOption (Lapp/cash/quiver/Outcome;)Larrow/core/Option;
+	public static final fun asOutcome (Larrow/core/Either;)Lapp/cash/quiver/Outcome;
+	public static final fun failure (Ljava/lang/Object;)Lapp/cash/quiver/Outcome;
+	public static final fun filter (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function1;)Lapp/cash/quiver/Outcome;
+	public static final fun flatMap (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function1;)Lapp/cash/quiver/Outcome;
+	public static final fun flatTap (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function1;)Lapp/cash/quiver/Outcome;
+	public static final fun flatten (Lapp/cash/quiver/Outcome;)Lapp/cash/quiver/Outcome;
+	public static final fun fold (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public static final fun foldOption (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
+	public static final fun getOrElse (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static final fun mapFailure (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function1;)Lapp/cash/quiver/Outcome;
+	public static final fun onAbsentHandle (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function0;)Lapp/cash/quiver/Outcome;
+	public static final fun onFailureHandle (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function1;)Lapp/cash/quiver/Outcome;
+	public static final fun optionOrThrow (Lapp/cash/quiver/Outcome;)Larrow/core/Option;
+	public static final fun orThrow (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static final fun present (Ljava/lang/Object;)Lapp/cash/quiver/Outcome;
+	public static final fun sequence (Lapp/cash/quiver/Outcome;)Larrow/core/Either;
+	public static final fun sequence (Lapp/cash/quiver/Outcome;)Larrow/core/Option;
+	public static final fun sequence (Lapp/cash/quiver/Outcome;)Larrow/core/Validated;
+	public static final fun sequence (Lapp/cash/quiver/Outcome;)Ljava/util/List;
+	public static final fun sequence (Ljava/lang/Iterable;)Lapp/cash/quiver/Outcome;
+	public static final fun tapAbsent (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function0;)Lapp/cash/quiver/Outcome;
+	public static final fun tapFailure (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function1;)Lapp/cash/quiver/Outcome;
+	public static final fun toOutcome (Larrow/core/Either;)Lapp/cash/quiver/Outcome;
+	public static final fun toOutcome (Larrow/core/Option;)Lapp/cash/quiver/Outcome;
+	public static final fun traverse (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
+	public static final fun traverse (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function1;)Larrow/core/Option;
+	public static final fun traverse (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function1;)Larrow/core/Validated;
+	public static final fun traverse (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function1;)Ljava/util/List;
+	public static final fun zip (Lapp/cash/quiver/Outcome;Lapp/cash/quiver/Outcome;Lapp/cash/quiver/Outcome;Lapp/cash/quiver/Outcome;Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function5;)Lapp/cash/quiver/Outcome;
+	public static final fun zip (Lapp/cash/quiver/Outcome;Lapp/cash/quiver/Outcome;Lapp/cash/quiver/Outcome;Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function4;)Lapp/cash/quiver/Outcome;
+	public static final fun zip (Lapp/cash/quiver/Outcome;Lapp/cash/quiver/Outcome;Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function3;)Lapp/cash/quiver/Outcome;
+	public static final fun zip (Lapp/cash/quiver/Outcome;Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function2;)Lapp/cash/quiver/Outcome;
+}
+
+public final class app/cash/quiver/Present : app/cash/quiver/Outcome {
+	public fun <init> (Ljava/lang/Object;)V
+	public final fun component1 ()Ljava/lang/Object;
+	public final fun copy (Ljava/lang/Object;)Lapp/cash/quiver/Present;
+	public static synthetic fun copy$default (Lapp/cash/quiver/Present;Ljava/lang/Object;ILjava/lang/Object;)Lapp/cash/quiver/Present;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getValue ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class app/cash/quiver/continuations/OutcomeEagerEffectScope : arrow/core/continuations/EagerEffectScope {
+	public fun bind (Larrow/core/Either;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun bind (Larrow/core/Option;Lkotlin/jvm/functions/Function0;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun bind (Larrow/core/Validated;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun bind (Larrow/core/continuations/EagerEffect;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun bind (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun bind-impl (Larrow/core/continuations/EagerEffectScope;Lapp/cash/quiver/Outcome;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun bind-impl (Larrow/core/continuations/EagerEffectScope;Larrow/core/Either;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun bind-impl (Larrow/core/continuations/EagerEffectScope;Larrow/core/Option;Lkotlin/jvm/functions/Function0;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun bind-impl (Larrow/core/continuations/EagerEffectScope;Larrow/core/Validated;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun bind-impl (Larrow/core/continuations/EagerEffectScope;Larrow/core/continuations/EagerEffect;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun bind-impl (Larrow/core/continuations/EagerEffectScope;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final synthetic fun box-impl (Larrow/core/continuations/EagerEffectScope;)Lapp/cash/quiver/continuations/OutcomeEagerEffectScope;
+	public static fun constructor-impl (Larrow/core/continuations/EagerEffectScope;)Larrow/core/continuations/EagerEffectScope;
+	public fun ensure (ZLkotlin/jvm/functions/Function0;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun ensure-impl (Larrow/core/continuations/EagerEffectScope;ZLkotlin/jvm/functions/Function0;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Larrow/core/continuations/EagerEffectScope;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Larrow/core/continuations/EagerEffectScope;Larrow/core/continuations/EagerEffectScope;)Z
+	public fun hashCode ()I
+	public static fun hashCode-impl (Larrow/core/continuations/EagerEffectScope;)I
+	public fun shift (Larrow/core/Either;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public synthetic fun shift (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun shift-impl (Larrow/core/continuations/EagerEffectScope;Larrow/core/Either;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Larrow/core/continuations/EagerEffectScope;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Larrow/core/continuations/EagerEffectScope;
+}
+
+public final class app/cash/quiver/continuations/OutcomeEffectScope : arrow/core/continuations/EffectScope {
+	public fun bind (Larrow/core/Either;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun bind (Larrow/core/Option;Lkotlin/jvm/functions/Function0;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun bind (Larrow/core/Validated;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun bind (Larrow/core/continuations/EagerEffect;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun bind (Larrow/core/continuations/Effect;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun bind (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun bind-impl (Larrow/core/continuations/EffectScope;Lapp/cash/quiver/Outcome;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun bind-impl (Larrow/core/continuations/EffectScope;Larrow/core/Either;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun bind-impl (Larrow/core/continuations/EffectScope;Larrow/core/Option;Lkotlin/jvm/functions/Function0;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun bind-impl (Larrow/core/continuations/EffectScope;Larrow/core/Validated;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun bind-impl (Larrow/core/continuations/EffectScope;Larrow/core/continuations/EagerEffect;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun bind-impl (Larrow/core/continuations/EffectScope;Larrow/core/continuations/Effect;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun bind-impl (Larrow/core/continuations/EffectScope;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final synthetic fun box-impl (Larrow/core/continuations/EffectScope;)Lapp/cash/quiver/continuations/OutcomeEffectScope;
+	public static fun constructor-impl (Larrow/core/continuations/EffectScope;)Larrow/core/continuations/EffectScope;
+	public fun ensure (ZLkotlin/jvm/functions/Function0;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun ensure-impl (Larrow/core/continuations/EffectScope;ZLkotlin/jvm/functions/Function0;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun equals (Ljava/lang/Object;)Z
+	public static fun equals-impl (Larrow/core/continuations/EffectScope;Ljava/lang/Object;)Z
+	public static final fun equals-impl0 (Larrow/core/continuations/EffectScope;Larrow/core/continuations/EffectScope;)Z
+	public fun hashCode ()I
+	public static fun hashCode-impl (Larrow/core/continuations/EffectScope;)I
+	public fun shift (Larrow/core/Either;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public synthetic fun shift (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun shift-impl (Larrow/core/continuations/EffectScope;Larrow/core/Either;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun toString ()Ljava/lang/String;
+	public static fun toString-impl (Larrow/core/continuations/EffectScope;)Ljava/lang/String;
+	public final synthetic fun unbox-impl ()Larrow/core/continuations/EffectScope;
+}
+
+public final class app/cash/quiver/continuations/outcome {
+	public static final field INSTANCE Lapp/cash/quiver/continuations/outcome;
+	public final fun eager (Lkotlin/jvm/functions/Function2;)Lapp/cash/quiver/Outcome;
+	public final fun invoke (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+}
+
+public final class app/cash/quiver/extensions/EitherKt {
+	public static final fun asOption (Larrow/core/Either;)Larrow/core/Option;
+	public static final fun flatTap (Larrow/core/Either;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
+	public static final fun forEach (Larrow/core/Either;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun leftAsOption (Larrow/core/Either;)Larrow/core/Option;
+	public static final fun leftForEach (Larrow/core/Either;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun mapOption (Larrow/core/Either;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
+	public static final fun or (Larrow/core/Either;Lkotlin/jvm/functions/Function0;)Larrow/core/Either;
+	public static final fun orThrow (Larrow/core/Either;)Ljava/lang/Object;
+	public static final fun tapLeft (Larrow/core/Either;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun toEither (Ljava/lang/Object;Lkotlin/jvm/functions/Function0;)Larrow/core/Either;
+}
+
+public final class app/cash/quiver/extensions/ListKt {
+	public static final fun filterNotNone (Ljava/util/List;)Ljava/util/List;
+	public static final fun listOfSome ([Larrow/core/Option;)Ljava/util/List;
+	public static final fun mapNotNone (Ljava/util/List;Lkotlin/jvm/functions/Function1;)Ljava/util/List;
+}
+
+public final class app/cash/quiver/extensions/MapKt {
+	public static final fun getOption (Ljava/util/Map;Ljava/lang/Object;)Larrow/core/Option;
+}
+
+public final class app/cash/quiver/extensions/NonEmptyListKt {
+	public static final fun mapNotNone (Larrow/core/NonEmptyList;Lkotlin/jvm/functions/Function1;)Larrow/core/Option;
+}
+
+public final class app/cash/quiver/extensions/OptionKt {
+	public static final fun forEach (Larrow/core/Option;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static final fun ifAbsent (Larrow/core/Option;Lkotlin/jvm/functions/Function0;)V
+	public static final fun toValidatedNel (Larrow/core/Option;Lkotlin/jvm/functions/Function0;)Larrow/core/Validated;
+}
+
+public final class app/cash/quiver/extensions/SuspendedFunctionKt {
+	public static final fun map (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lkotlin/jvm/functions/Function1;
+	public static final fun map (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;)Lkotlin/jvm/functions/Function2;
+}
+
+public final class app/cash/quiver/extensions/ValidatedKt {
+	public static final fun attemptValidated (Larrow/core/Validated;)Larrow/core/Either;
+	public static final fun concatMap (Larrow/core/Validated;Lkotlin/jvm/functions/Function1;)Larrow/core/Validated;
+	public static final fun takeLeft (Larrow/core/Validated;Larrow/core/Validated;)Larrow/core/Validated;
+	public static final fun takeRight (Larrow/core/Validated;Larrow/core/Validated;)Larrow/core/Validated;
+	public static final fun validate (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Larrow/core/Validated;
+	public static final fun validateEither (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
+	public static final fun validateMap (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Larrow/core/Validated;
+}
+

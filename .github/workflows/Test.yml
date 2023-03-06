@@ -1,0 +1,36 @@
+name: Test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+env:
+  ENVIRONMENT: TESTING
+  TERM: dumb
+
+jobs:
+  jvm:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        cmd:
+          - bin/gradle clean build -i --scan --no-daemon
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Test
+        run: ${{ matrix.cmd }}
+
+      - name: Publish Test Report
+        if: ${{ always() }}
+        uses: mikepenz/action-junit-report@v2
+        with:
+          check_name: Test Report - ${{ matrix.cmd }}
+          report_paths: '**/build/test-results/test/TEST-*.xml'
+          github_token: ${{ secrets.GITHUB_TOKEN }}

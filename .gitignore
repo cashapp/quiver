@@ -1,0 +1,14 @@
+.gradle
+**/out/
+.idea
+build/
+*.iml
+*.swp
+dev/
+docker-sources/
+# This repo uses a hermit-managed gradle, so we don't want any gradle wrapper files checked in. For details,
+# see https://docs.google.com/document/d/1waDOogp5oIJ7SzzibG6wUeGySIc5yzmbnP_dF5TfV6I/edit#heading=h.aywctsilnd6x
+/gradlew
+/gradlew.bat
+/gradle/wrapper/
+/.hermit

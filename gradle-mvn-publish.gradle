@@ -1,0 +1,29 @@
+apply plugin: libs.plugins.mavenPublishGradlePlugin.get().pluginId
+
+plugins.withId(libs.plugins.mavenPublishGradlePlugin.get().pluginId) {
+    mavenPublish {
+        sonatypeHost="DEFAULT"
+        releaseSigningEnabled = !getGpgKey().isEmpty()
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            def releasesRepoUrl = "$buildDir/localMaven"
+            def snapshotsRepoUrl = "$buildDir/localMaven"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+        }
+    }
+}
+
+def getGpgKey() {
+    return hasProperty('signingKey') ? signingKey : ""
+}
+
+signing {
+    def signingKey = getGpgKey()
+    if (!signingKey.isEmpty()) {
+        useInMemoryPgpKeys(signingKey, "")
+    }
+}
