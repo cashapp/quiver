@@ -1,5 +1,6 @@
 
-# Quiver
+![Quiver logo](./images/quiver-logo-01.svg#gh-light-mode-only)
+![Quiver logo](./images/quiver-logo-02.svg#gh-dark-mode-only)
 
 Quiver is a collection of extension methods and handy functions to make the wonderful functional programming Kotlin library, Arrow, even better.
 
