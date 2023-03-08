@@ -1,16 +1,14 @@
 [versions]
-arrow = "1.1.2"
+arrow = "1.1.5"
 junit = "5.9.2"
-junitGradlePlugin = "1.2.0"
 kotest = "5.5.5"
 kotestArrow = "1.3.0"
 # @pin
 kotlin = "1.7.22"
-kotlinBinaryCompatibilityPlugin = "0.12.1"
-ktlint = "0.47.1"
-mavenPublishGradlePlugin = "0.23.2"
+kotlinBinaryCompatibilityPlugin = "0.13.0"
+mavenPublishGradlePlugin = "0.24.0"
 versionCatalogUpdateGradlePlugin = "0.7.0"
-versionsGradlePlugin = "0.45.0"
+versionsGradlePlugin = "0.46.0"
 
 [libraries]
 arrowCore = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
@@ -34,7 +32,6 @@ kotest = [
 ]
 
 [plugins]
-junitGradlePlugin = { id = "org.junit.platform:junit-platform-gradle-plugin", version.ref = "junitGradlePlugin" }
 kotlinBinaryCompatibilityPlugin = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "kotlinBinaryCompatibilityPlugin" }
 kotlinGradlePlugin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 mavenPublishGradlePlugin = { id = "com.vanniktech.maven.publish.base", version.ref = "mavenPublishGradlePlugin" }

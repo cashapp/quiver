@@ -5,13 +5,13 @@ import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
 import arrow.core.flatMap
-import arrow.core.getOrHandle
+import arrow.core.getOrElse
 import arrow.core.toOption
 
 /**
  * Retrieves the Right hand of an Either, or throws the Left hand error
  */
-fun <A> Either<Throwable, A>.orThrow() = this.getOrHandle { t -> throw t }
+fun <A> Either<Throwable, A>.orThrow() = this.getOrElse { t -> throw t }
 
 /**
  * Returns the first successful either, otherwise the last failure

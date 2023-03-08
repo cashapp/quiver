@@ -23,8 +23,8 @@ sealed class Outcome<out E, out A> constructor(val inner: Either<E, Option<A>>) 
   inline fun <B> map(f: (A) -> B): Outcome<E, B> = inner.map { it.map(f) }.toOutcome()
   inline fun <B> tap(f: (A) -> B): Outcome<E, A> = map { a -> f(a); a }
 
-  fun isPresent(): Boolean = inner.exists { it.isDefined() }
-  fun isAbsent(): Boolean = inner.exists { it.isEmpty() }
+  fun isPresent(): Boolean = inner.fold({ false }) { it.isDefined() }
+  fun isAbsent(): Boolean = inner.fold({ false }) { it.isEmpty() }
   fun isFailure(): Boolean = inner.isLeft()
 
   companion object {
@@ -51,7 +51,7 @@ fun <E> E.failure(): Outcome<E, Nothing> = Failure(this)
 
 inline fun <A, E, B> Outcome<E, A>.flatMap(f: (A) -> Outcome<E, B>): Outcome<E, B> =
   this.inner.flatMap {
-    it.traverseEither { b ->
+    it.traverse { b ->
       f(b).inner
     }.map { option -> option.flatten() }
   }.toOutcome()
@@ -135,7 +135,7 @@ inline fun <E, A, B> Outcome<E, A>.foldOption(onAbsent: () -> B, onPresent: (A) 
   inner.map { it.fold(onAbsent, onPresent) }
 
 inline fun <E, A> Outcome<E, A>.getOrElse(onAbsentOrFailure: () -> A): A =
-  this.foldOption(onAbsentOrFailure, ::identity).getOrElse(onAbsentOrFailure)
+  this.foldOption(onAbsentOrFailure, ::identity).getOrElse { onAbsentOrFailure() }
 
 inline fun <E, A, B> Outcome<E, A>.fold(onFailure: (E) -> B, onAbsent: () -> B, onPresent: (A) -> B): B = when (this) {
   Absent -> onAbsent()

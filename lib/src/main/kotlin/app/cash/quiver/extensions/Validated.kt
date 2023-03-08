@@ -3,7 +3,7 @@ package app.cash.quiver.extensions
 import arrow.core.Either
 import arrow.core.ValidatedNel
 import arrow.core.flatMap
-import arrow.core.getOrHandle
+import arrow.core.getOrElse
 import arrow.core.invalidNel
 import arrow.core.left
 import arrow.core.right
@@ -75,7 +75,7 @@ inline fun <ERR, A, B> A.validateMap(
   f: (A) -> Either<Throwable, B>,
   error: (A, Throwable) -> ERR
 ): ValidatedNel<ERR, B> =
-  f(this).map { it.validNel() }.getOrHandle { error(this, it).invalidNel() }
+  f(this).map { it.validNel() }.getOrElse { error(this, it).invalidNel() }
 
 /**
  * The Validated type doesn't natively support flatMap because of the monad laws that it breaks. But this
