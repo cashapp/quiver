@@ -8,8 +8,8 @@ Quiver is a collection of extension methods and handy functions to make the wond
 
 ### Outcome
 
-`Outcome` is a type that represents three possible states a result can be in: Present, Absent or Failure. Under the hood  
-it wraps the type `Either<E, Option<A>>` and supports the common functions that Eithers and Options support such  
+`Outcome` is a type that represents three possible states a result can be in: Present, Absent or Failure. Under the hood
+it wraps the type `Either<E, Option<A>>` and supports the common functions that Eithers and Options support such
 as `map`, `flatMap` and `zip`.
 
 There is also a type alias `OutcomeOf<A>` which specialises the error side to a `Throwable` for your convenience.
@@ -18,160 +18,176 @@ There is also a type alias `OutcomeOf<A>` which specialises the error side to a 
 
 There are three primary constructors:
 
-```kotlin  
-  
-data class Present<A>(val value: A) : Outcome<Nothing, A>  
-data class Failure<E>(val error: E) : Outcome<E, Nothing>  
-object Absent : Outcome<Nothing, Nothing>  
-  
-```  
+```kotlin
+
+data class Present<A>(val value: A) : Outcome<Nothing, A>
+data class Failure<E>(val error: E) : Outcome<E, Nothing>
+object Absent : Outcome<Nothing, Nothing>
+
+```
 
 or you can use the extension methods thusly:
 
-```kotlin  
-A.present()  
-E.failure()  
-```  
+```kotlin
+A.present()
+E.failure()
+```
 
 You can also easily convert an `Either<Option<A>>` to an Outcome using `toOutcome()`
 
-```kotlin  
-val outcome = "hi".some().right().toOutcome()  
-```  
+```kotlin
+val outcome = "hi".some().right().toOutcome()
+```
 
 #### Methods
 ##### map
 
 Map safely transforms a value in the Outcome. It has no effect on `Absent` or `Failure` instances.
 
-```kotlin  
-fun <B> map(f: (A) -> B): Outcome<E, B>   
-```  
+```kotlin
+fun <B> map(f: (A) -> B): Outcome<E, B>
+```
 
-```kotlin  
-Present(1).map { it + 1 }     // Present(2)  
-Absent.map { it + 1 }         // Absent  
-Failure("bad").map { it + 1 } // Failure("bad")  
-```  
+```kotlin
+Present(1).map { it + 1 }     // Present(2)
+Absent.map { it + 1 }         // Absent
+Failure("bad").map { it + 1 } // Failure("bad")
+```
 
 ##### flatMap
 
-FlatMap allows multiple `Outcome`s to be safely chained together, passing the value from the previous as input into the  
+FlatMap allows multiple `Outcome`s to be safely chained together, passing the value from the previous as input into the
 next function that produces an `Outcome`
 
-```kotlin  
-fun <A, E, C> Outcome<E, A>.flatMap(f: (A) -> Outcome<E, C>): Outcome<E, C>   
-```  
+```kotlin
+fun <A, E, C> Outcome<E, A>.flatMap(f: (A) -> Outcome<E, C>): Outcome<E, C>
+```
 
-```kotlin  
-Present(5).flatMap {  
-  if (it < 5) {    Present(it)  } else if (it < 10) {    Absent  } else {    Failure("Value too high")  }}  
-```  
+```kotlin
+Present(5).flatMap {
+  if (it < 5) Present(it)
+  else if (it < 10) Absent
+  else Failure("Value too high")
+}
+```
 
 ##### zip
 
 Zip allows you to combine two or more `Outcome`s easily with a supplied function.
 
-```kotlin  
-Present(2).zip(Present(3)) { a, b -> a + b }     // Present(5)  
-Present(2).zip(Absent) { a, b -> a + b }         // Absent  
-Present(2).zip(Failure("nup")) { a, b -> a + b } // Failure("nup")  
-  
-```  
+```kotlin
+Present(2).zip(Present(3)) { a, b -> a + b }     // Present(5)
+Present(2).zip(Absent) { a, b -> a + b }         // Absent
+Present(2).zip(Failure("nup")) { a, b -> a + b } // Failure("nup")
+
+```
 
 ##### bind
 
 Bind works the same as `flatMap` but with nicer syntax:
 
-```kotlin  
-val outcome = outcome {  
-  val a = Present(1).bind()  val b = Present(2).bind()  a + b} // Present(3)  
-```  
+```kotlin
+val outcome = outcome {
+    val a = Present(1).bind()
+    val b = Present(2).bind()
+    a + b
+} // Present(3)
+```
 
-```kotlin  
-val outcome = outcome {  
-  val a = Present(1).bind()  val b = Absent.bind()  a + b} // Absent  
-```  
+```kotlin
+val outcome = outcome {
+  val a = Present(1).bind()
+  val b = Absent.bind()
+  a + b
+} // Absent
+```
 
-```kotlin  
-val outcome = outcome {  
-  val a = Present(1).bind()  val b = Failure("nup").bind()  a + b} // Failure("nup")  
-```  
+```kotlin
+val outcome = outcome {
+  val a = Present(1).bind()
+  val b = Failure("nup").bind()
+  a + b
+} // Failure("nup")
+```
 
 ##### catch
 
 Converts a function that throws an exception (throwable) into an Outcome
 
-```kotlin  
-fun <R> catch(f: () -> R): Outcome<Throwable, R>  
-```  
+```kotlin
+fun <R> catch(f: () -> R): Outcome<Throwable, R>
+```
 
-```kotlin  
-val outcome: Outcome<Throwable, String> = Outcome.catch {  
-  val text: String = loadFromDiskOrThrow("blah.txt") // returns string or throws an exception  text}  
-```  
+```kotlin
+val outcome: Outcome<Throwable, String> = Outcome.catch {
+  val text: String = loadFromDiskOrThrow("blah.txt") // returns string or throws an exception
+  text
+}
+```
 ##### catchOption
 
 Converts a function that throws an exception (throwable) and returns an Option into an Outcome
 
-```kotlin  
-fun <R> catch(f: () -> Option<R>): Outcome<Throwable, R>  
-```  
+```kotlin
+fun <R> catch(f: () -> Option<R>): Outcome<Throwable, R>
+```
 
-```kotlin  
-val outcome: Outcome<Throwable, Customer> = Outcome.catch {  
-  val customer: Option<Customer> = maybeLoadCustomerOrThrow() // May or may not return a customer but throws on error  customer}  
-```  
+```kotlin
+val outcome: Outcome<Throwable, Customer> = Outcome.catch {
+  val customer: Option<Customer> = maybeLoadCustomerOrThrow()
+  customer
+}
+```
 
 ##### tap
 
 Performs an effect over the value and preserves the original `Outcome`
 
-```kotlin  
-fun <B> tap(f: (A) -> B): Outcome<E, A>  
-```  
+```kotlin
+fun <B> tap(f: (A) -> B): Outcome<E, A>
+```
 
-```kotlin  
-"hi".present().tap { println("$it world") } // Present("hi")  
-```  
+```kotlin
+"hi".present().tap { println("$it world") } // Present("hi")
+```
 
 ##### flatTap
 
-Performs a flatMap across the supplied function, propagating failures or absence  
+Performs a flatMap across the supplied function, propagating failures or absence
 but preserving the original present value.
 
-```kotlin  
-fun <A, E, B> Outcome<E, A>.flatTap(f: (A) -> Outcome<E, B>): Outcome<E, A>  
-```  
+```kotlin
+fun <A, E, B> Outcome<E, A>.flatTap(f: (A) -> Outcome<E, B>): Outcome<E, A>
+```
 
-```kotlin  
-1.present().flatTap { a -> "bad".failure() } // Failure("bad")  
-1.present().flatTap { a -> Absent } // Absent  
-1.present().flatTap { a -> a + 2 } // Present(1) -- value preserved  
-```  
+```kotlin
+1.present().flatTap { a -> "bad".failure() } // Failure("bad")
+1.present().flatTap { a -> Absent }          // Absent
+1.present().flatTap { a -> a + 2 }           // Present(1) -- value preserved
+```
 
 ##### tapFailure
 
 Performs an effect over the failure side
 
-```kotlin  
-fun <A, B, E> Outcome<E, A>.tapFailure(f: (E) -> B): Outcome<E, A>  
-```  
+```kotlin
+fun <A, B, E> Outcome<E, A>.tapFailure(f: (E) -> B): Outcome<E, A>
+```
 
-```kotlin  
-"bad".failure().tapFailure { logger.error("This has gone badly: $it") } // Failure("bad")  
-```  
+```kotlin
+"bad".failure().tapFailure { logger.error("This has gone badly: $it") } // Failure("bad")
+```
 
 ##### tapAbsent
 
 Performs an effect over the absent side
 
-```kotlin  
-fun <A, B, E> Outcome<E, A>.tapAbsent(f: (E) -> B): Outcome<E, A>  
-```  
+```kotlin
+fun <A, B, E> Outcome<E, A>.tapAbsent(f: (E) -> B): Outcome<E, A>
+```
 
-```kotlin  
-Absent.tapAbsent { logger.info("Not found!") } // Absent  
+```kotlin
+Absent.tapAbsent { logger.info("Not found!") } // Absent
 ```
 
 
@@ -332,9 +348,9 @@ Given a mapping function and an error generating message, return either the resu
 The `Validated` type doesn't natively support `flatMap` because of the monad laws that it breaks. But this  is what flatMap would do if it were allowed. It is called `concatMap` because the Kotlin compiler will want to wire in the Monad flatMap extension instead and confusion reigns.
 
 ```kotlin
- val maybeCustomer: ValidatedNel<String, Customer> = ...  
+ val maybeCustomer: ValidatedNel<String, Customer> = ...
  val result : ValidatedNel<String, String> = maybeCustomer.concatMap { c ->
      validateName(c.name) // returns a ValidatedNel<String, String>
  }
- result == ValidNel("jack") 
+ result == ValidNel("jack")
 ```
