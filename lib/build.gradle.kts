@@ -5,6 +5,7 @@ plugins {
 dependencies {
   implementation(kotlin("reflect"))
   implementation(libs.arrowCore)
+  implementation(libs.arrowFxCoroutines)
 
   testImplementation(project(":testing-lib"))
   testImplementation(libs.junitApi)
