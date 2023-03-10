@@ -12,6 +12,7 @@ versionsGradlePlugin = "0.46.0"
 
 [libraries]
 arrowCore = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
+arrowFxCoroutines = { module = "io.arrow-kt:arrow-fx-coroutines", version.ref = "arrow" }
 junitApi = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
 junitEngine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit" }
 kotestAssertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }

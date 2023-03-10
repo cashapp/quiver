@@ -162,6 +162,7 @@ public final class app/cash/quiver/extensions/EitherKt {
 	public static final fun orThrow (Larrow/core/Either;)Ljava/lang/Object;
 	public static final fun tapLeft (Larrow/core/Either;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun toEither (Ljava/lang/Object;Lkotlin/jvm/functions/Function0;)Larrow/core/Either;
+	public static final fun unit (Larrow/core/Either;)Larrow/core/Either;
 }
 
 public final class app/cash/quiver/extensions/ListKt {
@@ -182,11 +183,14 @@ public final class app/cash/quiver/extensions/OptionKt {
 	public static final fun forEach (Larrow/core/Option;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun ifAbsent (Larrow/core/Option;Lkotlin/jvm/functions/Function0;)V
 	public static final fun toValidatedNel (Larrow/core/Option;Lkotlin/jvm/functions/Function0;)Larrow/core/Validated;
+	public static final fun unit (Larrow/core/Option;)Larrow/core/Option;
 }
 
 public final class app/cash/quiver/extensions/SuspendedFunctionKt {
 	public static final fun map (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lkotlin/jvm/functions/Function1;
 	public static final fun map (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;)Lkotlin/jvm/functions/Function2;
+	public static final fun withRetries (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/time/Duration;ZZLkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static synthetic fun withRetries$default (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;ILjava/time/Duration;ZZLkotlin/coroutines/Continuation;ILjava/lang/Object;)Ljava/lang/Object;
 }
 
 public final class app/cash/quiver/extensions/ValidatedKt {

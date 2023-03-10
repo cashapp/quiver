@@ -306,6 +306,10 @@ Turns the `Option` into a `Validated` list of `T` if it's a `Some`. If it's a `N
 
 The outcome of a suspended function is mapped into a second suspended fuction, as if the function were a functor.
 
+#### withRetries
+
+Allows suspended supplier functions to be retried until success or exhaustion.
+
 ### Validated
 
 #### ValidatedNel.attemptValidated
