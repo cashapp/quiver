@@ -79,3 +79,8 @@ fun <A, B> B?.toEither(left: () -> A): Either<A, B> = this.toOption().toEither {
  * Map on a nested Either Option type.
  */
 fun <E, T, V> Either<E, Option<T>>.mapOption(f: (T) -> V): Either<E, Option<V>> = this.map { it.map(f) }
+
+/**
+ * Map right to Unit. This restores `.void()` which was deprecated by Arrow.
+ */
+fun <A, B> Either<A, B>.unit() = map { }

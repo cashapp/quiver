@@ -1,5 +1,6 @@
 package app.cash.quiver.extensions
 
+import arrow.core.Either
 import arrow.core.Option
 import arrow.core.Some
 import arrow.core.ValidatedNel
@@ -29,3 +30,8 @@ suspend fun <A> Option<A>.forEach(f: suspend (A) -> Unit) = when (this) {
   is Some -> f(value)
   else -> Unit
 }
+
+/**
+ * Map some to Unit. This restores `.void()` which was deprecated by Arrow.
+ */
+fun <A> Option<A>.unit() = map { }

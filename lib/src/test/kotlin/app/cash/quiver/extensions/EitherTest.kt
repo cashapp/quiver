@@ -61,6 +61,11 @@ class EitherTest : StringSpec({
     Either.Right("zero").leftAsOption() shouldBe None
     Either.Left("one").leftAsOption() shouldBeSome "one"
   }
+
+  "unit will map any right to unit" {
+    "orange".right().unit() shouldBe Unit.right()
+    "orange".left().unit() shouldBe "orange".left()
+  }
 })
 
 fun testParse(s: String): ErrorOr<Int> =
