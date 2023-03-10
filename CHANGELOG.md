@@ -4,7 +4,4 @@ Change Log
 Version 1.0.0 *(2023-03-06)*
 ----------------------------
 
-Initial release.
-
-Ready for Production use.
-
+* Add Option.unit() and Either.unit() to replace the void() method deprecated by Arrow.
