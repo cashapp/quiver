@@ -1,12 +1,6 @@
 Releasing
 =========
 
-### Prerequisite: Sonatype (Maven Central) Account
-
-Create an account on the [Sonatype issues site](https://issues.sonatype.org/). Ask an existing publisher to open
-an issue requesting publishing permissions for `app.cash` projects. They can use [this issue](https://issues.sonatype.org/browse/OSSRH-84839)
-as a template to copy.
-
 ### Steps
 
 1. Set versions:
@@ -71,4 +65,5 @@ appear on Maven Central.
 
 ## Troubleshooting
 
-- If the github action fails, drop the artifacts from Sonatype and re run the job.
+- If the GitHub action fails, drop the artifacts from Sonatype and re-run the job. A Sonatype account with app.cash permissions
+    is required. Raise an issue if you do not have this.
