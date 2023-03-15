@@ -163,6 +163,8 @@ public final class app/cash/quiver/extensions/EitherKt {
 	public static final fun tapLeft (Larrow/core/Either;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun toEither (Ljava/lang/Object;Lkotlin/jvm/functions/Function0;)Larrow/core/Either;
 	public static final fun unit (Larrow/core/Either;)Larrow/core/Either;
+	public static final fun validateNotNull (Ljava/lang/Object;Larrow/core/Option;)Larrow/core/Either;
+	public static synthetic fun validateNotNull$default (Ljava/lang/Object;Larrow/core/Option;ILjava/lang/Object;)Larrow/core/Either;
 }
 
 public final class app/cash/quiver/extensions/ListKt {
