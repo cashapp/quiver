@@ -254,6 +254,14 @@ Like `forEach`, but left-biased.
 
 Performs an effect over the right side of the value but maps the original value back into the Either. This is useful for mixing with validation functions.
 
+#### validateNotNull
+
+Turns a nullable value into an Either:
+- Left if the value is null.
+- Right if the value is not null.
+
+Useful for building validation functions.
+
 ### Lists
 
 #### filterNotNone

@@ -6,6 +6,7 @@ import arrow.core.Option
 import arrow.core.Some
 import arrow.core.left
 import arrow.core.right
+import arrow.core.some
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeRight
 import io.kotest.assertions.arrow.core.shouldBeSome
@@ -65,6 +66,21 @@ class EitherTest : StringSpec({
   "unit will map any right to unit" {
     "orange".right().unit() shouldBe Unit.right()
     "orange".left().unit() shouldBe "orange".left()
+  }
+
+  "validateNotNull is right if value is not null" {
+    val value = "test"
+    value.validateNotNull().shouldBeRight()
+  }
+
+  "validateNotNull is left if value is null" {
+    val value: String? = null
+    value.validateNotNull().shouldBeLeft(IllegalArgumentException("Value should not be null"))
+  }
+
+  "validateNotNull is left if value is null - with label" {
+    val value: String? = null
+    value.validateNotNull("label".some()).shouldBeLeft(IllegalArgumentException("Value (`label`) should not be null"))
   }
 })
 

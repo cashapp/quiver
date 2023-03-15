@@ -14,6 +14,16 @@ import arrow.core.toOption
 fun <A> Either<Throwable, A>.orThrow() = this.getOrElse { t -> throw t }
 
 /**
+ * Turns a nullable value into an [Either]. This is useful for building validation functions.
+ *
+ * @return [Either.Left] if the value is null, [Either.Right] if the value is not null.
+ * @param label Optional [String] to identify the nullable value being evaluated, used in the failure message.
+ */
+fun <B> B?.validateNotNull(label: Option<String> = None): Either<Throwable, B> = this.toEither {
+  IllegalArgumentException("Value${label.map { " (`$it`)" }.getOrElse { "" }} should not be null")
+}
+
+/**
  * Returns the first successful either, otherwise the last failure
  */
 inline fun <E, A> Either<E, A>.or(f: () -> Either<E, A>): Either<E, A> = when (this) {
