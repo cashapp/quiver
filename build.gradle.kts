@@ -8,6 +8,7 @@ plugins {
   alias(libs.plugins.mavenPublishGradlePlugin) apply false
   alias(libs.plugins.versionsGradlePlugin)
   alias(libs.plugins.versionCatalogUpdateGradlePlugin)
+  alias(libs.plugins.dokka)
 }
 
 repositories {

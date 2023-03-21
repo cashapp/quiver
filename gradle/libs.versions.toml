@@ -33,6 +33,7 @@ kotest = [
 ]
 
 [plugins]
+dokka = { id = "org.jetbrains.dokka", version = "1.8.10" }
 kotlinBinaryCompatibilityPlugin = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "kotlinBinaryCompatibilityPlugin" }
 kotlinGradlePlugin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 mavenPublishGradlePlugin = { id = "com.vanniktech.maven.publish.base", version.ref = "mavenPublishGradlePlugin" }
