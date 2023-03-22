@@ -18,6 +18,14 @@ import arrow.core.valid
 import app.cash.quiver.extensions.orThrow
 import kotlin.experimental.ExperimentalTypeInference
 
+/**
+ * `Outcome` is a type that represents three possible states a result can be in: Present, Absent or Failure. Under the
+ * hood it wraps the type `Either<E, Option<A>>` and supports the common functions that Eithers and Options support such
+ * as [`map`](app.cash.quiver.Outcome.map), [`flatMap`](app.cash.quiver.Outcome.flatMap) and
+ * [`zip`](app.cash.quiver.Outcome.zip).
+ *
+ * There is also a type alias `OutcomeOf<A>` which specialises the error side to a `Throwable` for your convenience.
+ */
 sealed class Outcome<out E, out A> constructor(val inner: Either<E, Option<A>>) {
 
   inline fun <B> map(f: (A) -> B): Outcome<E, B> = inner.map { it.map(f) }.toOutcome()
