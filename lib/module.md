@@ -2,8 +2,11 @@
 
 ![](/doc-images/quiver-logo-01.svg)
 
-Quiver is a collection of extension methods and handy functions to make the wonderful functional programming Kotlin library, Arrow, even better.
+Quiver is a library that builds upon [Arrow](https://arrow-kt.io/) to make functional programming in Kotlin even
+more accessible & delightful.
 
+This module contains types and functions to provide additional functional programming idioms over and above what is 
+available from Arrow.
 
 # Package app.cash.quiver
 Custom types (e.g. [`Outcome`](app.cash.quiver.Outcome))
