@@ -28,7 +28,7 @@ backwards-compatibility issues.
 
 ## Upgrading dependencies
 
-Dependency versions are listed in the Gradle catalog file: gradle/libs.versions.toml.  
+Dependency versions are listed in the Gradle catalog file: gradle/libs.versions.toml.
 
 To check for dependencies to update:
 
