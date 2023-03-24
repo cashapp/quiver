@@ -1,11 +1,12 @@
 package app.cash.quiver.extensions
 
 import arrow.core.Option
+import arrow.core.filterOption
 
 /**
  * Returns a list without Nones
  */
-fun <A> List<Option<A>>.filterNotNone(): List<A> = this.mapNotNull { it.orNull() }
+fun <A> List<Option<A>>.filterNotNone(): List<A> = filterOption()
 
 /**
  * Constructs a flattened list without Nones
@@ -17,4 +18,4 @@ fun <A> listOfSome(vararg elements: Option<A>): List<A> = elements.toList().filt
  * to each element in the original collection.
  */
 inline fun <A, B> List<A>.mapNotNone(f: (A) -> Option<B>): List<B> =
-  this.mapNotNull { f(it).orNull() }
+  this.flatMap { f(it).fold(::emptyList, ::listOf) }
