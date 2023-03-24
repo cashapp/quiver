@@ -29,7 +29,7 @@ value class OutcomeEagerEffectScope<E>(private val cont: EagerEffectScope<Either
 }
 
 @JvmInline
-public value class OutcomeEffectScope<E>(private val cont: EffectScope<Either<Failure<E>, Absent>>) :
+value class OutcomeEffectScope<E>(private val cont: EffectScope<Either<Failure<E>, Absent>>) :
   EffectScope<Either<Failure<E>, Absent>> {
 
   public suspend fun <B> Outcome<E, B>.bind(): B =
@@ -38,9 +38,6 @@ public value class OutcomeEffectScope<E>(private val cont: EffectScope<Either<Fa
       is Failure -> shift(this.left())
       is Present -> value
     }
-
-//  public suspend fun ensure(value: Boolean): Unit =
-//    ensure(value) { None }
 
   override suspend fun <B> shift(r: Either<Failure<E>, Absent>): B =
     cont.shift(r)
