@@ -27,7 +27,7 @@ dependencies {
 // Copies Quiver logo into Dokka output directory, making images accessible in documentation
 tasks.register<Copy>("copyDocumentationImages") {
   from("../images/quiver-logo-01.svg")
-  into("${getRootDir()}/lib/build/dokka/html/doc-images")
+  into("${getRootDir()}/lib/build/dokka/html/quiver/doc-images")
 }
 
 tasks.withType<DokkaTask>().configureEach {
