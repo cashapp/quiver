@@ -6,7 +6,7 @@ Quiver is a collection of extension methods and handy functions to make the wond
 
 
 # Package app.cash.quiver
-Custom types (e.g. [`Outcome`](app.cash.quiver.Outcome)
+Custom types (e.g. [`Outcome`](app.cash.quiver.Outcome))
 
 # Package app.cash.quiver.continuations
 Continuations for working with custom types (e.g. [`Outcome`](app.cash.quiver.Outcome))
