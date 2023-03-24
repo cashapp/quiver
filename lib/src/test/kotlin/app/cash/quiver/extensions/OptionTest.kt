@@ -10,7 +10,7 @@ import io.kotest.matchers.shouldBe
 class OptionTest : StringSpec({
 
   "can construct a list of only the somes" {
-    listOfSome("a".some(), None, "c".some()) shouldBe listOf("a", "c")
+    listOfSome("a".some(), None, null.some()) shouldBe listOf("a", null)
   }
 
   "unit will map any some to unit" {
