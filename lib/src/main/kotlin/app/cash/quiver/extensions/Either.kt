@@ -5,6 +5,7 @@ import arrow.core.Either
 import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
+import arrow.core.flatMap
 import arrow.core.getOrElse
 import arrow.core.toOption
 
@@ -71,8 +72,9 @@ suspend fun <A, B> Either<A, B>.leftForEach(f: suspend (A) -> Unit): Unit {
  * Performs an effect over the right side of the value but maps the original value back into
  * the Either.  This is useful for mixing with validation functions.
  */
-inline fun <A, B, C> Either<A, B>.flatTap(f: (B) -> Either<A, C>): Either<A, B> =
-  onRight { f(it) }
+inline fun <A, B, C> Either<A, B>.flatTap(f: (B) -> Either<A, C>): Either<A, B> = this.flatMap { b ->
+  f(b).map { b }
+}
 
 /**
  * Lifts a nullable value into an Either, similar to toOption.  Must supply the left side
