@@ -1,8 +1,15 @@
+import org.jetbrains.dokka.base.DokkaBaseConfiguration
 import org.jetbrains.dokka.gradle.DokkaTask
 import java.net.URL
 
 plugins {
   `java-library`
+}
+
+buildscript {
+  dependencies {
+    classpath(libs.plugins.dokkaBase.get().toString())
+  }
 }
 
 dependencies {
@@ -26,12 +33,16 @@ dependencies {
 
 // Copies Quiver logo into Dokka output directory, making images accessible in documentation
 tasks.register<Copy>("copyDocumentationImages") {
-  from("../images/quiver-logo-01.svg")
+  from("../images/quiver-logo-01.svg", "../images/quiver-logo-02.svg")
   into("${getRootDir()}/lib/build/dokka/html/doc-images")
 }
 
 tasks.withType<DokkaTask>().configureEach {
   dependsOn("copyDocumentationImages")
+  pluginConfiguration<org.jetbrains.dokka.base.DokkaBase, DokkaBaseConfiguration> {
+    customStyleSheets = listOf(file("custom-styles.css"))
+  }
+
   dokkaSourceSets {
     named("main") {
       moduleName.set("Quiver Library")
