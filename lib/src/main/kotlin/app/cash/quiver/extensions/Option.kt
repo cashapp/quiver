@@ -1,6 +1,5 @@
 package app.cash.quiver.extensions
 
-import arrow.core.Either
 import arrow.core.Option
 import arrow.core.Some
 import arrow.core.ValidatedNel
@@ -26,7 +25,7 @@ inline fun <T, E> Option<T>.toValidatedNel(error: () -> E): ValidatedNel<E, T> =
 /**
  * Runs a side effect if the option is a Some
  */
-suspend fun <A> Option<A>.forEach(f: suspend (A) -> Unit) = when (this) {
+inline fun <A> Option<A>.forEach(f: (A) -> Unit) = when (this) {
   is Some -> f(value)
   else -> Unit
 }
