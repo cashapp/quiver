@@ -1,10 +1,10 @@
 package app.cash.quiver.extensions
 
+import app.cash.quiver.raise.outcome
 import arrow.core.Either
 import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
-import arrow.core.flatMap
 import arrow.core.getOrElse
 import arrow.core.toOption
 
@@ -50,34 +50,29 @@ fun <E, A> Either<E, A>.leftAsOption(): Option<E> = when (this) {
 /**
  * Pass the left value to the function (e.g. for logging errors)
  */
-suspend fun <A, B> Either<A, B>.tapLeft(f: suspend (A) -> Unit): Either<A, B> = this.mapLeft {
-  f(it)
-  it
-}
+suspend fun <A, B> Either<A, B>.tapLeft(f: suspend (A) -> Unit): Either<A, B> =
+  onLeft { f(it) }
 
 /**
  * Performs an effect on the right side of the Either.
  */
-suspend fun <A, B> Either<A, B>.forEach(f: suspend (B) -> Unit): Unit = when (this) {
-  is Either.Left -> Unit
-  is Either.Right -> f(this.value)
+suspend fun <A, B> Either<A, B>.forEach(f: suspend (B) -> Unit): Unit {
+  onRight { f(it) }
 }
 
 /**
  * Performs an effect on the left side of the Either.
  */
-suspend fun <A, B> Either<A, B>.leftForEach(f: suspend (A) -> Unit): Unit = when (this) {
-  is Either.Left -> f(this.value)
-  is Either.Right -> Unit
+suspend fun <A, B> Either<A, B>.leftForEach(f: suspend (A) -> Unit): Unit {
+  onLeft { f(it) }
 }
 
 /**
  * Performs an effect over the right side of the value but maps the original value back into
  * the Either.  This is useful for mixing with validation functions.
  */
-inline fun <A, B, C> Either<A, B>.flatTap(f: (B) -> Either<A, C>): Either<A, B> = this.flatMap { b ->
-  f(b).map { b }
-}
+inline fun <A, B, C> Either<A, B>.flatTap(f: (B) -> Either<A, C>): Either<A, B> =
+  onRight { f(it) }
 
 /**
  * Lifts a nullable value into an Either, similar to toOption.  Must supply the left side
@@ -88,7 +83,8 @@ fun <A, B> B?.toEither(left: () -> A): Either<A, B> = this.toOption().toEither {
 /**
  * Map on a nested Either Option type.
  */
-fun <E, T, V> Either<E, Option<T>>.mapOption(f: (T) -> V): Either<E, Option<V>> = this.map { it.map(f) }
+fun <E, T, V> Either<E, Option<T>>.mapOption(f: (T) -> V): Either<E, Option<V>> =
+  outcome { f(bind().bind()) }.inner
 
 /**
  * Map right to Unit. This restores `.void()` which was deprecated by Arrow.

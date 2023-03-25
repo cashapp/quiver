@@ -47,6 +47,7 @@ public final class app/cash/quiver/OutcomeKt {
 	public static final fun optionOrThrow (Lapp/cash/quiver/Outcome;)Larrow/core/Option;
 	public static final fun orThrow (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
 	public static final fun present (Ljava/lang/Object;)Lapp/cash/quiver/Outcome;
+	public static final fun recover (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function2;)Lapp/cash/quiver/Outcome;
 	public static final fun sequence (Lapp/cash/quiver/Outcome;)Larrow/core/Either;
 	public static final fun sequence (Lapp/cash/quiver/Outcome;)Larrow/core/Option;
 	public static final fun sequence (Lapp/cash/quiver/Outcome;)Larrow/core/Validated;
@@ -85,12 +86,14 @@ public final class app/cash/quiver/continuations/OutcomeEagerEffectScope : arrow
 	public fun bind (Larrow/core/Validated;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun bind (Larrow/core/continuations/EagerEffect;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun bind (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun bind (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun bind-impl (Larrow/core/continuations/EagerEffectScope;Lapp/cash/quiver/Outcome;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun bind-impl (Larrow/core/continuations/EagerEffectScope;Larrow/core/Either;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun bind-impl (Larrow/core/continuations/EagerEffectScope;Larrow/core/Option;Lkotlin/jvm/functions/Function0;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun bind-impl (Larrow/core/continuations/EagerEffectScope;Larrow/core/Validated;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun bind-impl (Larrow/core/continuations/EagerEffectScope;Larrow/core/continuations/EagerEffect;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun bind-impl (Larrow/core/continuations/EagerEffectScope;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun bind-impl (Larrow/core/continuations/EagerEffectScope;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final synthetic fun box-impl (Larrow/core/continuations/EagerEffectScope;)Lapp/cash/quiver/continuations/OutcomeEagerEffectScope;
 	public fun catch (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
 	public static fun catch-impl (Larrow/core/continuations/EagerEffectScope;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
@@ -119,6 +122,8 @@ public final class app/cash/quiver/continuations/OutcomeEffectScope : arrow/core
 	public fun bind (Larrow/core/continuations/EagerEffect;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun bind (Larrow/core/continuations/Effect;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun bind (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun bind (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun bind (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final fun bind-impl (Larrow/core/continuations/EffectScope;Lapp/cash/quiver/Outcome;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun bind-impl (Larrow/core/continuations/EffectScope;Larrow/core/Either;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun bind-impl (Larrow/core/continuations/EffectScope;Larrow/core/Option;Lkotlin/jvm/functions/Function0;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -126,6 +131,8 @@ public final class app/cash/quiver/continuations/OutcomeEffectScope : arrow/core
 	public static fun bind-impl (Larrow/core/continuations/EffectScope;Larrow/core/continuations/EagerEffect;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun bind-impl (Larrow/core/continuations/EffectScope;Larrow/core/continuations/Effect;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun bind-impl (Larrow/core/continuations/EffectScope;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun bind-impl (Larrow/core/continuations/EffectScope;Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun bind-impl (Larrow/core/continuations/EffectScope;Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static final synthetic fun box-impl (Larrow/core/continuations/EffectScope;)Lapp/cash/quiver/continuations/OutcomeEffectScope;
 	public fun catch (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun catch-impl (Larrow/core/continuations/EffectScope;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -137,6 +144,8 @@ public final class app/cash/quiver/continuations/OutcomeEffectScope : arrow/core
 	public static final fun equals-impl0 (Larrow/core/continuations/EffectScope;Larrow/core/continuations/EffectScope;)Z
 	public fun hashCode ()I
 	public static fun hashCode-impl (Larrow/core/continuations/EffectScope;)I
+	public fun recover (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public static fun recover-impl (Larrow/core/continuations/EffectScope;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun shift (Larrow/core/Either;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public synthetic fun shift (Ljava/lang/Object;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public static fun shift-impl (Larrow/core/continuations/EffectScope;Larrow/core/Either;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
@@ -205,5 +214,29 @@ public final class app/cash/quiver/extensions/ValidatedKt {
 	public static final fun validate (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Larrow/core/Validated;
 	public static final fun validateEither (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
 	public static final fun validateMap (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Larrow/core/Validated;
+}
+
+public final class app/cash/quiver/raise/OutcomeBuilderKt {
+	public static final fun outcome (Lkotlin/jvm/functions/Function1;)Lapp/cash/quiver/Outcome;
+}
+
+public final class app/cash/quiver/raise/OutcomeRaise : arrow/core/raise/Raise {
+	public fun <init> (Larrow/core/raise/Raise;)V
+	public fun attempt (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun bind (Lapp/cash/quiver/Outcome;)Ljava/lang/Object;
+	public fun bind (Larrow/core/Either;)Ljava/lang/Object;
+	public final fun bind (Larrow/core/Option;)Ljava/lang/Object;
+	public fun bind (Larrow/core/Validated;)Ljava/lang/Object;
+	public fun bind (Larrow/core/continuations/EagerEffect;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun bind (Larrow/core/continuations/Effect;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun bind (Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public fun bind (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun catch (Larrow/core/continuations/Effect;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun ensure (Z)V
+	public final fun ensureNotNull (Ljava/lang/Object;)Ljava/lang/Object;
+	public fun invoke (Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public fun invoke (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun raise (Ljava/lang/Object;)Ljava/lang/Void;
+	public fun shift (Ljava/lang/Object;)Ljava/lang/Object;
 }
 
