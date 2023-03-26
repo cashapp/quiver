@@ -40,13 +40,13 @@ sealed class Outcome<out E, out A> constructor(val inner: Either<E, Option<A>>) 
      * Catches any exceptions thrown by the function and lifts the result into an Outcome.  If your function
      * returns an option use `catchOption` instead
      */
-    fun <R> catch(f: () -> R): Outcome<Throwable, R> = Either.catch(f).map(::Some).toOutcome()
+    inline fun <R> catch(f: () -> R): Outcome<Throwable, R> = Either.catch(f).map(::Some).toOutcome()
 
     /**
      * Catches any exceptions thrown by the function and lifts the result into an Outcome.  The Optional
      * value will be preserved as Present or Absent accordingly.
      */
-    fun <R> catchOption(f: () -> Option<R>): Outcome<Throwable, R> = Either.catch(f).toOutcome()
+    inline fun <R> catchOption(f: () -> Option<R>): Outcome<Throwable, R> = Either.catch(f).toOutcome()
   }
 }
 
@@ -124,7 +124,7 @@ fun <E, A> Either<E, A>.asOutcome(): Outcome<E, A> = this.map(::Some).toOutcome(
 
 fun <A> Option<A>.toOutcome(): Outcome<Nothing, A> = this.right().toOutcome()
 
-fun <A> Outcome<Throwable, A>.orThrow(onAbsent: () -> Throwable): A = when (this) {
+inline fun <A> Outcome<Throwable, A>.orThrow(onAbsent: () -> Throwable): A = when (this) {
   Absent -> throw onAbsent()
   is Failure -> throw this.error
   is Present -> this.value
@@ -199,11 +199,11 @@ fun <E, A> Iterable<Outcome<E, A>>.sequence(): Outcome<E, List<A>> = this.fold(P
   acc.zip(e) { a1, a2 -> a1 + a2 }
 }
 
-fun <E, A, B> Outcome<E, A>.traverse(f: (A) -> List<B>): List<Outcome<E, B>> = this.map(f).sequence()
-fun <E, A, B> Outcome<E, A>.traverse(f: (A) -> Option<B>): Option<Outcome<E, B>> = this.map(f).sequence()
+inline fun <E, A, B> Outcome<E, A>.traverse(f: (A) -> List<B>): List<Outcome<E, B>> = this.map(f).sequence()
+inline fun <E, A, B> Outcome<E, A>.traverse(f: (A) -> Option<B>): Option<Outcome<E, B>> = this.map(f).sequence()
 
 @OptIn(ExperimentalTypeInference::class)
 @OverloadResolutionByLambdaReturnType
-fun <E, EE, A, B> Outcome<E, A>.traverse(f: (A) -> Either<EE, B>): Either<EE, Outcome<E, B>> = this.map(f).sequence()
-fun <E, EE, A, B> Outcome<E, A>.traverse(f: (A) -> Validated<EE, B>): Validated<EE, Outcome<E, B>> =
+inline fun <E, EE, A, B> Outcome<E, A>.traverse(f: (A) -> Either<EE, B>): Either<EE, Outcome<E, B>> = this.map(f).sequence()
+inline fun <E, EE, A, B> Outcome<E, A>.traverse(f: (A) -> Validated<EE, B>): Validated<EE, Outcome<E, B>> =
   this.map(f).sequence()

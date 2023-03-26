@@ -50,7 +50,8 @@ fun <E, A> Either<E, A>.leftAsOption(): Option<E> = when (this) {
 /**
  * Pass the left value to the function (e.g. for logging errors)
  */
-suspend fun <A, B> Either<A, B>.tapLeft(f: suspend (A) -> Unit): Either<A, B> = this.mapLeft {
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER")
+inline fun <A, B> Either<A, B>.tapLeft(f: (A) -> Unit): Either<A, B> = this.mapLeft {
   f(it)
   it
 }
@@ -58,7 +59,7 @@ suspend fun <A, B> Either<A, B>.tapLeft(f: suspend (A) -> Unit): Either<A, B> = 
 /**
  * Performs an effect on the right side of the Either.
  */
-suspend fun <A, B> Either<A, B>.forEach(f: suspend (B) -> Unit): Unit = when (this) {
+inline fun <A, B> Either<A, B>.forEach(f: (B) -> Unit): Unit = when (this) {
   is Either.Left -> Unit
   is Either.Right -> f(this.value)
 }
@@ -66,7 +67,7 @@ suspend fun <A, B> Either<A, B>.forEach(f: suspend (B) -> Unit): Unit = when (th
 /**
  * Performs an effect on the left side of the Either.
  */
-suspend fun <A, B> Either<A, B>.leftForEach(f: suspend (A) -> Unit): Unit = when (this) {
+inline fun <A, B> Either<A, B>.leftForEach(f: (A) -> Unit): Unit = when (this) {
   is Either.Left -> f(this.value)
   is Either.Right -> Unit
 }
@@ -83,12 +84,12 @@ inline fun <A, B, C> Either<A, B>.flatTap(f: (B) -> Either<A, C>): Either<A, B> 
  * Lifts a nullable value into an Either, similar to toOption.  Must supply the left side
  * of the Either.
  */
-fun <A, B> B?.toEither(left: () -> A): Either<A, B> = this.toOption().toEither { left() }
+inline fun <A, B> B?.toEither(left: () -> A): Either<A, B> = this.toOption().toEither { left() }
 
 /**
  * Map on a nested Either Option type.
  */
-fun <E, T, V> Either<E, Option<T>>.mapOption(f: (T) -> V): Either<E, Option<V>> = this.map { it.map(f) }
+inline fun <E, T, V> Either<E, Option<T>>.mapOption(f: (T) -> V): Either<E, Option<V>> = this.map { it.map(f) }
 
 /**
  * Map right to Unit. This restores `.void()` which was deprecated by Arrow.
