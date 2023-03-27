@@ -21,7 +21,7 @@ inline fun <T, E> Option<T>.toValidatedNel(error: () -> E): ValidatedNel<E, T> =
 /**
  * Runs a side effect if the option is a Some
  */
-suspend fun <A> Option<A>.forEach(f: suspend (A) -> Unit) {
+inline fun <A> Option<A>.forEach(f: (A) -> Unit) {
   onSome { f(it) }
 }
 

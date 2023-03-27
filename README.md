@@ -22,6 +22,16 @@ There are two published builds.
 On the [Sontaype page for Quiver](https://central.sonatype.com/namespace/app.cash.quiver), choose the latest version 
 of `lib` (and `lib-test` if desired) and follow the instructions for inclusion in your build tool. 
 
+## Building
+
+Install Hermit, see instructions at https://cashapp.github.io/hermit/
+
+Use gradle to run all Kotlin tests locally:
+
+```shell
+gradle build
+```
+
 ## Documentation
 
 The API documentation is published with each release at [https://cashapp.github.io/quiver](https://cashapp.github.io/quiver)

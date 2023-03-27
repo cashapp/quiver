@@ -1,0 +1,15 @@
+.theme-dark .dark-image {
+  display: block;
+}
+
+.theme-dark .light-image {
+  display: none;
+}
+
+.dark-image:not(html.theme-dark *) {
+  display: none;
+}
+
+.light-image:not(html.theme-dark *) {
+  display: block;
+}

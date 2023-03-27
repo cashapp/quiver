@@ -1,6 +1,7 @@
 # Module Quiver Library
 
-![](/quiver/doc-images/quiver-logo-01.svg)
+<img src="doc-images/quiver-logo-02.svg" class="dark-image">
+<img src="doc-images/quiver-logo-01.svg" class="light-image">
 
 Quiver is a library that builds upon [Arrow](https://arrow-kt.io/) to make functional programming in Kotlin even
 more accessible & delightful.
