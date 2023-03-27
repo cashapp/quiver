@@ -39,7 +39,7 @@ import kotlin.experimental.ExperimentalTypeInference
  * E.failure()
  * ```
  *
- * You can also easily convert an `Either<Option<A>>` to an Outcome using `toOutcome()`
+ * You can also easily convert an `Either<Option<A>>` to an Outcome using  [`toOutcome()`](app.cash.quiver.toOutcome)
  *
  * ```kotlin
  * val outcome = "hi".some().right().toOutcome()
