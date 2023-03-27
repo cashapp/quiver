@@ -33,7 +33,6 @@ subprojects {
 
   repositories {
     mavenCentral()
-    maven(url = "https://s3-us-west-2.amazonaws.com/dynamodb-local/release")
   }
 
   apply(plugin = "java")
