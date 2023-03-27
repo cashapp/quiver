@@ -24,11 +24,49 @@ import kotlin.experimental.ExperimentalTypeInference
  * as [`map`](app.cash.quiver.Outcome.map), [`flatMap`](app.cash.quiver.Outcome.flatMap) and
  * [`zip`](app.cash.quiver.Outcome.zip).
  *
+ * There are three primary constructors:
+ *
+ * ```kotlin
+ * data class Present<A>(val value: A) : Outcome<Nothing, A>
+ * data class Failure<E>(val error: E) : Outcome<E, Nothing>
+ * object Absent : Outcome<Nothing, Nothing>
+ * ```
+ *
+ * or you can use the extension methods thusly:
+ *
+ * ```kotlin
+ * A.present()
+ * E.failure()
+ * ```
+ *
+ * You can also easily convert an `Either<Option<A>>` to an Outcome using  [`toOutcome()`](app.cash.quiver.toOutcome)
+ *
+ * ```kotlin
+ * val outcome = "hi".some().right().toOutcome()
+ * ```
+ *
  * There is also a type alias `OutcomeOf<A>` which specialises the error side to a `Throwable` for your convenience.
  */
 sealed class Outcome<out E, out A> constructor(val inner: Either<E, Option<A>>) {
 
+  /**
+   * Map safely transforms a value in the Outcome. It has no effect on `Absent` or `Failure` instances.
+   *
+   * ```kotlin
+   * Present(1).map { it + 1 }     // Present(2)
+   * Absent.map { it + 1 }         // Absent
+   * Failure("bad").map { it + 1 } // Failure("bad")
+   * ```
+   */
   inline fun <B> map(f: (A) -> B): Outcome<E, B> = inner.map { it.map(f) }.toOutcome()
+
+  /**
+   * Performs an effect over the value and preserves the original `Outcome`
+   *
+   * ```kotlin
+   * "hi".present().tap { println("$it world") } // Present("hi")
+   * ```
+   */
   inline fun <B> tap(f: (A) -> B): Outcome<E, A> = map { a -> f(a); a }
 
   fun isPresent(): Boolean = inner.fold({ false }) { it.isDefined() }
@@ -45,11 +83,24 @@ sealed class Outcome<out E, out A> constructor(val inner: Either<E, Option<A>>) 
     /**
      * Catches any exceptions thrown by the function and lifts the result into an Outcome.  The Optional
      * value will be preserved as Present or Absent accordingly.
+     *
+     * Converts a function that throws an exception (throwable) and returns an Option into an Outcome
+     *
+     *
+     * ```kotlin
+     * val outcome: Outcome<Throwable, Customer> = Outcome.catchOption {
+     *   val customer: Option<Customer> = maybeLoadCustomerOrThrow() // May or may not return a customer but throws on error
+     *   customer
+     * }
+     * ```
      */
     inline fun <R> catchOption(f: () -> Option<R>): Outcome<Throwable, R> = Either.catch(f).toOutcome()
   }
 }
 
+/**
+ * A data class representing the Presence of a value `A`.
+ */
 data class Present<A>(val value: A) : Outcome<Nothing, A>(value.some().right())
 data class Failure<E>(val error: E) : Outcome<E, Nothing>(error.left())
 object Absent : Outcome<Nothing, Nothing>(None.right())
@@ -57,6 +108,26 @@ object Absent : Outcome<Nothing, Nothing>(None.right())
 fun <A> A.present(): Outcome<Nothing, A> = Present(this)
 fun <E> E.failure(): Outcome<E, Nothing> = Failure(this)
 
+/**
+ * FlatMap allows multiple `Outcome`s to be safely chained together, passing the value from the previous as input into the
+ * next function that produces an `Outcome`
+ *
+ * ```kotlin
+ * fun <A, E, C> Outcome<E, A>.flatMap(f: (A) -> Outcome<E, C>): Outcome<E, C>
+ * ```
+ *
+ * ```kotlin
+ * Present(5).flatMap {
+ *   if (it < 5) {
+ *     Present(it)
+ *   } else if (it < 10) {
+ *     Absent
+ *   } else {
+ *     Failure("Value too high")
+ *   }
+ * }
+ * ```
+ */
 inline fun <A, E, B> Outcome<E, A>.flatMap(f: (A) -> Outcome<E, B>): Outcome<E, B> =
   this.inner.flatMap {
     it.traverse { b ->
@@ -68,6 +139,17 @@ inline fun <A, E>Outcome<E, A>.filter(p: (A) -> Boolean): Outcome<E, A> = flatMa
   if (p(it)) it.present() else Absent
 }
 
+/**
+ * Performs a flatMap across the supplied function, propagating failures or absence
+ * but preserving the original present value.
+ *
+ *
+ * ```kotlin
+ * 1.present().flatTap { a -> "bad".failure() } // Failure("bad")
+ * 1.present().flatTap { a -> Absent } // Absent
+ * 1.present().flatTap { a -> a + 2 } // Present(1) -- value preserved
+ * ```
+ */
 inline fun <A, E, B> Outcome<E, A>.flatTap(f: (A) -> Outcome<E, B>): Outcome<E, A> = flatMap { a ->
   f(a).map { a }
 }
@@ -78,9 +160,13 @@ inline fun <A, B, E> Outcome<E, A>.tapAbsent(f: () -> B): Outcome<E, A> = onAbse
 fun <A, E> Outcome<E, Outcome<E, A>>.flatten() = this.flatMap(::identity)
 
 /**
- * Combines two Outcome together using the function provided:
+ * Zip allows you to combine two or more `Outcome`s easily with a supplied function.
  *
- * Present(1).zip(Present(2)) { a, b -> a + b} == Present(3)
+ * ```kotlin
+ * Present(2).zip(Present(3)) { a, b -> a + b }     // Present(5)
+ * Present(2).zip(Absent) { a, b -> a + b }         // Absent
+ * Present(2).zip(Failure("nup")) { a, b -> a + b } // Failure("nup")
+ * ```
  */
 inline fun <E, A, B, C> Outcome<E, A>.zip(other: Outcome<E, B>, f: (A, B) -> C): Outcome<E, C> =
   this.flatMap { a -> other.map { b -> f(a, b) } }
@@ -115,6 +201,15 @@ inline fun <E, A, B, C, D, EE, F> Outcome<E, A>.zip(
     o4.map { e -> f(a, b, c, d, e) }
   }.flatten()
 
+/**
+ * An extension method on Either<E, Option<A>> that converts it to an Outcome<E, A>.
+ *
+ * ```
+ * Left("bad").toOutcome() // Failure("bad")
+ * Right(None).toOutcome() // Absent
+ * Right(Some("hi")).toOutcome() // Present("hi")
+ * ```
+ */
 fun <E, A> Either<E, Option<A>>.toOutcome(): Outcome<E, A> = when (this) {
   is Left -> Failure(value)
   is Right -> value.map(::Present).getOrElse { Absent }
