@@ -340,7 +340,7 @@ class OutcomeTest : StringSpec({
     bad.sequence().shouldBeNone()
 
     val absent: Outcome<String, Option<Int>> = Absent
-    absent.sequence().shouldBeNone()
+    absent.sequence().shouldBeSome().shouldBeAbsent()
   }
 
   "Validated sequence/traverse" {
@@ -358,13 +358,13 @@ class OutcomeTest : StringSpec({
 
   "List sequence/traverse" {
     Present(listOf(1, 2, 3)).sequence().shouldBe(listOf(1.present(), 2.present(), 3.present()))
-    Present(listOf(1)).sequence() shouldBe Present(1).traverse { a: Int -> listOf(a) }
+    Present(listOf(1, 1)).sequence() shouldBe Present(1).traverse { a: Int -> listOf(a, a) }
 
     val bad: Outcome<String, List<Int>> = "bad".failure()
-    bad.sequence() shouldBe listOf()
+    bad.sequence() shouldBe listOf("bad".failure())
 
     val absent: Outcome<String, List<Int>> = Absent
-    absent.sequence() shouldBe listOf()
+    absent.sequence() shouldBe listOf(Absent)
   }
 
   "mapFailure" {
