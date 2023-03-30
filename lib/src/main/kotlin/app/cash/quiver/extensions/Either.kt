@@ -95,3 +95,164 @@ inline fun <E, T, V> Either<E, Option<T>>.mapOption(f: (T) -> V): Either<E, Opti
  * Map right to Unit. This restores `.void()` which was deprecated by Arrow.
  */
 fun <A, B> Either<A, B>.unit() = map { }
+
+@PublishedApi
+internal val rightUnit: Either<Nothing, Unit> = Either.Right(Unit)
+
+inline fun <A, B, C, D> Either<A, B>.zip(b: Either<A, C>, transform: (B, C) -> D): Either<A, D> =
+  flatMap { a ->
+    b.map { bb -> transform(a, bb) }
+  }
+
+inline fun <A, B, C, D, E> Either<A, B>.zip(
+  b: Either<A, C>,
+  c: Either<A, D>,
+  transform: (B, C, D) -> E,
+): Either<A, E> =
+  zip(
+    b,
+    c,
+    rightUnit,
+    rightUnit,
+    rightUnit,
+    rightUnit,
+    rightUnit,
+    rightUnit,
+    rightUnit
+  ) { a, bb, cc, _, _, _, _, _, _, _ -> transform(a, bb, cc) }
+
+inline fun <A, B, C, D, E, F> Either<A, B>.zip(
+  b: Either<A, C>,
+  c: Either<A, D>,
+  d: Either<A, E>,
+  transform: (B, C, D, E) -> F,
+): Either<A, F> =
+  zip(
+    b,
+    c,
+    d,
+    rightUnit,
+    rightUnit,
+    rightUnit,
+    rightUnit,
+    rightUnit,
+    rightUnit
+  ) { a, bb, cc, dd, _, _, _, _, _, _ -> transform(a, bb, cc, dd) }
+
+inline fun <A, B, C, D, E, F, G> Either<A, B>.zip(
+  b: Either<A, C>,
+  c: Either<A, D>,
+  d: Either<A, E>,
+  e: Either<A, F>,
+  transform: (B, C, D, E, F) -> G,
+): Either<A, G> =
+  zip(
+    b,
+    c,
+    d,
+    e,
+    rightUnit,
+    rightUnit,
+    rightUnit,
+    rightUnit,
+    rightUnit
+  ) { a, bb, cc, dd, ee, _, _, _, _, _ -> transform(a, bb, cc, dd, ee) }
+
+inline fun <A, B, C, D, E, F, G, H> Either<A, B>.zip(
+  b: Either<A, C>,
+  c: Either<A, D>,
+  d: Either<A, E>,
+  e: Either<A, F>,
+  f: Either<A, G>,
+  transform: (B, C, D, E, F, G) -> H,
+): Either<A, H> =
+  zip(b, c, d, e, f, rightUnit, rightUnit, rightUnit, rightUnit) { a, bb, cc, dd, ee, ff, _, _, _, _ ->
+    transform(
+      a,
+      bb,
+      cc,
+      dd,
+      ee,
+      ff
+    )
+  }
+
+inline fun <A, B, C, D, E, F, G, H, I> Either<A, B>.zip(
+  b: Either<A, C>,
+  c: Either<A, D>,
+  d: Either<A, E>,
+  e: Either<A, F>,
+  f: Either<A, G>,
+  g: Either<A, H>,
+  transform: (B, C, D, E, F, G, H) -> I,
+): Either<A, I> =
+  zip(b, c, d, e, f, g, rightUnit, rightUnit, rightUnit) { a, bb, cc, dd, ee, ff, gg, _, _, _ ->
+    transform(
+      a,
+      bb,
+      cc,
+      dd,
+      ee,
+      ff,
+      gg
+    )
+  }
+
+inline fun <A, B, C, D, E, F, G, H, I, J> Either<A, B>.zip(
+  b: Either<A, C>,
+  c: Either<A, D>,
+  d: Either<A, E>,
+  e: Either<A, F>,
+  f: Either<A, G>,
+  g: Either<A, H>,
+  h: Either<A, I>,
+  transform: (B, C, D, E, F, G, H, I) -> J,
+): Either<A, J> =
+  zip(b, c, d, e, f, g, h, rightUnit, rightUnit) { a, bb, cc, dd, ee, ff, gg, hh, _, _ -> transform(a, bb, cc, dd, ee, ff, gg, hh) }
+
+inline fun <A, B, C, D, E, F, G, H, I, J, K> Either<A, B>.zip(
+  b: Either<A, C>,
+  c: Either<A, D>,
+  d: Either<A, E>,
+  e: Either<A, F>,
+  f: Either<A, G>,
+  g: Either<A, H>,
+  h: Either<A, I>,
+  i: Either<A, J>,
+  transform: (B, C, D, E, F, G, H, I, J) -> K,
+): Either<A, K> =
+  zip(b, c, d, e, f, g, h, i, rightUnit) { a, bb, cc, dd, ee, ff, gg, hh, ii, _ -> transform(a, bb, cc, dd, ee, ff, gg, hh, ii) }
+
+inline fun <A, B, C, D, E, F, G, H, I, J, K, L> Either<A, B>.zip(
+  b: Either<A, C>,
+  c: Either<A, D>,
+  d: Either<A, E>,
+  e: Either<A, F>,
+  f: Either<A, G>,
+  g: Either<A, H>,
+  h: Either<A, I>,
+  i: Either<A, J>,
+  j: Either<A, K>,
+  transform: (B, C, D, E, F, G, H, I, J, K) -> L,
+): Either<A, L> =
+  flatMap { a ->
+    b.flatMap { bb ->
+      c.flatMap { cc ->
+        d.flatMap { dd ->
+          e.flatMap { ee ->
+            f.flatMap { ff ->
+              g.flatMap { gg ->
+                h.flatMap { hh ->
+                  i.flatMap { ii ->
+                    j.map { jj ->
+                      transform(a, bb, cc, dd, ee, ff, gg, hh, ii, jj)
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
