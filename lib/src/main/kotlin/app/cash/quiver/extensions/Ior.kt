@@ -250,11 +250,15 @@ inline fun <A, B, C, D, E, F, G, H, I, J, K, L> Ior<A, B>.zip(
   if (k is Left) return@zip Left(left.emptyCombine(k.value, combine))
   left = if (k is Both)Some(left.emptyCombine(k.leftValue, combine)) else left
 
-  return when {
-    right != None && left == None -> Ior.Right(right as L)
-    right != None && left != None -> Both(left as A, right as L)
-    right == None && left != None -> Left(left as A)
-    else -> throw IllegalStateException("Ior.zip should not be possible to reach this state")
+  return when(right) {
+    is Some -> when(left) {
+      is Some -> Both(left.value, right.value)
+      is None -> Ior.Right(right.value)
+    }
+    None -> when(left) {
+      is Some -> Left(left.value)
+      is None -> throw IllegalStateException("Ior.zip should not be possible to reach this state")
+    }
   }
 }
 

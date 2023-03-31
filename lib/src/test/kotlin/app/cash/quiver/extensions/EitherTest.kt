@@ -110,7 +110,7 @@ class EitherTest : StringSpec({
       val res = a.zip(b, c, d, e, f, g, h, i, j) { aa, bb, cc, dd, ee, ff, gg, hh, ii, jj ->
         aa + bb + cc + dd + ee + ff + gg + hh + ii + jj
       }
-      val expected = listOf(a, b, c, d, e, f, g, h, i, j).firstOrNull { it.isLeft() }?.left()
+      val expected = listOf(a, b, c, d, e, f, g, h, i, j).firstOrNull { it.isLeft() }
         ?: listOf(a, b, c, d, e, f, g, h, i, j).mapNotNull { it.getOrNull() }.sum().right()
 
       res shouldBe expected
