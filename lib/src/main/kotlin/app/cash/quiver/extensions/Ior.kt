@@ -1,6 +1,12 @@
 package app.cash.quiver.extensions
 
 import arrow.core.Ior
+import arrow.core.Ior.Both
+import arrow.core.Ior.Left
+import arrow.core.None
+import arrow.core.Option
+import arrow.core.Some
+import arrow.core.some
 
 @PublishedApi
 internal val unitIor: Ior<Nothing, Unit> = Ior.Right(Unit)
@@ -10,7 +16,18 @@ inline fun <A, B, C, D> Ior<A, B>.zip(
   c: Ior<A, C>,
   map: (B, C) -> D
 ): Ior<A, D> =
-  zip(combine, c, unitIor, unitIor, unitIor, unitIor, unitIor, unitIor, unitIor, unitIor) { b, c, _, _, _, _, _, _, _, _ -> map(b, c) }
+  zip(
+    combine,
+    c,
+    unitIor,
+    unitIor,
+    unitIor,
+    unitIor,
+    unitIor,
+    unitIor,
+    unitIor,
+    unitIor
+  ) { b, cc, _, _, _, _, _, _, _, _ -> map(b, cc) }
 
 inline fun <A, B, C, D, E> Ior<A, B>.zip(
   crossinline combine: (A, A) -> A,
@@ -18,7 +35,18 @@ inline fun <A, B, C, D, E> Ior<A, B>.zip(
   d: Ior<A, D>,
   map: (B, C, D) -> E
 ): Ior<A, E> =
-  zip(combine, c, d, unitIor, unitIor, unitIor, unitIor, unitIor, unitIor, unitIor) { b, c, d, _, _, _, _, _, _, _ -> map(b, c, d) }
+  zip(
+    combine,
+    c,
+    d,
+    unitIor,
+    unitIor,
+    unitIor,
+    unitIor,
+    unitIor,
+    unitIor,
+    unitIor
+  ) { b, cc, dd, _, _, _, _, _, _, _ -> map(b, cc, dd) }
 
 inline fun <A, B, C, D, E, F> Ior<A, B>.zip(
   crossinline combine: (A, A) -> A,
@@ -27,7 +55,18 @@ inline fun <A, B, C, D, E, F> Ior<A, B>.zip(
   e: Ior<A, E>,
   map: (B, C, D, E) -> F
 ): Ior<A, F> =
-  zip(combine, c, d, e, unitIor, unitIor, unitIor, unitIor, unitIor, unitIor) { b, c, d, e, _, _, _, _, _, _ -> map(b, c, d, e) }
+  zip(
+    combine,
+    c,
+    d,
+    e,
+    unitIor,
+    unitIor,
+    unitIor,
+    unitIor,
+    unitIor,
+    unitIor
+  ) { b, cc, dd, ee, _, _, _, _, _, _ -> map(b, cc, dd, ee) }
 
 inline fun <A, B, C, D, E, F, G> Ior<A, B>.zip(
   crossinline combine: (A, A) -> A,
@@ -37,7 +76,15 @@ inline fun <A, B, C, D, E, F, G> Ior<A, B>.zip(
   f: Ior<A, F>,
   map: (B, C, D, E, F) -> G
 ): Ior<A, G> =
-  zip(combine, c, d, e, f, unitIor, unitIor, unitIor, unitIor, unitIor) { b, c, d, e, f, _, _, _, _, _ -> map(b, c, d, e, f) }
+  zip(combine, c, d, e, f, unitIor, unitIor, unitIor, unitIor, unitIor) { b, cc, dd, ee, ff, _, _, _, _, _ ->
+    map(
+      b,
+      cc,
+      dd,
+      ee,
+      ff
+    )
+  }
 
 inline fun <A, B, C, D, E, F, G, H> Ior<A, B>.zip(
   crossinline combine: (A, A) -> A,
@@ -48,7 +95,16 @@ inline fun <A, B, C, D, E, F, G, H> Ior<A, B>.zip(
   g: Ior<A, G>,
   map: (B, C, D, E, F, G) -> H
 ): Ior<A, H> =
-  zip(combine, c, d, e, f, g, unitIor, unitIor, unitIor, unitIor) { b, c, d, e, f, g, _, _, _, _ -> map(b, c, d, e, f, g) }
+  zip(combine, c, d, e, f, g, unitIor, unitIor, unitIor, unitIor) { b, cc, dd, ee, ff, gg, _, _, _, _ ->
+    map(
+      b,
+      cc,
+      dd,
+      ee,
+      ff,
+      gg
+    )
+  }
 
 inline fun <A, B, C, D, E, F, G, H, I> Ior<A, B>.zip(
   crossinline combine: (A, A) -> A,
@@ -60,7 +116,17 @@ inline fun <A, B, C, D, E, F, G, H, I> Ior<A, B>.zip(
   h: Ior<A, H>,
   map: (B, C, D, E, F, G, H) -> I
 ): Ior<A, I> =
-  zip(combine, c, d, e, f, g, h, unitIor, unitIor, unitIor) { b, c, d, e, f, g, h, _, _, _ -> map(b, c, d, e, f, g, h) }
+  zip(combine, c, d, e, f, g, h, unitIor, unitIor, unitIor) { b, cc, dd, ee, ff, gg, hh, _, _, _ ->
+    map(
+      b,
+      cc,
+      dd,
+      ee,
+      ff,
+      gg,
+      hh
+    )
+  }
 
 inline fun <A, B, C, D, E, F, G, H, I, J> Ior<A, B>.zip(
   crossinline combine: (A, A) -> A,
@@ -73,7 +139,18 @@ inline fun <A, B, C, D, E, F, G, H, I, J> Ior<A, B>.zip(
   i: Ior<A, I>,
   map: (B, C, D, E, F, G, H, I) -> J
 ): Ior<A, J> =
-  zip(combine, c, d, e, f, g, h, i, unitIor, unitIor) { b, c, d, e, f, g, h, i, _, _ -> map(b, c, d, e, f, g, h, i) }
+  zip(combine, c, d, e, f, g, h, i, unitIor, unitIor) { b, cc, dd, ee, ff, gg, hh, ii, _, _ ->
+    map(
+      b,
+      cc,
+      dd,
+      ee,
+      ff,
+      gg,
+      hh,
+      ii
+    )
+  }
 
 inline fun <A, B, C, D, E, F, G, H, I, J, K> Ior<A, B>.zip(
   crossinline combine: (A, A) -> A,
@@ -87,20 +164,33 @@ inline fun <A, B, C, D, E, F, G, H, I, J, K> Ior<A, B>.zip(
   j: Ior<A, J>,
   map: (B, C, D, E, F, G, H, I, J) -> K
 ): Ior<A, K> =
-  zip(combine, c, d, e, f, g, h, i, j, unitIor) { b, c, d, e, f, g, h, i, j, _ -> map(b, c, d, e, f, g, h, i, j) }
+  zip(combine, c, d, e, f, g, h, i, j, unitIor) { b, cc, dd, ee, ff, gg, hh, ii, jj, _ ->
+    map(
+      b,
+      cc,
+      dd,
+      ee,
+      ff,
+      gg,
+      hh,
+      ii,
+      jj
+    )
+  }
 
 inline fun <A, B, D> Ior<A, B>.flatMap(combine: (A, A) -> A, f: (B) -> Ior<A, D>): Ior<A, D> =
   when (this) {
-    is Ior.Left -> this
+    is Left -> this
     is Ior.Right -> f(value)
-    is Ior.Both ->
+    is Both ->
       f(this@flatMap.rightValue).fold(
-        { a -> Ior.Left(combine(this@flatMap.leftValue, a)) },
-        { d -> Ior.Both(this@flatMap.leftValue, d) },
-        { ll, rr -> Ior.Both(combine(this@flatMap.leftValue, ll), rr) }
+        { a -> Left(combine(this@flatMap.leftValue, a)) },
+        { d -> Both(this@flatMap.leftValue, d) },
+        { ll, rr -> Both(combine(this@flatMap.leftValue, ll), rr) }
       )
   }
 
+@Suppress("UNCHECKED_CAST")
 inline fun <A, B, C, D, E, F, G, H, I, J, K, L> Ior<A, B>.zip(
   crossinline combine: (A, A) -> A,
   c: Ior<A, C>,
@@ -113,24 +203,75 @@ inline fun <A, B, C, D, E, F, G, H, I, J, K, L> Ior<A, B>.zip(
   j: Ior<A, J>,
   k: Ior<A, K>,
   transform: (B, C, D, E, F, G, H, I, J, K) -> L
-): Ior<A, L> = flatMap(combine) { a ->
-    c.flatMap(combine) { bb ->
-      d.flatMap(combine) { cc ->
-        e.flatMap(combine) { dd ->
-          f.flatMap(combine) { ee ->
-            g.flatMap(combine) { ff ->
-              h.flatMap(combine) { gg ->
-                i.flatMap(combine) { hh ->
-                  j.flatMap(combine) { ii ->
-                    k.map { jj ->
-                      transform(a, bb, cc, dd, ee, ff, gg, hh, ii, jj)
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
+): Ior<A, L> {
+  val right: Option<L> = if (
+    (this@zip.isRight || this@zip.isBoth) &&
+    (c.isRight || c.isBoth) &&
+    (d.isRight || d.isBoth) &&
+    (e.isRight || e.isBoth) &&
+    (f.isRight || f.isBoth) &&
+    (g.isRight || g.isBoth) &&
+    (h.isRight || h.isBoth) &&
+    (i.isRight || i.isBoth) &&
+    (j.isRight || j.isBoth) &&
+    (k.isRight || k.isBoth)
+  ) {
+    transform(
+      this@zip.orNull() as B,
+      c.orNull() as C,
+      d.orNull() as D,
+      e.orNull() as E,
+      f.orNull() as F,
+      g.orNull() as G,
+      h.orNull() as H,
+      i.orNull() as I,
+      j.orNull() as J,
+      k.orNull() as K
+    ).some()
+  } else None
+
+  var left: Option<A> = None
+
+  if (this@zip is Left) return@zip Left(this@zip.value)
+  left = if (this@zip is Both) Some(this@zip.leftValue) else left
+
+  if (c is Left) return@zip Left(left.emptyCombine(c.value, combine))
+  left = if (c is Both) Some(left.emptyCombine(c.leftValue, combine)) else left
+
+  if (d is Left) return@zip Left(left.emptyCombine(d.value, combine))
+  left = if (d is Both) Some(left.emptyCombine(d.leftValue, combine)) else left
+
+  if (e is Left) return@zip Left(left.emptyCombine(e.value, combine))
+  left = if (e is Both) Some(left.emptyCombine(e.leftValue, combine)) else left
+
+  if (f is Left) return@zip Left(left.emptyCombine(f.value, combine))
+  left = if (f is Both) Some(left.emptyCombine(f.leftValue, combine)) else left
+
+  if (g is Left) return@zip Left(left.emptyCombine(g.value, combine))
+  left = if (g is Both) Some(left.emptyCombine(g.leftValue, combine)) else left
+
+  if (h is Left) return@zip Left(left.emptyCombine(h.value, combine))
+  left = if (h is Both) Some(left.emptyCombine(h.leftValue, combine)) else left
+
+  if (i is Left) return@zip Left(left.emptyCombine(i.value, combine))
+  left = if (i is Both) Some(left.emptyCombine(i.leftValue, combine)) else left
+
+  if (j is Left) return@zip Left(left.emptyCombine(j.value, combine))
+  left = if (j is Both) Some(left.emptyCombine(j.leftValue, combine)) else left
+
+  if (k is Left) return@zip Left(left.emptyCombine(k.value, combine))
+  left = if (k is Both)Some(left.emptyCombine(k.leftValue, combine)) else left
+
+  return when {
+    right != None && left == None -> Ior.Right(right as L)
+    right != None && left != None -> Both(left as A, right as L)
+    right == None && left != None -> Left(left as A)
+    else -> throw IllegalStateException("Ior.zip should not be possible to reach this state")
+  }
+}
+
+inline fun <A> Option<A>.emptyCombine(other: A, combine: (A, A) -> A): A =
+  when (this) {
+    is Some -> combine(this.value, other)
+    is None -> other
   }
