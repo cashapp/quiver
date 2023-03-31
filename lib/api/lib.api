@@ -231,6 +231,10 @@ public final class app/cash/quiver/raise/OutcomeRaise : arrow/core/raise/Raise {
 	public fun bind (Larrow/core/continuations/Effect;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public fun bind (Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
 	public fun bind (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun bindAll (Larrow/core/NonEmptyList;)Larrow/core/NonEmptyList;
+	public fun bindAll (Ljava/lang/Iterable;)Ljava/util/List;
+	public fun bindAll (Ljava/util/Map;)Ljava/util/Map;
+	public fun bindAll-1TN0_VU (Ljava/util/Set;)Ljava/util/Set;
 	public fun catch (Larrow/core/continuations/Effect;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	public final fun ensure (Z)V
 	public final fun ensureNotNull (Ljava/lang/Object;)Ljava/lang/Object;
