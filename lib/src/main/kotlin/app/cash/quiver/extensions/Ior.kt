@@ -178,18 +178,6 @@ inline fun <A, B, C, D, E, F, G, H, I, J, K> Ior<A, B>.zip(
     )
   }
 
-inline fun <A, B, D> Ior<A, B>.flatMap(combine: (A, A) -> A, f: (B) -> Ior<A, D>): Ior<A, D> =
-  when (this) {
-    is Left -> this
-    is Ior.Right -> f(value)
-    is Both ->
-      f(this@flatMap.rightValue).fold(
-        { a -> Left(combine(this@flatMap.leftValue, a)) },
-        { d -> Both(this@flatMap.leftValue, d) },
-        { ll, rr -> Both(combine(this@flatMap.leftValue, ll), rr) }
-      )
-  }
-
 @Suppress("UNCHECKED_CAST")
 inline fun <A, B, C, D, E, F, G, H, I, J, K, L> Ior<A, B>.zip(
   crossinline combine: (A, A) -> A,
@@ -270,7 +258,8 @@ inline fun <A, B, C, D, E, F, G, H, I, J, K, L> Ior<A, B>.zip(
   }
 }
 
-inline fun <A> Option<A>.emptyCombine(other: A, combine: (A, A) -> A): A =
+@PublishedApi
+internal inline fun <A> Option<A>.emptyCombine(other: A, combine: (A, A) -> A): A =
   when (this) {
     is Some -> combine(this.value, other)
     is None -> other
