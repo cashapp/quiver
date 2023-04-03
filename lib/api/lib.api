@@ -155,6 +155,7 @@ public final class app/cash/quiver/extensions/EitherKt {
 	public static final fun asOption (Larrow/core/Either;)Larrow/core/Option;
 	public static final fun flatTap (Larrow/core/Either;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
 	public static final fun forEach (Larrow/core/Either;Lkotlin/jvm/functions/Function1;)V
+	public static final fun getRightUnit ()Larrow/core/Either;
 	public static final fun leftAsOption (Larrow/core/Either;)Larrow/core/Option;
 	public static final fun leftForEach (Larrow/core/Either;Lkotlin/jvm/functions/Function1;)V
 	public static final fun mapOption (Larrow/core/Either;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
@@ -169,6 +170,29 @@ public final class app/cash/quiver/extensions/EitherKt {
 	public static final fun unit (Larrow/core/Either;)Larrow/core/Either;
 	public static final fun validateNotNull (Ljava/lang/Object;Larrow/core/Option;)Larrow/core/Either;
 	public static synthetic fun validateNotNull$default (Ljava/lang/Object;Larrow/core/Option;ILjava/lang/Object;)Larrow/core/Either;
+	public static final fun zip (Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Lkotlin/jvm/functions/Function10;)Larrow/core/Either;
+	public static final fun zip (Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Lkotlin/jvm/functions/Function9;)Larrow/core/Either;
+	public static final fun zip (Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Lkotlin/jvm/functions/Function8;)Larrow/core/Either;
+	public static final fun zip (Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Lkotlin/jvm/functions/Function7;)Larrow/core/Either;
+	public static final fun zip (Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Lkotlin/jvm/functions/Function6;)Larrow/core/Either;
+	public static final fun zip (Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Lkotlin/jvm/functions/Function5;)Larrow/core/Either;
+	public static final fun zip (Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Lkotlin/jvm/functions/Function4;)Larrow/core/Either;
+	public static final fun zip (Larrow/core/Either;Larrow/core/Either;Larrow/core/Either;Lkotlin/jvm/functions/Function3;)Larrow/core/Either;
+	public static final fun zip (Larrow/core/Either;Larrow/core/Either;Lkotlin/jvm/functions/Function2;)Larrow/core/Either;
+}
+
+public final class app/cash/quiver/extensions/IorKt {
+	public static final fun emptyCombine (Larrow/core/Option;Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
+	public static final fun getUnitIor ()Larrow/core/Ior;
+	public static final fun zip (Larrow/core/Ior;Lkotlin/jvm/functions/Function2;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Lkotlin/jvm/functions/Function10;)Larrow/core/Ior;
+	public static final fun zip (Larrow/core/Ior;Lkotlin/jvm/functions/Function2;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Lkotlin/jvm/functions/Function9;)Larrow/core/Ior;
+	public static final fun zip (Larrow/core/Ior;Lkotlin/jvm/functions/Function2;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Lkotlin/jvm/functions/Function8;)Larrow/core/Ior;
+	public static final fun zip (Larrow/core/Ior;Lkotlin/jvm/functions/Function2;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Lkotlin/jvm/functions/Function7;)Larrow/core/Ior;
+	public static final fun zip (Larrow/core/Ior;Lkotlin/jvm/functions/Function2;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Lkotlin/jvm/functions/Function6;)Larrow/core/Ior;
+	public static final fun zip (Larrow/core/Ior;Lkotlin/jvm/functions/Function2;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Lkotlin/jvm/functions/Function5;)Larrow/core/Ior;
+	public static final fun zip (Larrow/core/Ior;Lkotlin/jvm/functions/Function2;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Lkotlin/jvm/functions/Function4;)Larrow/core/Ior;
+	public static final fun zip (Larrow/core/Ior;Lkotlin/jvm/functions/Function2;Larrow/core/Ior;Larrow/core/Ior;Lkotlin/jvm/functions/Function3;)Larrow/core/Ior;
+	public static final fun zip (Larrow/core/Ior;Lkotlin/jvm/functions/Function2;Larrow/core/Ior;Lkotlin/jvm/functions/Function2;)Larrow/core/Ior;
 }
 
 public final class app/cash/quiver/extensions/ListKt {
@@ -183,6 +207,19 @@ public final class app/cash/quiver/extensions/MapKt {
 
 public final class app/cash/quiver/extensions/NonEmptyListKt {
 	public static final fun mapNotNone (Larrow/core/NonEmptyList;Lkotlin/jvm/functions/Function1;)Larrow/core/Option;
+}
+
+public final class app/cash/quiver/extensions/Nullable {
+	public static final field INSTANCE Lapp/cash/quiver/extensions/Nullable;
+	public static final fun zip (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkotlin/jvm/functions/Function10;)Ljava/lang/Object;
+	public static final fun zip (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkotlin/jvm/functions/Function9;)Ljava/lang/Object;
+	public static final fun zip (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkotlin/jvm/functions/Function8;)Ljava/lang/Object;
+	public static final fun zip (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkotlin/jvm/functions/Function7;)Ljava/lang/Object;
+	public static final fun zip (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkotlin/jvm/functions/Function6;)Ljava/lang/Object;
+	public static final fun zip (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkotlin/jvm/functions/Function5;)Ljava/lang/Object;
+	public static final fun zip (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkotlin/jvm/functions/Function4;)Ljava/lang/Object;
+	public static final fun zip (Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Lkotlin/jvm/functions/Function3;)Ljava/lang/Object;
+	public static final fun zip (Ljava/lang/Object;Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
 }
 
 public final class app/cash/quiver/extensions/OptionKt {
