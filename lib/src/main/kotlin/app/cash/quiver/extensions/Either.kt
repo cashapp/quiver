@@ -6,7 +6,11 @@ import arrow.core.Option
 import arrow.core.Some
 import arrow.core.flatMap
 import arrow.core.getOrElse
+import arrow.core.identity
+import arrow.core.right
 import arrow.core.toOption
+import kotlin.experimental.ExperimentalTypeInference
+import app.cash.quiver.extensions.traverse as quiverTraverse
 
 /**
  * Retrieves the Right hand of an Either, or throws the Left hand error
@@ -256,3 +260,25 @@ inline fun <A, B, C, D, E, F, G, H, I, J, K, L> Either<A, B>.zip(
       }
     }
   }
+
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER")
+@OptIn(ExperimentalTypeInference::class)
+@OverloadResolutionByLambdaReturnType
+inline fun <E, A, B> Either<E, A>.traverse(transform: (value: A) -> Iterable<B>): List<Either<E, B>> =
+  when (this) {
+    is Either.Left -> listOf(this)
+    is Either.Right -> transform(value).map { it.right() }
+  }
+
+fun <E, A> Either<E, Iterable<A>>.sequence(): List<Either<E, A>> = quiverTraverse(::identity)
+
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER")
+@OptIn(ExperimentalTypeInference::class)
+@OverloadResolutionByLambdaReturnType
+inline fun <E, A, B> Either<E, A>.traverse(transform: (value: A) -> Option<B>): Option<Either<E, B>> =
+  when (this) {
+    is Either.Left -> Some(this)
+    is Either.Right -> transform(value).map { it.right() }
+  }
+
+fun <E, A> Either<E, Option<A>>.sequence(): Option<Either<E, A>> = quiverTraverse(::identity)

@@ -16,7 +16,11 @@ import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
 import io.kotest.property.arrow.core.either
 import io.kotest.property.checkAll
+import io.kotest.property.arbitrary.list
+import io.kotest.property.arrow.core.option
 import org.junit.jupiter.api.assertThrows
+import app.cash.quiver.extensions.traverse as quiverTraverse
+import app.cash.quiver.extensions.sequence as quiverSequence
 
 class EitherTest : StringSpec({
   "orThrow returns expected result" {
@@ -114,6 +118,48 @@ class EitherTest : StringSpec({
         ?: listOf(a, b, c, d, e, f, g, h, i, j).mapNotNull { it.getOrNull() }.sum().right()
 
       res shouldBe expected
+    }
+  }
+  "traverse should return transformed list of Right when Right" {
+    checkAll(Arb.int(), Arb.list(Arb.int())) { a, bs ->
+      Either.Right(a).quiverTraverse { bs } shouldBe bs.map { it.right() }
+    }
+  }
+  "singleton list when Left" {
+    checkAll(Arb.int(), Arb.list(Arb.int())) { a, bs ->
+      Either.Left(a).quiverTraverse { bs } shouldBe listOf(Either.Left(a))
+    }
+  }
+  "sequence should return list of Right when all are Right in list" {
+    checkAll(Arb.list(Arb.int())) { bs ->
+      bs.right().quiverSequence() shouldBe bs.map { it.right() }
+    }
+  }
+  "sequence should return first left" {
+    checkAll(Arb.int()) { a ->
+      val aa: Either<Int, List<String>> = a.left()
+      aa.quiverSequence() shouldBe listOf(a.left())
+    }
+  }
+  "traverse should return transformed option as Right when Right" {
+    checkAll(Arb.int(), Arb.option(Arb.int())) { a, option ->
+      Either.Right(a).quiverTraverse { option } shouldBe option.map { it.right() }
+    }
+  }
+  "option of Left when Left" {
+    checkAll(Arb.int(), Arb.option(Arb.int())) { a, option ->
+      Either.Left(a).quiverTraverse { option } shouldBe Some(Either.Left(a))
+    }
+  }
+  "sequence should return list of Some when all are Some in list" {
+    checkAll(Arb.option(Arb.int())) { a ->
+      a.right().quiverSequence() shouldBe a.map { it.right() }
+    }
+  }
+  "sequence should return first None" {
+    checkAll(Arb.int()) { a ->
+      val aa: Either<Int, Option<String>> = a.left()
+      aa.quiverSequence() shouldBe a.left().some()
     }
   }
 })
