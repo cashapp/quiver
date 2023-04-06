@@ -1,6 +1,19 @@
 Change Log
 ==========
 
+Next Release
+----------------------------
+**New**
+* Add Either.traverse <Simon Vergauwen>
+* Either, Nullable & Ior zip <Simon Vergauwen>
+* Adds validateNotNull extension function on nullable values <Hugo Müller-Downing>
+
+**Fixes**
+* Fix outcome traverse <Simon Vergauwen>
+* Fix nested nullable issue <Simon Vergauwen>
+* Fix nested null bug (#22) <Simon Vergauwen>
+
+
 Version 0.1.0 *(2023-03-06)*
 ----------------------------
 
