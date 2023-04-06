@@ -3,6 +3,10 @@ Change Log
 
 Next Release
 ----------------------------
+
+Version 0.2.0 *(2023-04-06)*
+----------------------------
+
 **New**
 * Add Either.traverse <Simon Vergauwen>
 * Either, Nullable & Ior zip <Simon Vergauwen>
