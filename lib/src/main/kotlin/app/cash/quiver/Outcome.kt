@@ -273,14 +273,14 @@ inline fun <E, A, EE> Outcome<E, A>.mapFailure(f: (E) -> EE): Outcome<EE, A> = w
 }
 
 fun <E, A> Outcome<E, Iterable<A>>.sequence(): List<Outcome<E, A>> = when (this) {
-  Absent,
-  is Failure -> emptyList()
+  Absent -> listOf(Absent)
+  is Failure -> listOf(this)
   is Present -> this.value.map(::Present)
 }
 
 fun <E, A> Outcome<E, Option<A>>.sequence(): Option<Outcome<E, A>> = when (this) {
-  Absent,
-  is Failure -> None
+  Absent -> Some(Absent)
+  is Failure -> Some(this)
   is Present -> this.value.map(::Present)
 }
 
