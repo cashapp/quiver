@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package app.cash.quiver.continuations
 
 import arrow.core.Either

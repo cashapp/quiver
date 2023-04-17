@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package app.cash.quiver
 
 import arrow.core.Either
@@ -71,8 +73,8 @@ sealed class Outcome<out E, out A> constructor(val inner: Either<E, Option<A>>) 
    */
   inline fun <B> tap(f: (A) -> B): Outcome<E, A> = map { a -> f(a); a }
 
-  fun isPresent(): Boolean = inner.fold({ false }) { it.isDefined() }
-  fun isAbsent(): Boolean = inner.fold({ false }) { it.isEmpty() }
+  fun isPresent(): Boolean = inner.fold({ false }) { it.isSome() }
+  fun isAbsent(): Boolean = inner.fold({ false }) { it.isNone() }
   fun isFailure(): Boolean = inner.isLeft()
 
   companion object {
