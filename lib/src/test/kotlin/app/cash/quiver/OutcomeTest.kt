@@ -1,5 +1,10 @@
 package app.cash.quiver
 
+import app.cash.quiver.arb.outcome
+import app.cash.quiver.continuations.outcome
+import app.cash.quiver.matchers.shouldBeAbsent
+import app.cash.quiver.matchers.shouldBeFailure
+import app.cash.quiver.matchers.shouldBePresent
 import arrow.core.Either
 import arrow.core.None
 import arrow.core.Option
@@ -10,11 +15,6 @@ import arrow.core.left
 import arrow.core.right
 import arrow.core.some
 import arrow.core.valid
-import app.cash.quiver.arb.outcome
-import app.cash.quiver.continuations.outcome
-import app.cash.quiver.matchers.shouldBeAbsent
-import app.cash.quiver.matchers.shouldBeFailure
-import app.cash.quiver.matchers.shouldBePresent
 import io.kotest.assertions.arrow.core.shouldBeInvalid
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeNone
@@ -32,7 +32,6 @@ import io.kotest.property.checkAll
 import kotlinx.coroutines.coroutineScope
 
 class OutcomeTest : StringSpec({
-
   "Present flatMap" {
     Present("hi").flatMap { Present("$it world") }.shouldBePresent().shouldBe("hi world")
   }
@@ -54,6 +53,12 @@ class OutcomeTest : StringSpec({
 
   "Absent flatMap error" {
     Absent.flatMap { Failure("bad") }.shouldBeAbsent()
+  }
+
+  "Absent shouldBePresent throws" {
+    shouldThrow<AssertionError> {
+      Absent.map { "nothing" }.shouldBePresent()
+    }.message shouldBe "Expecting Present, got Absent"
   }
 
   "Present map" {
