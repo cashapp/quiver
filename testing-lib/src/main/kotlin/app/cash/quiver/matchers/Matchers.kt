@@ -13,7 +13,7 @@ fun <A, B> Outcome<A, B>.shouldBePresent(failureMessage: (A) -> String = { "Expe
     returns() implies (this@shouldBePresent is Present<B>)
   }
   return when (this) {
-    Absent -> throw AssertionError({ "Expecting Present, got absent" })
+    Absent -> throw AssertionError("Expecting Present, got Absent")
     is Failure -> throw AssertionError(failureMessage(error))
     is Present -> value
   }
