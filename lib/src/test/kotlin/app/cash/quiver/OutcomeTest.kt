@@ -2,6 +2,10 @@
 
 package app.cash.quiver
 
+import app.cash.quiver.arb.outcome
+import app.cash.quiver.matchers.shouldBeAbsent
+import app.cash.quiver.matchers.shouldBeFailure
+import app.cash.quiver.matchers.shouldBePresent
 import arrow.core.Either
 import arrow.core.None
 import arrow.core.Option
@@ -12,12 +16,7 @@ import arrow.core.left
 import arrow.core.right
 import arrow.core.some
 import arrow.core.valid
-import app.cash.quiver.arb.outcome
 import app.cash.quiver.continuations.outcome
-import app.cash.quiver.extensions.toEither
-import app.cash.quiver.matchers.shouldBeAbsent
-import app.cash.quiver.matchers.shouldBeFailure
-import app.cash.quiver.matchers.shouldBePresent
 import io.kotest.assertions.arrow.core.shouldBeInvalid
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeNone
@@ -39,7 +38,6 @@ import io.kotest.property.checkAll
 import kotlinx.coroutines.coroutineScope
 
 class OutcomeTest : StringSpec({
-
   "Present flatMap" {
     Present("hi").flatMap { Present("$it world") }.shouldBePresent().shouldBe("hi world")
   }
@@ -61,6 +59,12 @@ class OutcomeTest : StringSpec({
 
   "Absent flatMap error" {
     Absent.flatMap { Failure("bad") }.shouldBeAbsent()
+  }
+
+  "Absent shouldBePresent throws" {
+    shouldThrow<AssertionError> {
+      Absent.map { "nothing" }.shouldBePresent()
+    }.message shouldBe "Expecting Present, got Absent"
   }
 
   "Present map" {
@@ -431,7 +435,7 @@ class OutcomeTest : StringSpec({
     "bad".failure().filter(::lessThan5).shouldBeFailure().shouldBe("bad")
   }
   "raise - Outcome bind identity" {
-    checkAll(Arb.outcome(Arb.string(), Arb.int())) {original ->
+    checkAll(Arb.outcome(Arb.string(), Arb.int())) { original ->
       app.cash.quiver.raise.outcome {
         val a = original.bind()
         a
@@ -439,7 +443,7 @@ class OutcomeTest : StringSpec({
     }
   }
   "raise - Either bind identity" {
-    checkAll(Arb.either(Arb.string(), Arb.int())) {original ->
+    checkAll(Arb.either(Arb.string(), Arb.int())) { original ->
       app.cash.quiver.raise.outcome {
         val a = original.bind()
         a
@@ -447,7 +451,7 @@ class OutcomeTest : StringSpec({
     }
   }
   "raise - Option bind identity" {
-    checkAll(Arb.option(Arb.int())) {original ->
+    checkAll(Arb.option(Arb.int())) { original ->
       app.cash.quiver.raise.outcome<String, Int> {
         val a = original.bind()
         a
