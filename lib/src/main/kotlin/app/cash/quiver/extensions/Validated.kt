@@ -1,3 +1,5 @@
+@file:Suppress("TYPEALIAS_EXPANSION_DEPRECATION", "DEPRECATION")
+
 package app.cash.quiver.extensions
 
 import arrow.core.Either

@@ -1,7 +1,8 @@
+@file:Suppress("DEPRECATION")
+
 package app.cash.quiver
 
 import app.cash.quiver.arb.outcome
-import app.cash.quiver.continuations.outcome
 import app.cash.quiver.matchers.shouldBeAbsent
 import app.cash.quiver.matchers.shouldBeFailure
 import app.cash.quiver.matchers.shouldBePresent
@@ -15,19 +16,24 @@ import arrow.core.left
 import arrow.core.right
 import arrow.core.some
 import arrow.core.valid
+import app.cash.quiver.continuations.outcome
 import io.kotest.assertions.arrow.core.shouldBeInvalid
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeNone
 import io.kotest.assertions.arrow.core.shouldBeRight
 import io.kotest.assertions.arrow.core.shouldBeSome
 import io.kotest.assertions.arrow.core.shouldBeValid
+import io.kotest.assertions.fail
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.common.runBlocking
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
+import io.kotest.property.arbitrary.long
 import io.kotest.property.arbitrary.string
+import io.kotest.property.arrow.core.either
+import io.kotest.property.arrow.core.option
 import io.kotest.property.checkAll
 import kotlinx.coroutines.coroutineScope
 
@@ -427,5 +433,43 @@ class OutcomeTest : StringSpec({
     5.present().filter(::lessThan5).shouldBeAbsent()
     Absent.filter(::lessThan5).shouldBeAbsent()
     "bad".failure().filter(::lessThan5).shouldBeFailure().shouldBe("bad")
+  }
+  "raise - Outcome bind identity" {
+    checkAll(Arb.outcome(Arb.string(), Arb.int())) { original ->
+      app.cash.quiver.raise.outcome {
+        val a = original.bind()
+        a
+      }.shouldBe(original)
+    }
+  }
+  "raise - Either bind identity" {
+    checkAll(Arb.either(Arb.string(), Arb.int())) { original ->
+      app.cash.quiver.raise.outcome {
+        val a = original.bind()
+        a
+      }.shouldBe(original.asOutcome())
+    }
+  }
+  "raise - Option bind identity" {
+    checkAll(Arb.option(Arb.int())) { original ->
+      app.cash.quiver.raise.outcome<String, Int> {
+        val a = original.bind()
+        a
+      }.shouldBe(original.toOutcome())
+    }
+  }
+  "recover ignores Present and Absent" {
+    checkAll(Arb.outcome(Arb.string(), Arb.int())) { fallback ->
+      1.present().recover { fallback.bind() }.shouldBePresent().shouldBe(1)
+      val absent: Outcome<String, Int> = Absent
+      absent.recover { fallback.bind() }.shouldBeAbsent()
+    }
+  }
+  "recover can recover from Failure" {
+    checkAll(Arb.either(Arb.long(), Arb.int())) { either ->
+      val x: Outcome<String, Int> = "failure".failure()
+      x.recover { either.bind() }
+        .asEither { fail("Cannot be absent") }.shouldBe(either)
+    }
   }
 })

@@ -15,7 +15,7 @@ buildscript {
 dependencies {
   implementation(kotlin("reflect"))
   implementation(libs.arrowCore)
-  implementation(libs.arrowFxCoroutines)
+  implementation(libs.arrowResilience)
 
   testImplementation(project(":testing-lib"))
   testImplementation(libs.junitApi)

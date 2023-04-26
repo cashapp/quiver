@@ -1,11 +1,9 @@
 package app.cash.quiver.extensions
 
 import arrow.core.Either
-import arrow.core.flatMap
-import arrow.core.flatten
-import arrow.core.identity
-import arrow.fx.coroutines.Schedule
+import arrow.resilience.Schedule
 import java.time.Duration
+import kotlin.time.toKotlinDuration
 
 /**
  * Map on this suspended supplier with a suspended function.
@@ -68,11 +66,11 @@ private suspend fun <T> withRetries(
   f: suspend () -> ErrorOr<T>,
 ): ErrorOr<T> {
   val baseSchedule =
-    if (exponentialBackoff) Schedule.exponential(delay.toNanos().toDouble())
-    else Schedule.spaced<ErrorOr<T>>(delay.toNanos().toDouble())
+    if (exponentialBackoff) Schedule.exponential(delay.toKotlinDuration())
+    else Schedule.spaced<ErrorOr<T>>(delay.toKotlinDuration())
   val schedule = baseSchedule
-    .untilInput<ErrorOr<T>> { until(it) }
-    .and(Schedule.recurs(additionalTimes))
+    .doUntil { input, _ -> until(input) }
+    .and(Schedule.recurs(additionalTimes.toLong()))
     .zipRight(Schedule.identity()).let {
       if (jitter) it.jittered() else it
     }

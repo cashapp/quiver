@@ -1,19 +1,17 @@
+@file:Suppress("TYPEALIAS_EXPANSION_DEPRECATION", "DEPRECATION")
+
 package app.cash.quiver.extensions
 
 import arrow.core.Option
-import arrow.core.Some
 import arrow.core.ValidatedNel
 import arrow.core.nonEmptyListOf
 
 /**
  * Takes a function to run if your Option is None. Returns Unit if your Option is Some.
  */
-inline fun <T> Option<T>.ifAbsent(f: () -> Unit): Unit =
-  if (this.isEmpty()) {
-    f()
-  } else {
-    Unit
-  }
+inline fun <T> Option<T>.ifAbsent(f: () -> Unit): Unit {
+  onNone { f() }
+}
 
 /**
  * Turns your Option into a Validated list of T if it's a Some.
@@ -25,9 +23,8 @@ inline fun <T, E> Option<T>.toValidatedNel(error: () -> E): ValidatedNel<E, T> =
 /**
  * Runs a side effect if the option is a Some
  */
-inline fun <A> Option<A>.forEach(f: (A) -> Unit) = when (this) {
-  is Some -> f(value)
-  else -> Unit
+inline fun <A> Option<A>.forEach(f: (A) -> Unit) {
+  onSome { f(it) }
 }
 
 /**

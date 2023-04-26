@@ -193,28 +193,28 @@ inline fun <A, B, C, D, E, F, G, H, I, J, K, L> Ior<A, B>.zip(
   transform: (B, C, D, E, F, G, H, I, J, K) -> L
 ): Ior<A, L> {
   val right: Option<L> = if (
-    (this@zip.isRight || this@zip.isBoth) &&
-    (c.isRight || c.isBoth) &&
-    (d.isRight || d.isBoth) &&
-    (e.isRight || e.isBoth) &&
-    (f.isRight || f.isBoth) &&
-    (g.isRight || g.isBoth) &&
-    (h.isRight || h.isBoth) &&
-    (i.isRight || i.isBoth) &&
-    (j.isRight || j.isBoth) &&
-    (k.isRight || k.isBoth)
+    (this@zip.isRight() || this@zip.isBoth()) &&
+    (c.isRight() || c.isBoth()) &&
+    (d.isRight() || d.isBoth()) &&
+    (e.isRight() || e.isBoth()) &&
+    (f.isRight() || f.isBoth()) &&
+    (g.isRight() || g.isBoth()) &&
+    (h.isRight() || h.isBoth()) &&
+    (i.isRight() || i.isBoth()) &&
+    (j.isRight() || j.isBoth()) &&
+    (k.isRight() || k.isBoth())
   ) {
     transform(
-      this@zip.orNull() as B,
-      c.orNull() as C,
-      d.orNull() as D,
-      e.orNull() as E,
-      f.orNull() as F,
-      g.orNull() as G,
-      h.orNull() as H,
-      i.orNull() as I,
-      j.orNull() as J,
-      k.orNull() as K
+      this@zip.getOrNull() as B,
+      c.getOrNull() as C,
+      d.getOrNull() as D,
+      e.getOrNull() as E,
+      f.getOrNull() as F,
+      g.getOrNull() as G,
+      h.getOrNull() as H,
+      i.getOrNull() as I,
+      j.getOrNull() as J,
+      k.getOrNull() as K
     ).some()
   } else None
 

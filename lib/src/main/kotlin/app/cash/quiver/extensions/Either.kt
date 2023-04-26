@@ -1,5 +1,6 @@
 package app.cash.quiver.extensions
 
+import app.cash.quiver.raise.outcome
 import arrow.core.Either
 import arrow.core.None
 import arrow.core.Option
@@ -55,25 +56,21 @@ fun <E, A> Either<E, A>.leftAsOption(): Option<E> = when (this) {
  * Pass the left value to the function (e.g. for logging errors)
  */
 @Suppress("EXTENSION_SHADOWED_BY_MEMBER")
-inline fun <A, B> Either<A, B>.tapLeft(f: (A) -> Unit): Either<A, B> = this.mapLeft {
-  f(it)
-  it
-}
+inline fun <A, B> Either<A, B>.tapLeft(f: (A) -> Unit): Either<A, B> =
+  onLeft { f(it) }
 
 /**
  * Performs an effect on the right side of the Either.
  */
-inline fun <A, B> Either<A, B>.forEach(f: (B) -> Unit): Unit = when (this) {
-  is Either.Left -> Unit
-  is Either.Right -> f(this.value)
+inline fun <A, B> Either<A, B>.forEach(f: (B) -> Unit): Unit {
+  onRight { f(it) }
 }
 
 /**
  * Performs an effect on the left side of the Either.
  */
-inline fun <A, B> Either<A, B>.leftForEach(f: (A) -> Unit): Unit = when (this) {
-  is Either.Left -> f(this.value)
-  is Either.Right -> Unit
+inline fun <A, B> Either<A, B>.leftForEach(f: (A) -> Unit): Unit {
+  onLeft { f(it) }
 }
 
 /**
@@ -93,7 +90,8 @@ inline fun <A, B> B?.toEither(left: () -> A): Either<A, B> = this.toOption().toE
 /**
  * Map on a nested Either Option type.
  */
-inline fun <E, T, V> Either<E, Option<T>>.mapOption(f: (T) -> V): Either<E, Option<V>> = this.map { it.map(f) }
+inline fun <E, T, V> Either<E, Option<T>>.mapOption(f: (T) -> V): Either<E, Option<V>> =
+  outcome { f(bind().bind()) }.inner
 
 /**
  * Map right to Unit. This restores `.void()` which was deprecated by Arrow.

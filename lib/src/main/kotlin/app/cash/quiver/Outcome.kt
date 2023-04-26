@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package app.cash.quiver
 
 import arrow.core.Either
@@ -8,7 +10,6 @@ import arrow.core.Option
 import arrow.core.Some
 import arrow.core.Validated
 import arrow.core.flatMap
-import arrow.core.flatten
 import arrow.core.getOrElse
 import arrow.core.identity
 import arrow.core.left
@@ -16,6 +17,9 @@ import arrow.core.right
 import arrow.core.some
 import arrow.core.valid
 import app.cash.quiver.extensions.orThrow
+import app.cash.quiver.raise.OutcomeRaise
+import app.cash.quiver.raise.outcome
+import arrow.core.raise.catch
 import kotlin.experimental.ExperimentalTypeInference
 
 /**
@@ -69,8 +73,8 @@ sealed class Outcome<out E, out A> constructor(val inner: Either<E, Option<A>>) 
    */
   inline fun <B> tap(f: (A) -> B): Outcome<E, A> = map { a -> f(a); a }
 
-  fun isPresent(): Boolean = inner.fold({ false }) { it.isDefined() }
-  fun isAbsent(): Boolean = inner.fold({ false }) { it.isEmpty() }
+  fun isPresent(): Boolean = inner.fold({ false }) { it.isSome() }
+  fun isAbsent(): Boolean = inner.fold({ false }) { it.isNone() }
   fun isFailure(): Boolean = inner.isLeft()
 
   companion object {
@@ -78,7 +82,8 @@ sealed class Outcome<out E, out A> constructor(val inner: Either<E, Option<A>>) 
      * Catches any exceptions thrown by the function and lifts the result into an Outcome.  If your function
      * returns an option use `catchOption` instead
      */
-    inline fun <R> catch(f: () -> R): Outcome<Throwable, R> = Either.catch(f).map(::Some).toOutcome()
+    inline fun <R> catch(f: () -> R): Outcome<Throwable, R> =
+      catch({ f().present() }) { it.failure() }
 
     /**
      * Catches any exceptions thrown by the function and lifts the result into an Outcome.  The Optional
@@ -129,14 +134,10 @@ fun <E> E.failure(): Outcome<E, Nothing> = Failure(this)
  * ```
  */
 inline fun <A, E, B> Outcome<E, A>.flatMap(f: (A) -> Outcome<E, B>): Outcome<E, B> =
-  this.inner.flatMap {
-    it.traverse { b ->
-      f(b).inner
-    }.map { option -> option.flatten() }
-  }.toOutcome()
+  outcome { f(bind()).bind() }
 
-inline fun <A, E>Outcome<E, A>.filter(p: (A) -> Boolean): Outcome<E, A> = flatMap {
-  if (p(it)) it.present() else Absent
+inline fun <A, E> Outcome<E, A>.filter(p: (A) -> Boolean): Outcome<E, A> = outcome {
+  bind().also { a -> ensure(p(a)) }
 }
 
 /**
@@ -196,10 +197,9 @@ inline fun <E, A, B, C, D, EE, F> Outcome<E, A>.zip(
   o3: Outcome<E, D>,
   o4: Outcome<E, EE>,
   crossinline f: (A, B, C, D, EE) -> F
-): Outcome<E, F> =
-  this.zip(o1, o2, o3) { a, b, c, d ->
-    o4.map { e -> f(a, b, c, d, e) }
-  }.flatten()
+): Outcome<E, F> = outcome {
+  f(bind(), o1.bind(), o2.bind(), o3.bind(), o4.bind())
+}
 
 /**
  * An extension method on Either<E, Option<A>> that converts it to an Outcome<E, A>.
@@ -260,6 +260,14 @@ inline fun <E, A> Outcome<E, A>.onFailureHandle(onFailure: (E) -> Outcome<E, A>)
     is Present -> this
   }
 
+@OptIn(ExperimentalTypeInference::class)
+inline fun <E, A, EE> Outcome<E, A>.recover(@BuilderInference block: OutcomeRaise<EE>.(E) -> A): Outcome<EE, A> =
+  when(this) {
+    Absent -> Absent
+    is Failure -> outcome { block(error) }
+    is Present -> this
+  }
+
 inline fun <E, A, EE> Outcome<E, A>.mapFailure(f: (E) -> EE): Outcome<EE, A> = when (this) {
   Absent -> Absent
   is Failure -> f(this.error).failure()
@@ -290,9 +298,8 @@ fun <E, EE, A> Outcome<E, Validated<EE, A>>.sequence(): Validated<EE, Outcome<E,
   is Present -> this.value.map(::Present)
 }
 
-fun <E, A> Iterable<Outcome<E, A>>.sequence(): Outcome<E, List<A>> = this.fold(Present(emptyList())) { acc, e ->
-  acc.zip(e) { a1, a2 -> a1 + a2 }
-}
+fun <E, A> Iterable<Outcome<E, A>>.sequence(): Outcome<E, List<A>> =
+  outcome { map { it.bind() } }
 
 inline fun <E, A, B> Outcome<E, A>.traverse(f: (A) -> List<B>): List<Outcome<E, B>> = this.map(f).sequence()
 inline fun <E, A, B> Outcome<E, A>.traverse(f: (A) -> Option<B>): Option<Outcome<E, B>> = this.map(f).sequence()
