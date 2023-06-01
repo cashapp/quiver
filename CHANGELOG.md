@@ -4,6 +4,10 @@ Change Log
 Next Release
 ----------------------------
 
+**New**
+* Add `kotlin.Result.toEither()` <Jem Mawson>
+
+
 Version 0.2.0 *(2023-04-06)*
 ----------------------------
 

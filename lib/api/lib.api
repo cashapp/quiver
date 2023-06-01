@@ -238,6 +238,10 @@ public final class app/cash/quiver/extensions/OptionKt {
 	public static final fun unit (Larrow/core/Option;)Larrow/core/Option;
 }
 
+public final class app/cash/quiver/extensions/ResultKt {
+	public static final fun toEither (Ljava/lang/Object;)Larrow/core/Either;
+}
+
 public final class app/cash/quiver/extensions/SuspendedFunctionKt {
 	public static final fun map (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lkotlin/jvm/functions/Function1;
 	public static final fun map (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;)Lkotlin/jvm/functions/Function2;
