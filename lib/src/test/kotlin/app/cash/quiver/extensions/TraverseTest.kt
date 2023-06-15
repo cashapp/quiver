@@ -6,27 +6,27 @@ import io.kotest.assertions.arrow.core.shouldBeRight
 import io.kotest.core.spec.style.StringSpec
 
 class TraverseTest : StringSpec({
-  "traverse a list of integer to an either of a list of string" {
+  "traverse a list of integers returns a Right of the list of mapped strings" {
     val result = listOf(1, 2, 3).traverse { Either.Right(it.toString()) }
     result shouldBeRight listOf("1", "2", "3")
   }
 
-  "traverse a set of integer to an either of a list of string" {
+  "traverse a set of integers returns a Right of the list of mapped strings" {
     val result = setOf(1, 2, 3).traverse { Either.Right(it.toString()) }
     result shouldBeRight listOf("1", "2", "3")
   }
 
-  "traverse an empty list returns an empty list" {
-    val result: Either<Nothing, List<Int>> = emptyList<Int>().traverse { Either.Right(it) }
+  "traverse an empty list returns a Right of an empty list" {
+    val result = emptyList<Int>().traverse { Either.Right(it) }
     result shouldBeRight emptyList()
   }
 
-  "fail to traverse a list of integer returns error" {
+  "traverse a list of integers returns a left of an error" {
     val result = listOf(1, 2, 3).traverse { Either.Left("error") }
     result shouldBeLeft "error"
   }
 
-  "traverse return the integer itself when it does not meet the condition ( int < 3  )" {
+  "the left returned is the first left returned by the function as it maps over the iterable" {
     val result = listOf(1, 2, 4, 6, 7).traverse {
       if (it < 3) Either.Right(it) else Either.Left(it)
     }

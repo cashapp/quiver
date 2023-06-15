@@ -22,5 +22,9 @@ fun <A> listOfSome(vararg elements: Option<A>): List<A> = elements.toList().filt
 inline fun <A, B> List<A>.mapNotNone(f: (A) -> Option<B>): List<B> =
   this.flatMap { f(it).fold(::emptyList, ::listOf) }
 
+/**
+ * Returns an Either of a list of B results of applying the given transform function
+ * to each element(A) in the original collection.
+ */
 inline fun <E, A, B> Iterable<A>.traverse(f: (A) -> Either<E, B>): Either<E, List<B>> =
   let { l -> either { l.map { f(it).bind() } } }
