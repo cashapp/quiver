@@ -204,6 +204,10 @@ public final class app/cash/quiver/extensions/IorKt {
 	public static final fun zip (Larrow/core/Ior;Lkotlin/jvm/functions/Function2;Larrow/core/Ior;Lkotlin/jvm/functions/Function2;)Larrow/core/Ior;
 }
 
+public final class app/cash/quiver/extensions/IterableKt {
+	public static final fun traverse (Ljava/lang/Iterable;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
+}
+
 public final class app/cash/quiver/extensions/ListKt {
 	public static final fun filterNotNone (Ljava/util/List;)Ljava/util/List;
 	public static final fun listOfSome ([Larrow/core/Option;)Ljava/util/List;
