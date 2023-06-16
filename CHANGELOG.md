@@ -4,24 +4,28 @@ Change Log
 Next Release
 ----------------------------
 
+
+Version 0.3.0 *(2023-06-16)*
+----------------------------
+
 **New**
-* Add `kotlin.Result.toEither()` - [Jem Mawson][synesso]
+* Add `kotlin.Result.toEither()` <Jem Mawson>
 
 **Fixes**
-* Fixes assertion error thrown when Outcome is Absent - [Hugo Müller-Downing][hugomd]
+* Adds validateNotNull extension function on nullable values <Hugo Müller-Downing>
 
 Version 0.2.0 *(2023-04-06)*
 ----------------------------
 
 **New**
-* Add Either.traverse - [Simon Vergauwen][nomisRev]
-* Either, Nullable & Ior zip - [Simon Vergauwen][nomisRev]
-* Adds validateNotNull extension function on nullable values - [Hugo Müller-Downing][hugomd]
+* Add Either.traverse <Simon Vergauwen>
+* Either, Nullable & Ior zip <Simon Vergauwen>
+* Adds validateNotNull extension function on nullable values <Hugo Müller-Downing>
 
 **Fixes**
-* Fix outcome traverse - [Simon Vergauwen][nomisRev]
-* Fix nested nullable issue - [Simon Vergauwen][nomisRev]
-* Fix nested null bug (#22) - [Simon Vergauwen][nomisRev]
+* Fix outcome traverse <Simon Vergauwen>
+* Fix nested nullable issue <Simon Vergauwen>
+* Fix nested null bug (#22) <Simon Vergauwen>
 
 
 Version 0.1.0 *(2023-03-06)*
