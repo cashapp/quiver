@@ -4,9 +4,15 @@ Change Log
 Next Release
 ----------------------------
 
+
+Version 0.3.0 *(2023-06-16)*
+----------------------------
+
 **New**
 * Add `kotlin.Result.toEither()` <Jem Mawson>
 
+**Fixes**
+* Adds validateNotNull extension function on nullable values <Hugo Müller-Downing>
 
 Version 0.2.0 *(2023-04-06)*
 ----------------------------
