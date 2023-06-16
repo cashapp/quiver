@@ -3,7 +3,7 @@
 <img src="doc-images/quiver-logo-02.svg" class="dark-image">
 <img src="doc-images/quiver-logo-01.svg" class="light-image">
 
-Quiver is a library that builds upon [Arrow](https://arrow-kt.io/) to make functional programming in Kotlin even
+[Quiver](https://github.com/cashapp/quiver/) is a library that builds upon [Arrow](https://arrow-kt.io/) to make functional programming in Kotlin even
 more accessible & delightful.
 
 This module contains types and functions to provide additional functional programming idioms over and above what is 
@@ -27,3 +27,4 @@ outcome {
 
 # Package app.cash.quiver.extensions
 Extensions of built-in types (e.g. `Either`, `Option`, etc)
+
