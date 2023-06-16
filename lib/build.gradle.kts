@@ -41,6 +41,7 @@ tasks.withType<DokkaTask>().configureEach {
   dependsOn("copyDocumentationImages")
   pluginConfiguration<org.jetbrains.dokka.base.DokkaBase, DokkaBaseConfiguration> {
     customStyleSheets = listOf(file("custom-styles.css"))
+    templatesDir = file("dokka/templates")
   }
 
   dokkaSourceSets {
