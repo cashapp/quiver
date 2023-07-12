@@ -4,6 +4,8 @@ Change Log
 Next Release
 ----------------------------
 
+**Updates**
+* Bumped Arrow to v1.2.0 from v1.2.0-RC <Jem Mawson>
 
 Version 0.3.0 *(2023-06-16)*
 ----------------------------
