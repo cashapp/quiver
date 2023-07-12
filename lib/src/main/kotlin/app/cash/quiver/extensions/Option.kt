@@ -2,7 +2,9 @@
 
 package app.cash.quiver.extensions
 
+import arrow.core.None
 import arrow.core.Option
+import arrow.core.Some
 import arrow.core.ValidatedNel
 import arrow.core.nonEmptyListOf
 
@@ -31,3 +33,11 @@ inline fun <A> Option<A>.forEach(f: (A) -> Unit) {
  * Map some to Unit. This restores `.void()` which was deprecated by Arrow.
  */
 fun <A> Option<A>.unit() = map { }
+
+/**
+ * Returns `this` if it's a Some, otherwise returns the `other` instance
+ */
+infix fun <T> Option<T>.or(other: Option<T>): Option<T> = when (this) {
+  is Some -> this
+  is None -> other
+}

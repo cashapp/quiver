@@ -235,6 +235,7 @@ public final class app/cash/quiver/extensions/Nullable {
 public final class app/cash/quiver/extensions/OptionKt {
 	public static final fun forEach (Larrow/core/Option;Lkotlin/jvm/functions/Function1;)V
 	public static final fun ifAbsent (Larrow/core/Option;Lkotlin/jvm/functions/Function0;)V
+	public static final fun or (Larrow/core/Option;Larrow/core/Option;)Larrow/core/Option;
 	public static final fun toValidatedNel (Larrow/core/Option;Lkotlin/jvm/functions/Function0;)Larrow/core/Validated;
 	public static final fun unit (Larrow/core/Option;)Larrow/core/Option;
 }
