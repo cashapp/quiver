@@ -4,6 +4,9 @@ Change Log
 Next Release
 ----------------------------
 
+**New**
+* Add `Option.or(Option)` <Mehdi Mollaverdi>
+
 **Updates**
 * Bumped Arrow to v1.2.0 from v1.2.0-RC <Jem Mawson>
 
