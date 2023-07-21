@@ -5,10 +5,10 @@ kotest = "5.6.2"
 kotestArrow = "1.3.3"
 # @pin
 kotlin = "1.7.22"
-kotlinBinaryCompatibilityPlugin = "0.13.1"
-mavenPublishGradlePlugin = "0.25.2"
-versionCatalogUpdateGradlePlugin = "0.8.0"
-versionsGradlePlugin = "0.46.0"
+kotlinBinaryCompatibilityPlugin = "0.13.2"
+mavenPublishGradlePlugin = "0.25.3"
+versionCatalogUpdateGradlePlugin = "0.8.1"
+versionsGradlePlugin = "0.47.0"
 
 [libraries]
 arrowCore = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
@@ -33,8 +33,8 @@ kotest = [
 ]
 
 [plugins]
-dokka = { id = "org.jetbrains.dokka", version = "1.8.10" }
-dokkaBase = { id = "org.jetbrains.dokka:dokka-base", version = "1.8.10" }
+dokka = "org.jetbrains.dokka:1.8.20"
+dokkaBase = { id = "org.jetbrains.dokka:dokka-base", version = "1.8.20" }
 kotlinBinaryCompatibilityPlugin = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "kotlinBinaryCompatibilityPlugin" }
 kotlinGradlePlugin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 mavenPublishGradlePlugin = { id = "com.vanniktech.maven.publish.base", version.ref = "mavenPublishGradlePlugin" }
