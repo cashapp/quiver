@@ -1,40 +1,39 @@
-Change Log
-==========
+# Change Log
 
-Next Release
-----------------------------
-
-**New**
-* Add `Option.or(Option)` <Mehdi Mollaverdi>
-
-**Updates**
-* Bumped Arrow to v1.2.0 from v1.2.0-RC <Jem Mawson>
-
-Version 0.3.0 *(2023-06-16)*
-----------------------------
-
-**New**
-* Add `kotlin.Result.toEither()` <Jem Mawson>
-
-**Fixes**
-* Adds validateNotNull extension function on nullable values <Hugo Müller-Downing>
-
-Version 0.2.0 *(2023-04-06)*
-----------------------------
-
-**New**
-* Add Either.traverse <Simon Vergauwen>
-* Either, Nullable & Ior zip <Simon Vergauwen>
-* Adds validateNotNull extension function on nullable values <Hugo Müller-Downing>
-
-**Fixes**
-* Fix outcome traverse <Simon Vergauwen>
-* Fix nested nullable issue <Simon Vergauwen>
-* Fix nested null bug (#22) <Simon Vergauwen>
+## [Unreleased]
 
 
-Version 0.1.0 *(2023-03-06)*
-----------------------------
+## [0.4.0] - 2023-07-26
 
-* Add `Option.unit()` and `Either.unit()` to replace the `void()` method deprecated by Arrow.
-* Include `withRetries` method on suspended supplier functions to provide opinionated access to Arrow's `Schedule`.
+### Added
+* `Option.or(Option)` (Mehdi Mollaverdi)
+
+### Changed
+* Bumped Arrow to v1.2.0 from v1.2.0-RC (Jem Mawson)
+
+
+## [0.3.0] - 2023-06-16
+
+### Added
+* `kotlin.Result.toEither()` (Jem Mawson)
+* `validateNotNull` extension function on nullable values (Hugo Müller-Downing)
+
+
+## [0.2.0] - 2023-04-06
+
+### Added
+* Add Either.traverse (Simon Vergauwen)
+* Either, Nullable & Ior zip (Simon Vergauwen)
+* Adds validateNotNull extension function on nullable values (Hugo Müller-Downing)
+
+### Fixed
+* Fix outcome traverse (Simon Vergauwen)
+* Fix nested nullable issue (Simon Vergauwen)
+* Fix nested null bug (#22) (Simon Vergauwen)
+
+
+## [0.1.0] - 2023-03-06
+
+### Added
+* `Option.unit()` and `Either.unit()` to replace the `void()` method deprecated by Arrow.
+* `withRetries` method on suspended supplier functions to provide opinionated access to Arrow's `Schedule`.
