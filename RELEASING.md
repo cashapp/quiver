@@ -62,7 +62,7 @@ Releasing
     gh pr create -f && gh pr merge --auto --squash
     ```
 
-9. [Draft a new release](https://github.com/cashapp/nostrino/releases/new) of `A.B.C` and publish it. Copy release
+9. [Draft a new release](https://github.com/cashapp/quiver/releases/new) of `A.B.C` and publish it. Copy release
    notes added to `CHANGELOG.md` in step 1 into the release description.
 
 ## Troubleshooting
