@@ -5,12 +5,12 @@
 Quiver is a library that builds upon [Arrow](https://arrow-kt.io/) to make functional programming in Kotlin even 
 more accessible & delightful.
 
+[<img src="https://img.shields.io/nexus/r/app.cash.quiver/lib.svg?label=latest%20release&server=https%3A%2F%2Foss.sonatype.org"/>](https://central.sonatype.com/namespace/app.cash.quiver)
+
 Main features include:
 * `Outcome` type for modelling the presence, absence or error state of a value.
 * Extension methods on `Option`, `List`, `Validated` and `Either` for improved error handling, combinators and interoperability with other Arrow and Kotlin types.
 * Extension methods on suspended functions to allow for seemless retries of operations.
-
-[<img src="https://img.shields.io/maven-central/v/app.cash.quiver/lib.svg?label=latest%20release"/>](https://central.sonatype.com/namespace/app.cash.quiver)
 
 There are two published builds.
 
