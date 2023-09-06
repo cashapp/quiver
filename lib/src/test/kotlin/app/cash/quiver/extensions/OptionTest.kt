@@ -1,7 +1,10 @@
 package app.cash.quiver.extensions
 
 import arrow.core.None
+import arrow.core.right
 import arrow.core.some
+import io.kotest.assertions.arrow.core.shouldBeRight
+import io.kotest.assertions.arrow.core.shouldBeSome
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
@@ -29,4 +32,24 @@ class OptionTest : StringSpec({
       None.or(other) shouldBe other
     }
   }
+
+  "traverse returns an either of option" {
+    "apple".some().traverseOp {
+      it.length.right()
+    } shouldBeRight (5.some())
+  }
+
+  "zip returns an optional combination of optional values" {
+    5.some().zipOp("apple".some()) { a: Int, b: String ->
+      b.length * a
+    } shouldBeSome 25
+  }
+
+    "orEmpty returns an empty string if used on a None" {
+      None.orEmpty { "I am an useless string " } shouldBe ""
+    }
+
+    "orEmpty returns the string supplied if value is Some" {
+      "apple".some().orEmpty { "I wanna eat $it" } shouldBe "I wanna eat apple"
+    }
 })
