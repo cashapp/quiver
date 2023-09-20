@@ -6,6 +6,7 @@ import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
 import arrow.core.ValidatedNel
+import arrow.core.getOrElse
 import arrow.core.nonEmptyListOf
 
 /**
@@ -41,3 +42,10 @@ infix fun <T> Option<T>.or(other: Option<T>): Option<T> = when (this) {
   is Some -> this
   is None -> other
 }
+
+/**
+ * Will return an empty string if the Optional value supplied is None
+ */
+fun <T> Option<T>.orEmpty(f: (T) -> String): String = this.map(f).getOrElse { "" }
+
+

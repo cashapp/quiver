@@ -29,4 +29,12 @@ class OptionTest : StringSpec({
       None.or(other) shouldBe other
     }
   }
+
+  "orEmpty returns an empty string if used on a None" {
+    None.orEmpty { "I am an useless string " } shouldBe ""
+  }
+
+  "orEmpty returns the string supplied if value is Some" {
+    "apples".some().orEmpty { "I wanna eat $it" } shouldBe "I wanna eat apples"
+  }
 })
