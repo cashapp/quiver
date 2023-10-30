@@ -21,12 +21,12 @@ class OptionTest : StringSpec({
   }
 
   "or on Some returns the subject" {
-    "orange".some().or("apple".some()) shouldBe "orange".some()
+    "orange".some().or { "apple".some() } shouldBe "orange".some()
   }
 
   "or on None returns the supplied value" {
     checkAll(Arb.option(Arb.string())) { other ->
-      None.or(other) shouldBe other
+      None.or { other } shouldBe other
     }
   }
 
