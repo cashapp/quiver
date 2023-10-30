@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [0.5.0] - 2023-08-26
+
+### Added
+* Lazy version of `or`:`Option.or(() -> Option<T>)` (Chris Myers)
+
+### Changed
+* Deprecated `Option.or(Option)` in favour of `Option.or(() -> Option<T>)` (Chris Myers)
 
 ## [0.4.0] - 2023-07-26
 
