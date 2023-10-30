@@ -38,9 +38,9 @@ fun <A> Option<A>.unit() = map { }
 /**
  * Returns `this` if it's a Some, otherwise returns the `other` instance
  */
-infix fun <T> Option<T>.or(other: Option<T>): Option<T> = when (this) {
+infix fun <T> Option<T>.or(other: () -> Option<T>): Option<T> = when (this) {
   is Some -> this
-  is None -> other
+  is None -> other()
 }
 
 /**
