@@ -21,7 +21,7 @@ class OptionTest : StringSpec({
   }
 
   "or on Some returns the subject" {
-    "orange".some().or{"apple".some()} shouldBe "orange".some()
+    "orange".some().or { "apple".some() } shouldBe "orange".some()
   }
 
   "or on None returns the supplied value" {
