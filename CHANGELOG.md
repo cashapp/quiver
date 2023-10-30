@@ -6,6 +6,8 @@
 
 ### Added
 * Lazy version of `or`:`Option.or(() -> Option<T>)` (Chris Myers)
+* Adds `Option.orEmpty()` (Milly Rowett)
+* Backport traverse functions on NonEmptyList (Andrew Parker)
 
 ### Changed
 * Deprecated `Option.or(Option)` in favour of `Option.or(() -> Option<T>)` (Chris Myers)
