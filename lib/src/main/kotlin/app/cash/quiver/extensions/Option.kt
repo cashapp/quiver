@@ -48,7 +48,7 @@ infix fun <T> Option<T>.or(other: () -> Option<T>): Option<T> = when (this) {
  */
 @Deprecated(
   "Use or(other: () -> Option<T>) instead",
-  ReplaceWith("or(other)")
+  ReplaceWith("or { other }")
 )
 infix fun <T> Option<T>.or(other:  Option<T>): Option<T> = when (this) {
   is Some -> this
