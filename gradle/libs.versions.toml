@@ -3,7 +3,7 @@ arrow = "1.2.1"
 junit = "5.10.0"
 kotest = "5.7.2"
 kotestArrow = "1.4.0"
-dokka = "1.9.0"
+dokka = "1.9.10"
 # @pin
 kotlin = "1.9.0"
 kotlinBinaryCompatibilityPlugin = "0.13.2"
