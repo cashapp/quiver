@@ -1,15 +1,15 @@
 [versions]
 arrow = "1.2.1"
-junit = "5.10.0"
-kotest = "5.7.2"
+junit = "5.10.1"
+kotest = "5.8.0"
 kotestArrow = "1.4.0"
 dokka = "1.9.10"
 # @pin
 kotlin = "1.9.0"
 kotlinBinaryCompatibilityPlugin = "0.13.2"
-mavenPublishGradlePlugin = "0.25.3"
-versionCatalogUpdateGradlePlugin = "0.8.1"
-versionsGradlePlugin = "0.49.0"
+mavenPublishGradlePlugin = "0.27.0"
+versionCatalogUpdateGradlePlugin = "0.8.3"
+versionsGradlePlugin = "0.50.0"
 
 [libraries]
 arrowCore = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
