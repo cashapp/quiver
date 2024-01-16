@@ -12,15 +12,21 @@ permissions:
   id-token: write
 
 jobs:
-  publish-documentation:
+  # Build job
+  build-documentation:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Build html
         run: bin/gradle dokkaHtml --no-daemon --stacktrace
       - name: Upload GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v1.0.7
+        uses: actions/upload-pages-artifact@v2
         with:
           path: lib/build/dokka/html
+  # Publish job
+  publish-documentation:
+    needs: build-documentation
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy GitHub Pages site
-        uses: actions/deploy-pages@v2.0.0
+        uses: actions/deploy-pages@v3
