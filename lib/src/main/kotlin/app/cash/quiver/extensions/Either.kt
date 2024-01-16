@@ -279,4 +279,11 @@ inline fun <E, A, B> Either<E, A>.traverse(transform: (value: A) -> Option<B>): 
     is Either.Right -> transform(value).map { it.right() }
   }
 
+/**
+ * Synonym for traverse((A)-> Option<B>): Option<Either<E, B>>
+ */
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER")
+inline fun <E, A, B> Either<E, A>.traverseOption(transform: (A) -> Option<B>): Option<Either<E, B>> =
+  quiverTraverse(transform)
+
 fun <E, A> Either<E, Option<A>>.sequence(): Option<Either<E, A>> = quiverTraverse(::identity)
