@@ -1,5 +1,6 @@
 package app.cash.quiver.extensions
 
+import app.cash.quiver.extensions.traverse
 import arrow.core.Either
 import arrow.core.None
 import arrow.core.Some
@@ -57,5 +58,14 @@ class OptionTest : StringSpec({
 
   "traverseEither on a Some returns a Right of a Some of the result of the function" {
     Some(42).quiverTraverseEither { Either.Right("$it") } shouldBe Either.Right(Some("42"))
+  }
+
+  "traverse to iterable of Some returns a list of the mapped value" {
+    Some(42).quiverTraverse { listOf("$it") } shouldBe listOf(Some("42"))
+  }
+
+  @Suppress("UNREACHABLE_CODE")
+  "traverse to iterable of None returns an empty list" {
+    None.quiverTraverse { listOf(it) } shouldBe emptyList()
   }
 })
