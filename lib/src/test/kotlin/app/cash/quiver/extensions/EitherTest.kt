@@ -20,6 +20,7 @@ import io.kotest.property.arbitrary.list
 import io.kotest.property.arrow.core.option
 import org.junit.jupiter.api.assertThrows
 import app.cash.quiver.extensions.traverse as quiverTraverse
+import app.cash.quiver.extensions.traverseOption as quiverTraverseOption
 import app.cash.quiver.extensions.sequence as quiverSequence
 
 class EitherTest : StringSpec({
@@ -146,9 +147,19 @@ class EitherTest : StringSpec({
       Either.Right(a).quiverTraverse { option } shouldBe option.map { it.right() }
     }
   }
-  "option of Left when Left" {
+  "traverse should return option of Left when Left" {
     checkAll(Arb.int(), Arb.option(Arb.int())) { a, option ->
       Either.Left(a).quiverTraverse { option } shouldBe Some(Either.Left(a))
+    }
+  }
+  "traverseOption should return transformed option as Right when Right" {
+    checkAll(Arb.int(), Arb.option(Arb.int())) { a, option ->
+      Either.Right(a).quiverTraverseOption { option } shouldBe option.map { it.right() }
+    }
+  }
+  "traverseOption should return Option of Left when Left" {
+    checkAll(Arb.int(), Arb.option(Arb.int())) { a, option ->
+      Either.Left(a).quiverTraverseOption { option } shouldBe Some(Either.Left(a))
     }
   }
   "sequence should return list of Some when all are Some in list" {

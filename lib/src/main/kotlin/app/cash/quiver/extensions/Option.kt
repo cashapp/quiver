@@ -2,12 +2,15 @@
 
 package app.cash.quiver.extensions
 
+import arrow.core.Either
 import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
 import arrow.core.ValidatedNel
 import arrow.core.getOrElse
 import arrow.core.nonEmptyListOf
+import kotlin.experimental.ExperimentalTypeInference
+import app.cash.quiver.extensions.traverse as quiverTraverse
 
 /**
  * Takes a function to run if your Option is None. Returns Unit if your Option is Some.
@@ -60,4 +63,31 @@ infix fun <T> Option<T>.or(other:  Option<T>): Option<T> = when (this) {
  */
 fun <T> Option<T>.orEmpty(f: (T) -> String): String = this.map(f).getOrElse { "" }
 
+/**
+ * Map a function that returns an Either across the Option.
+ *
+ * If the option is a None, return a Right(None).
+ * If the option is a Some, apply f to the value. If f returns a Right, wrap the result in a Some.
+ */
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER")
+inline fun <T, E, U> Option<T>.traverse(f: (T) -> Either<E, U>): Either<E, Option<U>> =
+  fold( { Either.Right(None) }, { a -> f(a).map { Some(it) } })
 
+/**
+ * Synonym for traverse((T)-> Either<E, U>): Either<E, Option<U>>
+ */
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER")
+inline fun <T, E, U> Option<T>.traverseEither(f: (T) -> Either<E, U>): Either<E, Option<U>> =
+  quiverTraverse(f)
+
+/**
+ * Map a function that returns an Iterable across the Option.
+ *
+ * If the option is a None, return an empty List
+ * If the option is a Some, apply f to the value and wrap the result in a Some.
+ */
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER")
+@OptIn(ExperimentalTypeInference::class)
+@OverloadResolutionByLambdaReturnType
+inline fun <A, B> Option<A>.traverse(f: (A) -> Iterable<B>): List<Option<B>> =
+  fold( { emptyList() }, { a -> f(a).map { Some(it) } })
