@@ -1,7 +1,7 @@
 # Change Log
 
 ## [Unreleased]
-* Backport traverse functions on Sequence (Andrew Parker)
+* Backport traverse functions on Sequence, Map (Andrew Parker)
 * Backport traverse functions on Either, Iterable and Option (Andrew Parker)
 
 ## [0.5.0] - 2023-08-26
