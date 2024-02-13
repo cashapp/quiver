@@ -1,15 +1,19 @@
 package app.cash.quiver.extensions
 
+import arrow.core.Either
 import arrow.core.Ior
 import arrow.core.Ior.Both
 import arrow.core.Ior.Left
+import arrow.core.Ior.Right
 import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
 import arrow.core.some
+import kotlin.experimental.ExperimentalTypeInference
+import app.cash.quiver.extensions.traverse as quiverTraverse
 
 @PublishedApi
-internal val unitIor: Ior<Nothing, Unit> = Ior.Right(Unit)
+internal val unitIor: Ior<Nothing, Unit> = Right(Unit)
 
 inline fun <A, B, C, D> Ior<A, B>.zip(
   crossinline combine: (A, A) -> A,
@@ -253,7 +257,7 @@ inline fun <A, B, C, D, E, F, G, H, I, J, K, L> Ior<A, B>.zip(
   return when(right) {
     is Some -> when(left) {
       is Some -> Both(left.value, right.value)
-      is None -> Ior.Right(right.value)
+      is None -> Right(right.value)
     }
     None -> when(left) {
       is Some -> Left(left.value)
@@ -268,3 +272,39 @@ internal inline fun <A> Option<A>.emptyCombine(other: A, combine: (A, A) -> A): 
     is Some -> combine(this.value, other)
     is None -> other
   }
+
+@OptIn(ExperimentalTypeInference::class)
+@OverloadResolutionByLambdaReturnType
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER")
+inline fun <A, B, AA, C> Ior<A, B>.traverse(f: (B) -> Either<AA, C>): Either<AA, Ior<A, C>> =
+  fold(
+    { a -> Either.Right(Left(a)) },
+    { b -> f(b).map { Right(it) } },
+    { a, b -> f(b).map { Both(a, it) } }
+  )
+
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER")
+inline fun <A, B, AA, C> Ior<A, B>.traverseEither(f: (B) -> Either<AA, C>): Either<AA, Ior<A, C>> =
+  quiverTraverse(f)
+
+@OptIn(ExperimentalTypeInference::class)
+@OverloadResolutionByLambdaReturnType
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER")
+inline fun <A, B, C> Ior<A, B>.traverse(f: (B) -> Option<C>): Option<Ior<A, C>> =
+  fold(
+    { a -> Some(Left(a)) },
+    { b -> f(b).map { Right(it) } },
+    { a, b -> f(b).map { Both(a, it) } }
+  )
+
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER")
+inline fun <A, B, C> Ior<A, B>.traverseOption(f: (B) -> Option<C>): Option<Ior<A, C>> =
+  quiverTraverse(f)
+
+@Suppress("EXTENSION_SHADOWED_BY_MEMBER")
+inline fun <A, B, C> Ior<A, B>.traverse(f: (B) -> Iterable<C>): List<Ior<A, C>> =
+  fold(
+    { a -> listOf(Left(a)) },
+    { b -> f(b).map { Right(it) } },
+    { a, b -> f(b).map { Both(a, it) } }
+  )
