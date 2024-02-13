@@ -260,6 +260,13 @@ public final class app/cash/quiver/extensions/ResultKt {
 	public static final fun toEither (Ljava/lang/Object;)Larrow/core/Either;
 }
 
+public final class app/cash/quiver/extensions/SequenceKt {
+	public static final fun traverse (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
+	public static final fun traverse (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;)Larrow/core/Option;
+	public static final fun traverseEither (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
+	public static final fun traverseOption (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;)Larrow/core/Option;
+}
+
 public final class app/cash/quiver/extensions/SuspendedFunctionKt {
 	public static final fun map (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lkotlin/jvm/functions/Function1;
 	public static final fun map (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;)Lkotlin/jvm/functions/Function2;
