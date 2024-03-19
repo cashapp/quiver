@@ -65,11 +65,18 @@ class OptionTest : StringSpec({
     Some(42).quiverTraverse { listOf("$it") } shouldBe listOf(Some("42"))
   }
 
-  "ifPresent runs the given side effect and returns a Unit" {
+  "ifPresent runs the given side effect and returns a Unit for Some" {
     var sideEffectRun = false
     
     Some(42).quiverIfPresent { sideEffectRun = true } shouldBe Unit
     sideEffectRun shouldBe true
+  }
+
+  "ifPresent does not run the given side effect and returns a Unit for None" {
+    var sideEffectRun = false
+
+    None.quiverIfPresent { sideEffectRun = true } shouldBe Unit
+    sideEffectRun shouldBe false
   }
 
   @Suppress("UNREACHABLE_CODE")
