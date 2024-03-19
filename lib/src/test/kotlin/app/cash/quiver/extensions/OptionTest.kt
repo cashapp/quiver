@@ -14,7 +14,7 @@ import io.kotest.property.arrow.core.option
 import io.kotest.property.checkAll
 import app.cash.quiver.extensions.traverse as quiverTraverse
 import app.cash.quiver.extensions.traverseEither as quiverTraverseEither
-import app.cash.quiver.extensions.ifPresent as quiverIfPresent
+import app.cash.quiver.extensions.ifPresent
 
 class OptionTest : StringSpec({
 
@@ -68,14 +68,14 @@ class OptionTest : StringSpec({
   "ifPresent runs the given side effect and returns a Unit for Some" {
     var sideEffectRun = false
     
-    Some(42).quiverIfPresent { sideEffectRun = true } shouldBe Unit
+    Some(42).ifPresent { sideEffectRun = true } shouldBe Unit
     sideEffectRun shouldBe true
   }
 
   "ifPresent does not run the given side effect and returns a Unit for None" {
     var sideEffectRun = false
 
-    None.quiverIfPresent { sideEffectRun = true } shouldBe Unit
+    None.ifPresent { sideEffectRun = true } shouldBe Unit
     sideEffectRun shouldBe false
   }
 

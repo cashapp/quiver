@@ -23,7 +23,7 @@ inline fun <T> Option<T>.ifAbsent(f: () -> Unit): Unit {
  * Runs a side effect if the option is a Some. Same as forEach, just a different name for better symmetry with ifAbsent.
  */
 inline fun <A> Option<A>.ifPresent(f: (A) -> Unit) {
-  onSome { f(it) }
+  forEach { f(it) }
 }
 
 /**
