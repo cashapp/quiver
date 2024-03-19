@@ -14,6 +14,7 @@ import io.kotest.property.arrow.core.option
 import io.kotest.property.checkAll
 import app.cash.quiver.extensions.traverse as quiverTraverse
 import app.cash.quiver.extensions.traverseEither as quiverTraverseEither
+import app.cash.quiver.extensions.ifPresent
 
 class OptionTest : StringSpec({
 
@@ -62,6 +63,20 @@ class OptionTest : StringSpec({
 
   "traverse to iterable of Some returns a list of the mapped value" {
     Some(42).quiverTraverse { listOf("$it") } shouldBe listOf(Some("42"))
+  }
+
+  "ifPresent runs the given side effect and returns a Unit for Some" {
+    var sideEffectRun = false
+    
+    Some(42).ifPresent { sideEffectRun = true } shouldBe Unit
+    sideEffectRun shouldBe true
+  }
+
+  "ifPresent does not run the given side effect and returns a Unit for None" {
+    var sideEffectRun = false
+
+    None.ifPresent { sideEffectRun = true } shouldBe Unit
+    sideEffectRun shouldBe false
   }
 
   @Suppress("UNREACHABLE_CODE")

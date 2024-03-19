@@ -20,11 +20,11 @@ inline fun <T> Option<T>.ifAbsent(f: () -> Unit): Unit {
 }
 
 /**
- * Turns your Option into a Validated list of T if it's a Some.
- * If it's a None, will return a Nel of the error function passed in
+ * Runs a side effect if the option is a Some. Same as forEach, just a different name for better symmetry with ifAbsent.
  */
-inline fun <T, E> Option<T>.toValidatedNel(error: () -> E): ValidatedNel<E, T> =
-  ValidatedNel.fromOption(this) { nonEmptyListOf(error()) }
+inline fun <A> Option<A>.ifPresent(f: (A) -> Unit) {
+  forEach { f(it) }
+}
 
 /**
  * Runs a side effect if the option is a Some
@@ -32,6 +32,13 @@ inline fun <T, E> Option<T>.toValidatedNel(error: () -> E): ValidatedNel<E, T> =
 inline fun <A> Option<A>.forEach(f: (A) -> Unit) {
   onSome { f(it) }
 }
+
+/**
+ * Turns your Option into a Validated list of T if it's a Some.
+ * If it's a None, will return a Nel of the error function passed in
+ */
+inline fun <T, E> Option<T>.toValidatedNel(error: () -> E): ValidatedNel<E, T> =
+  ValidatedNel.fromOption(this) { nonEmptyListOf(error()) }
 
 /**
  * Map some to Unit. This restores `.void()` which was deprecated by Arrow.
