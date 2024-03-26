@@ -1,6 +1,8 @@
 # Change Log
 
 ## [Unreleased]
+
+## [0.5.1] - 2024-03-26
 ### Added
 * Adds `Option.ifPresent()` as alternative to `Option.forEach()` for symmetry with `Option.ifAbsent()` (Mia Balogh)
 
