@@ -1,12 +1,12 @@
 [versions]
 arrow = "1.2.4"
-junit = "5.10.1"
-kotest = "5.8.0"
+dokka = "1.9.20"
+junit = "5.10.2"
+kotest = "5.8.1"
 kotestArrow = "1.4.0"
-dokka = "1.9.10"
 # @pin
 kotlin = "1.9.0"
-kotlinBinaryCompatibilityPlugin = "0.13.2"
+kotlinBinaryCompatibilityPlugin = "0.14.0"
 mavenPublishGradlePlugin = "0.27.0"
 versionCatalogUpdateGradlePlugin = "0.8.3"
 versionsGradlePlugin = "0.50.0"
