@@ -1,5 +1,5 @@
 [versions]
-arrow = "1.2.1"
+arrow = "1.2.4"
 junit = "5.10.1"
 kotest = "5.8.0"
 kotestArrow = "1.4.0"

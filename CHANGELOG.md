@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [0.5.2] - 2024-04-08
+
+### Changed
+Upgraded Arrow to v1.2.4
+
+
 ## [0.5.1] - 2024-03-26
 ### Added
 * Adds `Option.ifPresent()` as alternative to `Option.forEach()` for symmetry with `Option.ifAbsent()` (Mia Balogh)
