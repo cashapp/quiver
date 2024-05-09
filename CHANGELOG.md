@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Added
+* Adds `T.success()` as a shorthand for creating a success `Result` (Jem Mawson)
+* Adds `<T : Throwable>.failure()` as a shorthand for creating a failure `Result` (Jem Mawson)
+
 ## [0.5.3] - 2024-05-09
 
 ### Added
