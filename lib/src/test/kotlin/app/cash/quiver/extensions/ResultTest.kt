@@ -3,6 +3,9 @@ package app.cash.quiver.extensions
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeRight
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.result.shouldBeFailure
+import io.kotest.matchers.result.shouldBeSuccess
+import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.map
 import io.kotest.property.arbitrary.string
@@ -22,4 +25,15 @@ class ResultTest : StringSpec({
     }
   }
 
+  "Can transform anything into a success Result" {
+    checkAll(Arb.string()) {
+      it.success() shouldBeSuccess it
+    }
+  }
+
+  "Can transform any throwable into a failure Result" {
+    checkAll(Arb.string().map { Throwable(it) }) {
+      it.failure() shouldBeFailure it
+    }
+  }
 })
