@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.5.3] - 2024-05-09
+
 ### Added
 * Adds `ErrorOr.toResult()` as a shorthand for converting `Either<Throwable, T>` to `Result<T>` (Jem Mawson)
 
