@@ -191,6 +191,10 @@ public final class app/cash/quiver/extensions/EitherKt {
 	public static final fun zip (Larrow/core/Either;Larrow/core/Either;Lkotlin/jvm/functions/Function2;)Larrow/core/Either;
 }
 
+public final class app/cash/quiver/extensions/ErrorOrKt {
+	public static final fun toResult (Larrow/core/Either;)Ljava/lang/Object;
+}
+
 public final class app/cash/quiver/extensions/IorKt {
 	public static final fun emptyCombine (Larrow/core/Option;Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
 	public static final fun getUnitIor ()Larrow/core/Ior;
