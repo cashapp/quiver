@@ -36,4 +36,15 @@ class ResultTest : StringSpec({
       it.failure() shouldBeFailure it
     }
   }
+
+  "toResult converts nullable values into Result" {
+    null.toResult { RuntimeException("boo!") }.shouldBeFailure()
+    0.toResult { RuntimeException("boo!") } shouldBeSuccess 0
+  }
+
+  "mapLeft maps the failure of a Result" {
+    val finalException = RuntimeException("Unable to map invalid integer")
+    Result.failure<Int>(NumberFormatException("Invalid integer")).mapLeft { finalException } shouldBeFailure
+      finalException
+  }
 })
