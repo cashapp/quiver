@@ -8,14 +8,12 @@ import arrow.core.Either.Right
 import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
-import arrow.core.Validated
 import arrow.core.flatMap
 import arrow.core.getOrElse
 import arrow.core.identity
 import arrow.core.left
 import arrow.core.right
 import arrow.core.some
-import arrow.core.valid
 import app.cash.quiver.extensions.orThrow
 import app.cash.quiver.raise.OutcomeRaise
 import app.cash.quiver.raise.outcome
@@ -292,12 +290,6 @@ fun <E, EE, A> Outcome<E, Either<EE, A>>.sequence(): Either<EE, Outcome<E, A>> =
   is Present -> this.value.map(::Present)
 }
 
-fun <E, EE, A> Outcome<E, Validated<EE, A>>.sequence(): Validated<EE, Outcome<E, A>> = when (this) {
-  Absent -> Absent.valid()
-  is Failure -> this.valid()
-  is Present -> this.value.map(::Present)
-}
-
 fun <E, A> Iterable<Outcome<E, A>>.sequence(): Outcome<E, List<A>> =
   outcome { map { it.bind() } }
 
@@ -307,5 +299,3 @@ inline fun <E, A, B> Outcome<E, A>.traverse(f: (A) -> Option<B>): Option<Outcome
 @OptIn(ExperimentalTypeInference::class)
 @OverloadResolutionByLambdaReturnType
 inline fun <E, EE, A, B> Outcome<E, A>.traverse(f: (A) -> Either<EE, B>): Either<EE, Outcome<E, B>> = this.map(f).sequence()
-inline fun <E, EE, A, B> Outcome<E, A>.traverse(f: (A) -> Validated<EE, B>): Validated<EE, Outcome<E, B>> =
-  this.map(f).sequence()

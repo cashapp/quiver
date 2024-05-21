@@ -1,8 +1,7 @@
-@file:Suppress("DEPRECATION")
-
 package app.cash.quiver
 
 import app.cash.quiver.arb.outcome
+import app.cash.quiver.continuations.outcome
 import app.cash.quiver.matchers.shouldBeAbsent
 import app.cash.quiver.matchers.shouldBeFailure
 import app.cash.quiver.matchers.shouldBePresent
@@ -10,19 +9,13 @@ import arrow.core.Either
 import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
-import arrow.core.Validated
-import arrow.core.invalid
 import arrow.core.left
 import arrow.core.right
 import arrow.core.some
-import arrow.core.valid
-import app.cash.quiver.continuations.outcome
-import io.kotest.assertions.arrow.core.shouldBeInvalid
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeNone
 import io.kotest.assertions.arrow.core.shouldBeRight
 import io.kotest.assertions.arrow.core.shouldBeSome
-import io.kotest.assertions.arrow.core.shouldBeValid
 import io.kotest.assertions.fail
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.common.runBlocking
@@ -352,19 +345,6 @@ class OutcomeTest : StringSpec({
 
     val absent: Outcome<String, Option<Int>> = Absent
     absent.sequence().shouldBeSome().shouldBeAbsent()
-  }
-
-  "Validated sequence/traverse" {
-    Present(1.valid()).sequence().shouldBeValid().shouldBePresent().shouldBe(1)
-    Present(1.valid()).sequence() shouldBe Present(1).traverse { a: Int -> a.valid() }
-
-    val bad: Outcome<String, Validated<String, Int>> = "bad".failure()
-    bad.sequence().shouldBeValid().shouldBeFailure().shouldBe("bad")
-
-    val absent: Outcome<String, Validated<String, Int>> = Absent
-    absent.sequence().shouldBeValid().shouldBeAbsent()
-
-    Present("bad".invalid()).sequence().shouldBeInvalid()
   }
 
   "List sequence/traverse" {
