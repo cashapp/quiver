@@ -6,9 +6,10 @@ import arrow.core.Either
 import arrow.core.None
 import arrow.core.Option
 import arrow.core.Some
-import arrow.core.ValidatedNel
 import arrow.core.getOrElse
+import arrow.core.left
 import arrow.core.nonEmptyListOf
+import arrow.core.right
 import kotlin.experimental.ExperimentalTypeInference
 import app.cash.quiver.extensions.traverse as quiverTraverse
 
@@ -38,7 +39,10 @@ inline fun <A> Option<A>.forEach(f: (A) -> Unit) {
  * If it's a None, will return a Nel of the error function passed in
  */
 inline fun <T, E> Option<T>.toValidatedNel(error: () -> E): ValidatedNel<E, T> =
-  ValidatedNel.fromOption(this) { nonEmptyListOf(error()) }
+  this.fold(
+    { nonEmptyListOf(error()).left() },
+    { it.right() }
+  )
 
 /**
  * Map some to Unit. This restores `.void()` which was deprecated by Arrow.
