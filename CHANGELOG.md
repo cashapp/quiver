@@ -1,6 +1,8 @@
 # Change Log
 
 ## [Unreleased]
+* Backport traverse functions on Either, Iterable and Option (Andrew Parker)
+* Backport traverse functions on Sequence, Map and Ior (Andrew Parker)
 
 ### Added
 * Adds `T.success()` as a shorthand for creating a success `Result` (Jem Mawson)

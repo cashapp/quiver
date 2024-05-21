@@ -198,6 +198,11 @@ public final class app/cash/quiver/extensions/ErrorOrKt {
 public final class app/cash/quiver/extensions/IorKt {
 	public static final fun emptyCombine (Larrow/core/Option;Ljava/lang/Object;Lkotlin/jvm/functions/Function2;)Ljava/lang/Object;
 	public static final fun getUnitIor ()Larrow/core/Ior;
+	public static final fun traverse (Larrow/core/Ior;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
+	public static final fun traverse (Larrow/core/Ior;Lkotlin/jvm/functions/Function1;)Larrow/core/Option;
+	public static final fun traverse (Larrow/core/Ior;Lkotlin/jvm/functions/Function1;)Ljava/util/List;
+	public static final fun traverseEither (Larrow/core/Ior;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
+	public static final fun traverseOption (Larrow/core/Ior;Lkotlin/jvm/functions/Function1;)Larrow/core/Option;
 	public static final fun zip (Larrow/core/Ior;Lkotlin/jvm/functions/Function2;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Lkotlin/jvm/functions/Function10;)Larrow/core/Ior;
 	public static final fun zip (Larrow/core/Ior;Lkotlin/jvm/functions/Function2;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Lkotlin/jvm/functions/Function9;)Larrow/core/Ior;
 	public static final fun zip (Larrow/core/Ior;Lkotlin/jvm/functions/Function2;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Larrow/core/Ior;Lkotlin/jvm/functions/Function8;)Larrow/core/Ior;
@@ -224,6 +229,10 @@ public final class app/cash/quiver/extensions/ListKt {
 
 public final class app/cash/quiver/extensions/MapKt {
 	public static final fun getOption (Ljava/util/Map;Ljava/lang/Object;)Larrow/core/Option;
+	public static final fun traverse (Ljava/util/Map;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
+	public static final fun traverse (Ljava/util/Map;Lkotlin/jvm/functions/Function1;)Larrow/core/Option;
+	public static final fun traverseEither (Ljava/util/Map;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
+	public static final fun traverseOption (Ljava/util/Map;Lkotlin/jvm/functions/Function1;)Larrow/core/Option;
 }
 
 public final class app/cash/quiver/extensions/NonEmptyListKt {
@@ -265,6 +274,13 @@ public final class app/cash/quiver/extensions/ResultKt {
 	public static final fun failure (Ljava/lang/Throwable;)Ljava/lang/Object;
 	public static final fun success (Ljava/lang/Object;)Ljava/lang/Object;
 	public static final fun toEither (Ljava/lang/Object;)Larrow/core/Either;
+}
+
+public final class app/cash/quiver/extensions/SequenceKt {
+	public static final fun traverse (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
+	public static final fun traverse (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;)Larrow/core/Option;
+	public static final fun traverseEither (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
+	public static final fun traverseOption (Lkotlin/sequences/Sequence;Lkotlin/jvm/functions/Function1;)Larrow/core/Option;
 }
 
 public final class app/cash/quiver/extensions/SuspendedFunctionKt {
