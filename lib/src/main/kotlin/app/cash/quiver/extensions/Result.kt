@@ -21,13 +21,13 @@ fun <T : Throwable> T.failure(): Result<T> = Result.failure(this)
 /**
  * Turns a nullable value into a [Result].
  */
-inline fun <A : Throwable, B> B?.toResult(left: () -> A): Result<B> =
-  this?.let { Result.success(it) } ?: Result.failure(left())
+inline fun <A : Throwable, B> B?.toResult(error: () -> A): Result<B> =
+  this?.let { Result.success(it) } ?: Result.failure(error())
 
 /**
  * If a [Result] is a failure, maps the underlying [Throwable] to a new [Throwable].
  */
-inline fun <N : Throwable, T> Result<T>.mapLeft(
+inline fun <N : Throwable, T> Result<T>.mapFailure(
   f: (exception: Throwable) -> N
 ): Result<T> {
   return when (val exception = exceptionOrNull()) {

@@ -44,7 +44,7 @@ class ResultTest : StringSpec({
 
   "mapLeft maps the failure of a Result" {
     val finalException = RuntimeException("Unable to map invalid integer")
-    Result.failure<Int>(NumberFormatException("Invalid integer")).mapLeft { finalException } shouldBeFailure
+    Result.failure<Int>(NumberFormatException("Invalid integer")).mapFailure { finalException } shouldBeFailure
       finalException
   }
 })
