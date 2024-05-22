@@ -1,12 +1,17 @@
 # Change Log
 
+## Unreleased
+
+### Added
+* Adds `Result.catch` to enable the same behaviour as `Either.catch` (Alejandro Metke)
+
 ## [0.5.4] - 2024-05-21
 
 ### Added
 * Adds `T.success()` as a shorthand for creating a success `Result` (Jem Mawson)
 * Adds `<T : Throwable>.failure()` as a shorthand for creating a failure `Result` (Jem Mawson)
 * Adds `T.toResult()` as a shorthand for converting nullable types to `Result<T>` (Alejandro Metke)
-* Ads `Result.mapFailure()` to enable mapping the failure in a result to a different `Throwable` (Alejandro Metke)
+* Adds `Result.mapFailure()` to enable mapping the failure in a result to a different `Throwable` (Alejandro Metke)
 * Backport traverse functions on Either, Iterable and Option (Andrew Parker)
 * Backport traverse functions on Sequence, Map and Ior (Andrew Parker)
 
