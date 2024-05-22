@@ -1,6 +1,8 @@
 package app.cash.quiver.extensions
 
 import arrow.core.Either
+import arrow.core.left
+import arrow.core.right
 
 /**
  * Transforms a `Result<T>` into an `ErrorOr<T>`
@@ -35,3 +37,11 @@ inline fun <N : Throwable, T> Result<T>.mapFailure(
     else -> Result.failure(f(exception))
   }
 }
+
+/**
+ * Calls the specified function block and returns its encapsulated result if invocation was successful, catching any
+ * non-fatal exceptions thrown from the block function execution and encapsulating them as failures.
+ */
+@JvmName("tryCatch")
+inline fun <R> Result.Companion.catch(f: () -> R): Result<R> =
+  arrow.core.raise.catch({ success(f()) }) { failure(it) }

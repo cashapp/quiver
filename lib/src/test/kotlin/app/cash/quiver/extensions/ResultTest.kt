@@ -2,6 +2,7 @@ package app.cash.quiver.extensions
 
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeRight
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.result.shouldBeFailure
 import io.kotest.matchers.result.shouldBeSuccess
@@ -46,5 +47,17 @@ class ResultTest : StringSpec({
     val finalException = RuntimeException("Unable to map invalid integer")
     Result.failure<Int>(NumberFormatException("Invalid integer")).mapFailure { finalException } shouldBeFailure
       finalException
+  }
+
+  "Result.catch only catches non-fatal exceptions" {
+    Result.catch {
+      throw RuntimeException("Non-fatal kaboom!")
+    }.shouldBeFailure()
+
+    shouldThrow<OutOfMemoryError> {
+      Result.catch {
+        throw OutOfMemoryError("Fatal kaboom!")
+      }
+    }
   }
 })
