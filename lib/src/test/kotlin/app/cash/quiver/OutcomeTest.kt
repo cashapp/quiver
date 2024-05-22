@@ -1,7 +1,7 @@
 package app.cash.quiver
 
 import app.cash.quiver.arb.outcome
-import app.cash.quiver.continuations.outcome
+import app.cash.quiver.effects.outcome
 import app.cash.quiver.matchers.shouldBeAbsent
 import app.cash.quiver.matchers.shouldBeFailure
 import app.cash.quiver.matchers.shouldBePresent
