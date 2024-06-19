@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## [0.5.5] - 2024-06-20
+
 ### Added
 * Adds `Result.catch` to enable the same behaviour as `Either.catch` (Alejandro Metke)
 * Adds `Result<Result<T>>.flatten(): Result<T>` (Jem Mawson)
