@@ -1,6 +1,9 @@
 package app.cash.quiver.extensions
 
 import arrow.core.Either
+import arrow.core.flatMap
+import arrow.core.getOrElse
+import arrow.core.identity
 import arrow.core.left
 import arrow.core.right
 
@@ -45,3 +48,13 @@ inline fun <N : Throwable, T> Result<T>.mapFailure(
 @JvmName("tryCatch")
 inline fun <R> Result.Companion.catch(f: () -> R): Result<R> =
   arrow.core.raise.catch({ success(f()) }) { failure(it) }
+
+/**
+ * Retrieves the success of a Result, or throws the failure. Alias of `getOrThrow`, included for consistency with ErrorOr.
+ */
+fun <A> Result<A>.orThrow() = getOrThrow()
+
+/**
+ * Flattens a `Result<Result<T>>` into a `Result<T>`
+ */
+fun <T> Result<Result<T>>.flatten(): Result<T> = flatMap(::identity)

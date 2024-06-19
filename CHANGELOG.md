@@ -4,6 +4,7 @@
 
 ### Added
 * Adds `Result.catch` to enable the same behaviour as `Either.catch` (Alejandro Metke)
+* Adds `Result<Result<T>>.flatten(): Result<T>` (Jem Mawson)
 
 ### Fixed
 * `T.failure(): Result<T>` was invalid. Changed to `Throwable.failure(): Result<A>` (Jem Mawson)
