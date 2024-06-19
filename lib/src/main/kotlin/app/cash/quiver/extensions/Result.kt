@@ -17,7 +17,7 @@ fun <T> T.success(): Result<T> = Result.success(this)
 /**
  * Make any exception a Failure.
  */
-fun <T : Throwable> T.failure(): Result<T> = Result.failure(this)
+fun <A> Throwable.failure(): Result<A> = Result.failure(this)
 
 
 /**

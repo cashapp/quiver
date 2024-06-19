@@ -34,7 +34,7 @@ class ResultTest : StringSpec({
 
   "Can transform any throwable into a failure Result" {
     checkAll(Arb.string().map { Throwable(it) }) {
-      it.failure() shouldBeFailure it
+      it.failure<Int>() shouldBeFailure it
     }
   }
 

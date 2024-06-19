@@ -5,6 +5,9 @@
 ### Added
 * Adds `Result.catch` to enable the same behaviour as `Either.catch` (Alejandro Metke)
 
+### Fixed
+* `T.failure(): Result<T>` was invalid. Changed to `Throwable.failure(): Result<A>` (Jem Mawson)
+
 ## [0.5.4] - 2024-05-21
 
 ### Added
