@@ -60,4 +60,16 @@ class ResultTest : StringSpec({
       }
     }
   }
+
+  "Result.orThrow" {
+    Result.success("世界").orThrow() shouldBe "世界"
+    shouldThrow<RuntimeException> { Result.failure<Unit>(RuntimeException("thrown")).orThrow() }
+  }
+
+  "Result<Result<T>>.flatten" {
+    val exception = RuntimeException("thrown")
+    Result.success(Result.success("hello")).flatten() shouldBeSuccess "hello"
+    Result.success(Result.failure<String>(exception)).flatten() shouldBeFailure exception
+    Result.failure<Result<String>>(exception).flatten() shouldBeFailure exception
+  }
 })
