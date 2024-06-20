@@ -1,5 +1,8 @@
 public final class app/cash/quiver/Absent : app/cash/quiver/Outcome {
 	public static final field INSTANCE Lapp/cash/quiver/Absent;
+	public fun equals (Ljava/lang/Object;)Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public final class app/cash/quiver/Failure : app/cash/quiver/Outcome {
@@ -272,10 +275,12 @@ public final class app/cash/quiver/extensions/OptionKt {
 
 public final class app/cash/quiver/extensions/ResultKt {
 	public static final fun failure (Ljava/lang/Throwable;)Ljava/lang/Object;
+	public static final fun flatTap (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
 	public static final fun flatten (Ljava/lang/Object;)Ljava/lang/Object;
 	public static final fun mapFailure (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
 	public static final fun orThrow (Ljava/lang/Object;)Ljava/lang/Object;
 	public static final fun success (Ljava/lang/Object;)Ljava/lang/Object;
+	public static final fun tap (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
 	public static final fun toEither (Ljava/lang/Object;)Larrow/core/Either;
 	public static final fun toResult (Ljava/lang/Object;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
 	public static final fun tryCatch (Lkotlin/Result$Companion;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;

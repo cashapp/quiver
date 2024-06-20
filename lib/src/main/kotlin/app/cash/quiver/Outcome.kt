@@ -108,7 +108,7 @@ sealed class Outcome<out E, out A> constructor(val inner: Either<E, Option<A>>) 
  */
 data class Present<A>(val value: A) : Outcome<Nothing, A>(value.some().right())
 data class Failure<E>(val error: E) : Outcome<E, Nothing>(error.left())
-object Absent : Outcome<Nothing, Nothing>(None.right())
+data object Absent : Outcome<Nothing, Nothing>(None.right())
 
 fun <A> A.present(): Outcome<Nothing, A> = Present(this)
 fun <E> E.failure(): Outcome<E, Nothing> = Failure(this)

@@ -1,5 +1,6 @@
 package app.cash.quiver.extensions
 
+import arrow.core.raise.result
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeRight
 import io.kotest.assertions.throwables.shouldThrow
@@ -77,6 +78,26 @@ class ResultTest : StringSpec({
     "orange".success().unit() shouldBe Unit.success()
     val e = RuntimeException("orange")
     e.failure<Int>().unit() shouldBe e.failure()
+  }
+
+  "tap performs computation but keeps original value" {
+    val right: Result<String> = "hello".success()
+    var sideEffect: String? = null
+
+    right.tap { a -> sideEffect = "$a world" }.shouldBeSuccess("hello")
+    sideEffect shouldBe "hello world"
+  }
+
+  "flatTap performs computation but keeps original value" {
+    val e = RuntimeException("banana")
+    val right: Result<String> = "hello".success()
+    var sideEffect: String? = null
+
+    right.flatTap { a -> result { sideEffect = "$a world" } }.shouldBeSuccess("hello")
+    sideEffect shouldBe "hello world"
+
+    right.flatTap { Result.failure<Int>(e) }.shouldBeFailure(e)
+    e.failure<Int>().flatTap { Result.failure(Exception("broken")) }.shouldBeFailure(e)
   }
 
 })

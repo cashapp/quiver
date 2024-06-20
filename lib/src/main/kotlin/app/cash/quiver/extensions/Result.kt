@@ -63,3 +63,20 @@ fun <T> Result<Result<T>>.flatten(): Result<T> = flatMap(::identity)
  * Map success to Unit, included for consistency with Either.
  */
 fun <T> Result<T>.unit() = map { }
+
+/**
+ * Performs an effect over successes but maps the original value back into
+ * the Result.
+ */
+inline fun <A, B> Result<A>.tap(f: (A) -> B): Result<A> = this.map { a ->
+  f(a)
+  a
+}
+
+/**
+ * Performs an effect over successes but maps the original value back into
+ * the Result.  This is useful for mixing with validation functions.
+ */
+inline fun <A> Result<A>.flatTap(f: (A) -> Result<Any>): Result<A> = this.flatMap { a ->
+  f(a).map { a }
+}
