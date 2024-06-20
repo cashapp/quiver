@@ -12,7 +12,7 @@ available from Arrow.
 # Package app.cash.quiver
 Custom types (e.g. [`Outcome`](app.cash.quiver.Outcome))
 
-# Package app.cash.quiver.continuations
+# Package app.cash.quiver.effects
 Continuations for working with custom types (e.g. [`Outcome`](app.cash.quiver.Outcome))
 
 ```kotlin
