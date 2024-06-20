@@ -72,4 +72,11 @@ class ResultTest : StringSpec({
     Result.success(Result.failure<String>(exception)).flatten() shouldBeFailure exception
     Result.failure<Result<String>>(exception).flatten() shouldBeFailure exception
   }
+
+  "unit will map any success to unit" {
+    "orange".success().unit() shouldBe Unit.success()
+    val e = RuntimeException("orange")
+    e.failure<Int>().unit() shouldBe e.failure()
+  }
+
 })
