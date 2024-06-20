@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Added
+* Adds `Result<T>.unit(): Result<Unit>` as alias for `.map { }` (Jem Mawson)
+
 ## [0.5.5] - 2024-06-20
 
 ### Added

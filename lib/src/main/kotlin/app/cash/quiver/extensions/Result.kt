@@ -58,3 +58,8 @@ fun <A> Result<A>.orThrow() = getOrThrow()
  * Flattens a `Result<Result<T>>` into a `Result<T>`
  */
 fun <T> Result<Result<T>>.flatten(): Result<T> = flatMap(::identity)
+
+/**
+ * Map success to Unit, included for consistency with Either.
+ */
+fun <T> Result<T>.unit() = map { }
