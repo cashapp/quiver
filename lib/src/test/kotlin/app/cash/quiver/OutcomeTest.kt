@@ -17,6 +17,7 @@ import arrow.core.right
 import arrow.core.some
 import arrow.core.valid
 import app.cash.quiver.continuations.outcome
+import app.cash.quiver.extensions.success
 import io.kotest.assertions.arrow.core.shouldBeInvalid
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeNone
@@ -188,6 +189,12 @@ class OutcomeTest : StringSpec({
     Outcome.catchOption {
       None
     }.shouldBeAbsent()
+  }
+
+  "Lift Result<A> into Outcome" {
+    val e = RuntimeException("hey")
+    Result.success(1).toOutcome().shouldBePresent().shouldBe(1)
+    Result.failure<Int>(e).toOutcome().shouldBeFailure().shouldBe(e)
   }
 
   "Lift Either<E,A> into Outcome" {
