@@ -60,6 +60,7 @@ public final class app/cash/quiver/OutcomeKt {
 	public static final fun tapFailure (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function1;)Lapp/cash/quiver/Outcome;
 	public static final fun toOutcome (Larrow/core/Either;)Lapp/cash/quiver/Outcome;
 	public static final fun toOutcome (Larrow/core/Option;)Lapp/cash/quiver/Outcome;
+	public static final fun toOutcome (Ljava/lang/Object;)Lapp/cash/quiver/Outcome;
 	public static final fun traverse (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
 	public static final fun traverse (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function1;)Larrow/core/Option;
 	public static final fun traverse (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function1;)Larrow/core/Validated;

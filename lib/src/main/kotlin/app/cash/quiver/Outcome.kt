@@ -217,6 +217,11 @@ fun <E, A> Either<E, Option<A>>.toOutcome(): Outcome<E, A> = when (this) {
 
 fun <E, A> Either<E, A>.asOutcome(): Outcome<E, A> = this.map(::Some).toOutcome()
 
+fun <A> Result<A>.toOutcome(): Outcome<Throwable, A> = fold(
+  onSuccess = { Present(it) },
+  onFailure = { Failure(it) }
+)
+
 fun <A> Option<A>.toOutcome(): Outcome<Nothing, A> = this.right().toOutcome()
 
 inline fun <A> Outcome<Throwable, A>.orThrow(onAbsent: () -> Throwable): A = when (this) {

@@ -5,6 +5,7 @@
 ### Added
 * Adds `Result<T>.unit(): Result<Unit>` as alias for `.map { }` (Jem Mawson)
 * Adds `Result<T>.tap` and `Result<T>.flatTap` (Jem Mawson)
+* Adds `Result<T>.toOutcome` (Jem Mawson)
 
 ## [0.5.5] - 2024-06-20
 
