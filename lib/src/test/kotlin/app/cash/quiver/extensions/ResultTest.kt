@@ -100,4 +100,16 @@ class ResultTest : StringSpec({
     e.failure<Int>().flatTap { Result.failure(Exception("broken")) }.shouldBeFailure(e)
   }
 
+  "Result.isFailure{}" {
+    Result.failure<String>(Exception("hello")).isFailure { it.message == "hello" } shouldBe true
+    Result.failure<String>(Exception("goodbye")).isFailure { it.message == "hello" } shouldBe false
+    "hello".success().isFailure { it.message == "hello" } shouldBe false
+  }
+
+  "Result.isSuccess{}" {
+    "hello".success().isSuccess { it == "hello" } shouldBe true
+    "goodbye".success().isSuccess { it == "hellow" } shouldBe false
+    Result.failure<String>(Exception("hello")).isSuccess { it == "hello" } shouldBe false
+  }
+
 })
