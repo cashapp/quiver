@@ -83,11 +83,11 @@ inline fun <A> Result<A>.flatTap(f: (A) -> Result<Any>): Result<A> = this.flatMa
 /**
  * Returns false if Success or returns the result of the given predicate to the Failure value.
  */
-fun <T> Result<T>.isFailure(predicate: (Throwable) -> Boolean): Boolean =
+inline fun <T> Result<T>.isFailure(predicate: (Throwable) -> Boolean): Boolean =
   fold(onFailure = predicate, onSuccess = { false })
 
 /**
  * Returns false if Failure or returns the result of the given predicate to the Success value.
  */
-fun <T> Result<T>.isSuccess(predicate: (T) -> Boolean): Boolean =
+inline fun <T> Result<T>.isSuccess(predicate: (T) -> Boolean): Boolean =
   fold(onFailure = { false }, onSuccess = predicate)
