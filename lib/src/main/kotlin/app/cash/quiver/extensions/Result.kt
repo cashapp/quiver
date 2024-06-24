@@ -22,7 +22,6 @@ fun <T> T.success(): Result<T> = Result.success(this)
  */
 fun <A> Throwable.failure(): Result<A> = Result.failure(this)
 
-
 /**
  * Turns a nullable value into a [Result].
  */
@@ -80,3 +79,15 @@ inline fun <A, B> Result<A>.tap(f: (A) -> B): Result<A> = this.map { a ->
 inline fun <A> Result<A>.flatTap(f: (A) -> Result<Any>): Result<A> = this.flatMap { a ->
   f(a).map { a }
 }
+
+/**
+ * Returns false if Success or returns the result of the given predicate to the Failure value.
+ */
+inline fun <T> Result<T>.isFailure(predicate: (Throwable) -> Boolean): Boolean =
+  fold(onFailure = predicate, onSuccess = { false })
+
+/**
+ * Returns false if Failure or returns the result of the given predicate to the Success value.
+ */
+inline fun <T> Result<T>.isSuccess(predicate: (T) -> Boolean): Boolean =
+  fold(onFailure = { false }, onSuccess = predicate)

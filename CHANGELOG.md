@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Added
+* Adds `Result<T>.isSuccess(predicate: (T) -> Boolean): Boolean` and `Result<T>.isFailure(predicate: (Throwable) -> Boolean): Boolean` (Jem Mawson)
+
 ## [0.5.6] - 2024-06-21
 
 ### Added
