@@ -10,7 +10,7 @@ more accessible & delightful.
 Main features include:
 * `Outcome` type for modelling the presence, absence or error state of a value.
 * Extension methods on `Option`, `List`, `Validated` and `Either` for improved error handling, combinators and interoperability with other Arrow and Kotlin types.
-* Extension methods on suspended functions to allow for seemless retries of operations.
+* Extension methods on suspended functions to allow for seamless retries of operations.
 
 There are two published builds.
 
