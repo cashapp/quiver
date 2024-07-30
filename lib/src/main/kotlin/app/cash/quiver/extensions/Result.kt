@@ -1,6 +1,8 @@
 package app.cash.quiver.extensions
 
+import app.cash.quiver.asOutcome
 import arrow.core.Either
+import arrow.core.Option
 import arrow.core.flatMap
 import arrow.core.getOrElse
 import arrow.core.identity
@@ -11,6 +13,11 @@ import arrow.core.right
  * Transforms a `Result<T>` into an `ErrorOr<T>`
  */
 fun <T> Result<T>.toEither(): ErrorOr<T> = this.map { Either.Right(it) }.getOrElse { Either.Left(it) }
+
+/**
+ * Transforms a `Result<T>` into an `OutcomeOf<T>`
+ */
+fun <T> Result<T>.toOutcome(): OutcomeOf<T> = this.map { Either.Right(it) }.getOrElse { Either.Left(it) }.asOutcome()
 
 /**
  * Make anything a Success.
@@ -27,6 +34,12 @@ fun <A> Throwable.failure(): Result<A> = Result.failure(this)
  */
 inline fun <A : Throwable, B> B?.toResult(error: () -> A): Result<B> =
   this?.let { Result.success(it) } ?: Result.failure(error())
+
+/**
+ * Turns an [Option] value into a [Result].
+ */
+
+inline fun <A, B: Throwable> Option<A>.toResult(error: () -> B): Result<A> = this.getOrNull().toResult(error)
 
 /**
  * If a [Result] is a failure, maps the underlying [Throwable] to a new [Throwable].

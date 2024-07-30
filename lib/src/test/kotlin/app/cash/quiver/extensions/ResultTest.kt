@@ -1,6 +1,11 @@
 package app.cash.quiver.extensions
 
+import app.cash.quiver.matchers.shouldBeFailure
+import app.cash.quiver.matchers.shouldBePresent
+import arrow.core.None
+import arrow.core.Some
 import arrow.core.raise.result
+import arrow.core.toOption
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeRight
 import io.kotest.assertions.throwables.shouldThrow
@@ -42,6 +47,16 @@ class ResultTest : StringSpec({
   "toResult converts nullable values into Result" {
     null.toResult { RuntimeException("boo!") }.shouldBeFailure()
     0.toResult { RuntimeException("boo!") } shouldBeSuccess 0
+  }
+
+  "toResult converts Options into Result" {
+    None.toResult { RuntimeException("boo!") }.shouldBeFailure().message shouldBe "boo!"
+    Some(0).toResult { RuntimeException("boo!") } shouldBeSuccess 0
+  }
+
+  "toOutcome converts Result to OutcomeOf" {
+    0.success().toOutcome().shouldBePresent().shouldBe(0)
+    RuntimeException("uh oh").failure<RuntimeException>().toOutcome().shouldBeFailure().message shouldBe "uh oh"
   }
 
   "mapLeft maps the failure of a Result" {

@@ -285,6 +285,8 @@ public final class app/cash/quiver/extensions/ResultKt {
 	public static final fun success (Ljava/lang/Object;)Ljava/lang/Object;
 	public static final fun tap (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
 	public static final fun toEither (Ljava/lang/Object;)Larrow/core/Either;
+	public static final fun toOutcome (Ljava/lang/Object;)Lapp/cash/quiver/Outcome;
+	public static final fun toResult (Larrow/core/Option;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
 	public static final fun toResult (Ljava/lang/Object;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
 	public static final fun tryCatch (Lkotlin/Result$Companion;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
 	public static final fun unit (Ljava/lang/Object;)Ljava/lang/Object;
