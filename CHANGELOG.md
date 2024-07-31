@@ -1,6 +1,14 @@
 # Change Log
 
 ## Unreleased
+
+## [0.5.8]
+
+### Added - 2024-07-31
+* Adds `Result<T>.handleFailureWith(f: (Throwable) -> Result<T>): Result<T>` (Chris Myers)
+* Adds `<T> Result<T>.toOutcome(): OutcomeOf<T>` (Chris Myers)
+* Adds `<A, B: Throwable> Option<A>.toResult(error: () -> B): Result<A>` (Chris Myers)
+
 ## [0.5.7] - 2024-06-29
 
 ### Added
