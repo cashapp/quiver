@@ -5,7 +5,6 @@ import app.cash.quiver.matchers.shouldBePresent
 import arrow.core.None
 import arrow.core.Some
 import arrow.core.raise.result
-import arrow.core.toOption
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeRight
 import io.kotest.assertions.throwables.shouldThrow
@@ -125,6 +124,18 @@ class ResultTest : StringSpec({
     "hello".success().isSuccess { it == "hello" } shouldBe true
     "goodbye".success().isSuccess { it == "hellow" } shouldBe false
     Result.failure<String>(Exception("hello")).isSuccess { it == "hello" } shouldBe false
+  }
+
+  "handleFailureWith recovers errors" {
+    1.success().handleFailureWith { Result.failure(Throwable("never happens")) }.shouldBeSuccess(1)
+    Throwable("sad panda").failure<Int>().handleFailureWith { Result.failure(Throwable("even sadder")) }
+      .shouldBeFailure().message shouldBe "even sadder"
+
+    Throwable("sad panda").failure<Int>().handleFailureWith { 1.success() }
+      .shouldBeSuccess(1)
+
+    Throwable("sad panda").failure<Int>().handleFailureWith { it.failure() }
+      .shouldBeFailure().message shouldBe "sad panda"
   }
 
 })

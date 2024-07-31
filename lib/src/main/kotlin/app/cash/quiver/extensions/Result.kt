@@ -104,3 +104,10 @@ inline fun <T> Result<T>.isFailure(predicate: (Throwable) -> Boolean): Boolean =
  */
 inline fun <T> Result<T>.isSuccess(predicate: (T) -> Boolean): Boolean =
   fold(onFailure = { false }, onSuccess = predicate)
+
+/**
+ * Recovers errors with a function from Throwable to Result.
+ */
+inline fun <T> Result<T>.handleFailureWith(f: (Throwable) -> Result<T>): Result<T> = recoverCatching {
+  f(it).getOrThrow()
+}
