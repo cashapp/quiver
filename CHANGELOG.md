@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## [0.5.9]
+
+### Added - 2024-08-05
+* Adds `Either<A, B>.handleErrorWith(f: (A) -> Either<C, B>): Either<C, B>` (Chris Myers)
+
 ## [0.5.8]
 
 ### Added - 2024-07-31
