@@ -169,6 +169,7 @@ public final class app/cash/quiver/extensions/EitherKt {
 	public static final fun flatTap (Larrow/core/Either;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
 	public static final fun forEach (Larrow/core/Either;Lkotlin/jvm/functions/Function1;)V
 	public static final fun getRightUnit ()Larrow/core/Either;
+	public static final fun handleErrorWith (Larrow/core/Either;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
 	public static final fun leftAsOption (Larrow/core/Either;)Larrow/core/Option;
 	public static final fun leftForEach (Larrow/core/Either;Lkotlin/jvm/functions/Function1;)V
 	public static final fun mapOption (Larrow/core/Either;Lkotlin/jvm/functions/Function1;)Larrow/core/Either;
