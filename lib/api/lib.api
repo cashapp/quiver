@@ -36,6 +36,7 @@ public final class app/cash/quiver/OutcomeKt {
 	public static final fun asEither (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function0;)Larrow/core/Either;
 	public static final fun asOption (Lapp/cash/quiver/Outcome;)Larrow/core/Option;
 	public static final fun asOutcome (Larrow/core/Either;)Lapp/cash/quiver/Outcome;
+	public static final fun asResult (Lapp/cash/quiver/Outcome;)Ljava/lang/Object;
 	public static final fun failure (Ljava/lang/Object;)Lapp/cash/quiver/Outcome;
 	public static final fun filter (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function1;)Lapp/cash/quiver/Outcome;
 	public static final fun flatMap (Lapp/cash/quiver/Outcome;Lkotlin/jvm/functions/Function1;)Lapp/cash/quiver/Outcome;
@@ -288,6 +289,7 @@ public final class app/cash/quiver/extensions/ResultKt {
 	public static final fun tap (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
 	public static final fun toEither (Ljava/lang/Object;)Larrow/core/Either;
 	public static final fun toOutcome (Ljava/lang/Object;)Lapp/cash/quiver/Outcome;
+	public static final fun toOutcomeOf (Ljava/lang/Object;)Lapp/cash/quiver/Outcome;
 	public static final fun toResult (Larrow/core/Option;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
 	public static final fun toResult (Ljava/lang/Object;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
 	public static final fun tryCatch (Lkotlin/Result$Companion;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;

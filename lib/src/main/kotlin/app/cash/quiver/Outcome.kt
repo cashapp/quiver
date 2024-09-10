@@ -2,6 +2,7 @@
 
 package app.cash.quiver
 
+import app.cash.quiver.extensions.OutcomeOf
 import arrow.core.Either
 import arrow.core.Either.Left
 import arrow.core.Either.Right
@@ -17,6 +18,7 @@ import arrow.core.right
 import arrow.core.some
 import arrow.core.valid
 import app.cash.quiver.extensions.orThrow
+import app.cash.quiver.extensions.toResult
 import app.cash.quiver.raise.OutcomeRaise
 import app.cash.quiver.raise.outcome
 import arrow.core.raise.catch
@@ -238,6 +240,12 @@ fun <A> Outcome<Throwable, A>.optionOrThrow(): Option<A> = this.inner.orThrow()
 fun <E, A> Outcome<E, A>.asOption(): Option<A> = inner.getOrElse { None }
 inline fun <E, A> Outcome<E, A>.asEither(onAbsent: () -> E): Either<E, A> =
   inner.flatMap { it.map(::Right).getOrElse { onAbsent().left() } }
+
+/**
+ * Converts an OutcomeOf<A> to a Result<Option<A>>. This reflects the inner structure of the
+ * Outcome.
+ */
+fun <A> OutcomeOf<A>.asResult(): Result<Option<A>> = inner.toResult()
 
 inline fun <E, A, B> Outcome<E, A>.foldOption(onAbsent: () -> B, onPresent: (A) -> B): Either<E, B> =
   inner.map { it.fold(onAbsent, onPresent) }

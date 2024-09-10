@@ -1,6 +1,8 @@
 public final class app/cash/quiver/arb/ArbitraryKt {
 	public static final fun ior (Lio/kotest/property/Arb$Companion;Lio/kotest/property/Arb;Lio/kotest/property/Arb;)Lio/kotest/property/Arb;
 	public static final fun outcome (Lio/kotest/property/Arb$Companion;Lio/kotest/property/Arb;Lio/kotest/property/Arb;)Lio/kotest/property/Arb;
+	public static final fun outcomeOf (Lio/kotest/property/Arb$Companion;Ljava/lang/Throwable;Lio/kotest/property/Arb;)Lio/kotest/property/Arb;
+	public static final fun result (Lio/kotest/property/Arb$Companion;Ljava/lang/Throwable;Lio/kotest/property/Arb;)Lio/kotest/property/Arb;
 }
 
 public final class app/cash/quiver/matchers/MatchersKt {

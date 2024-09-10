@@ -1,5 +1,6 @@
 package app.cash.quiver.extensions
 
+import app.cash.quiver.matchers.shouldBeAbsent
 import app.cash.quiver.matchers.shouldBeFailure
 import app.cash.quiver.matchers.shouldBePresent
 import arrow.core.None
@@ -136,6 +137,12 @@ class ResultTest : StringSpec({
 
     Throwable("sad panda").failure<Int>().handleFailureWith { it.failure() }
       .shouldBeFailure().message shouldBe "sad panda"
+  }
+
+  "Converting to Outcome" {
+    Throwable("sad panda").failure<Int>().toOutcome().shouldBeFailure()
+    Result.success(Some("yay")).toOutcomeOf().shouldBePresent().shouldBe("yay")
+    Result.success(None).toOutcomeOf().shouldBeAbsent()
   }
 
 })
