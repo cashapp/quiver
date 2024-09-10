@@ -241,6 +241,10 @@ fun <E, A> Outcome<E, A>.asOption(): Option<A> = inner.getOrElse { None }
 inline fun <E, A> Outcome<E, A>.asEither(onAbsent: () -> E): Either<E, A> =
   inner.flatMap { it.map(::Right).getOrElse { onAbsent().left() } }
 
+/**
+ * Converts an OutcomeOf<A> to a Result<Option<A>>. This reflects the inner structure of the
+ * Outcome.
+ */
 fun <A> OutcomeOf<A>.asResult(): Result<Option<A>> = inner.toResult()
 
 inline fun <E, A, B> Outcome<E, A>.foldOption(onAbsent: () -> B, onPresent: (A) -> B): Either<E, B> =
