@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## [0.5.10]
+* Adds `<A> OutcomeOf<A>.asResult(): Result<Option<A>>` (Chris Myers)
+* Adds `<T> Result<Option<T>>.toOutcomeOf(): OutcomeOf<T>` (Chris Myers)
+* Adds `<A> Arb.Companion.result(error: Throwable, value: Arb<A>): Arb<Result<A>>` (Chris Myers)
+* Adds `Arb.Companion.outcomeOf(error: Throwable, value: Arb<A>): Arb<OutcomeOf<A>>` (Chris Myers)
+
 ## [0.5.9]
 
 ### Added - 2024-08-05
