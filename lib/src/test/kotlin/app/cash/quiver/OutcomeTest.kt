@@ -3,6 +3,8 @@
 package app.cash.quiver
 
 import app.cash.quiver.arb.outcome
+import app.cash.quiver.arb.outcomeOf
+import app.cash.quiver.arb.result
 import app.cash.quiver.matchers.shouldBeAbsent
 import app.cash.quiver.matchers.shouldBeFailure
 import app.cash.quiver.matchers.shouldBePresent
@@ -17,7 +19,7 @@ import arrow.core.right
 import arrow.core.some
 import arrow.core.valid
 import app.cash.quiver.continuations.outcome
-import app.cash.quiver.extensions.success
+import app.cash.quiver.extensions.toOutcomeOf
 import io.kotest.assertions.arrow.core.shouldBeInvalid
 import io.kotest.assertions.arrow.core.shouldBeLeft
 import io.kotest.assertions.arrow.core.shouldBeNone
@@ -28,6 +30,7 @@ import io.kotest.assertions.fail
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.common.runBlocking
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.result.shouldBeFailure
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
@@ -474,9 +477,27 @@ class OutcomeTest : StringSpec({
   }
   "recover can recover from Failure" {
     checkAll(Arb.either(Arb.long(), Arb.int())) { either ->
-      val x: Outcome<String, Int> = "failure".failure()
-      x.recover { either.bind() }
+      val failed: Outcome<String, Int> = "failure".failure()
+      failed.recover { either.bind() }
         .asEither { fail("Cannot be absent") }.shouldBe(either)
     }
+  }
+
+  "can transform from result to OutcomeOf and back again" {
+    checkAll(Arb.result(Throwable("boom"), Arb.option(Arb.int()))) { input ->
+      input.toOutcomeOf().asResult() shouldBe input
+    }
+  }
+
+  "can transform from OutcomeOf to result and back again" {
+    checkAll(Arb.outcomeOf(Throwable("boom"), Arb.int())) { outcome ->
+      outcome.asResult().toOutcomeOf() shouldBe outcome
+    }
+  }
+
+  "Converting to Result" {
+    Absent.asResult() shouldBe Result.success(None)
+    1.present().asResult() shouldBe Result.success(Some(1))
+    Throwable("sad").failure().asResult().shouldBeFailure().message shouldBe "sad"
   }
 })

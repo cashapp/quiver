@@ -1,6 +1,10 @@
 package app.cash.quiver.extensions
 
+import app.cash.quiver.Failure
+import app.cash.quiver.Outcome
+import app.cash.quiver.Present
 import app.cash.quiver.asOutcome
+import app.cash.quiver.toOutcome
 import arrow.core.Either
 import arrow.core.Option
 import arrow.core.flatMap
@@ -18,6 +22,12 @@ fun <T> Result<T>.toEither(): ErrorOr<T> = this.map { Either.Right(it) }.getOrEl
  * Transforms a `Result<T>` into an `OutcomeOf<T>`
  */
 fun <T> Result<T>.toOutcome(): OutcomeOf<T> = this.map { Either.Right(it) }.getOrElse { Either.Left(it) }.asOutcome()
+
+/**
+ * Transforms a `Result<Option<T>>` to an `OutcomeOf<A>`
+ */
+fun <T> Result<Option<T>>.toOutcomeOf(): OutcomeOf<T> = this.toEither().toOutcome()
+
 
 /**
  * Make anything a Success.
