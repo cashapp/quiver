@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## [0.5.11]
+* Adds `outcomeOf{}` Raise DSL which allows for greater interoperability with Result<Option<A>> and ErrorOr<A> (Chris Myers)
+
 ## [0.5.10]
 * Adds `<A> OutcomeOf<A>.asResult(): Result<Option<A>>` (Chris Myers)
 * Adds `<T> Result<Option<T>>.toOutcomeOf(): OutcomeOf<T>` (Chris Myers)
