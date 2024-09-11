@@ -324,6 +324,37 @@ public final class app/cash/quiver/extensions/ValidatedKt {
 
 public final class app/cash/quiver/raise/OutcomeBuilderKt {
 	public static final fun outcome (Lkotlin/jvm/functions/Function1;)Lapp/cash/quiver/Outcome;
+	public static final fun outcomeOf (Lkotlin/jvm/functions/Function1;)Lapp/cash/quiver/Outcome;
+}
+
+public final class app/cash/quiver/raise/OutcomeOfRaise : arrow/core/raise/Raise {
+	public fun <init> (Larrow/core/raise/Raise;)V
+	public fun attempt (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun bind (Lapp/cash/quiver/Outcome;)Ljava/lang/Object;
+	public fun bind (Larrow/core/Either;)Ljava/lang/Object;
+	public final fun bind (Larrow/core/Option;)Ljava/lang/Object;
+	public fun bind (Larrow/core/Validated;)Ljava/lang/Object;
+	public fun bind (Larrow/core/continuations/EagerEffect;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun bind (Larrow/core/continuations/Effect;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun bind (Ljava/lang/Object;)Ljava/lang/Object;
+	public fun bind (Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public fun bind (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun bindAll (Larrow/core/NonEmptyList;)Larrow/core/NonEmptyList;
+	public fun bindAll (Ljava/lang/Iterable;)Ljava/util/List;
+	public fun bindAll (Ljava/util/Map;)Ljava/util/Map;
+	public fun bindAll-1TN0_VU (Ljava/util/Set;)Ljava/util/Set;
+	public final fun bindNull (Ljava/lang/Object;)Ljava/lang/Object;
+	public final fun bindOption (Larrow/core/Either;)Ljava/lang/Object;
+	public final fun bindResult (Ljava/lang/Object;)Ljava/lang/Object;
+	public fun catch (Larrow/core/continuations/Effect;Lkotlin/jvm/functions/Function3;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public final fun ensure (Z)V
+	public final fun ensureNotNull (Ljava/lang/Object;)Ljava/lang/Object;
+	public fun invoke (Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public fun invoke (Lkotlin/jvm/functions/Function2;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public synthetic fun raise (Ljava/lang/Object;)Ljava/lang/Void;
+	public fun raise (Ljava/lang/Throwable;)Ljava/lang/Void;
+	public synthetic fun shift (Ljava/lang/Object;)Ljava/lang/Object;
+	public fun shift (Ljava/lang/Throwable;)Ljava/lang/Object;
 }
 
 public final class app/cash/quiver/raise/OutcomeRaise : arrow/core/raise/Raise {
