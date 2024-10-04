@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## [0.5.12]
+* Adds `<A, B> Iterable<A>.traverse(f: (A) -> Result<B>): Result<List<B>>` (Chris Myers)
+* Adds `<A, B> Iterable<A>.traverseResult(f: (A) -> Result<B>): Result<List<B>>` (Chris Myers)
+
 ## [0.5.11]
 * Adds `outcomeOf{}` Raise DSL which allows for greater interoperability with Result<Option<A>> and ErrorOr<A> (Chris Myers)
 
